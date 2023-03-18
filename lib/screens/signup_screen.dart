@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import '../login_screen.dart';
+//import 'login_screen.dart';
 
 // ignore: use_key_in_widget_constructors
 class SignupScreen extends StatefulWidget {
+  static const routeName = '/signup';
+
   @override
   // ignore: library_private_types_in_public_api
   _SignupScreenState createState() => _SignupScreenState();
@@ -52,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 labelText: 'Email',
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Confirm email text field
             TextField(
@@ -61,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 labelText: 'Confirm Email *',
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Row containing First Name and Sur Name text fields
             Row(
@@ -85,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Password text field
             TextField(
@@ -117,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Sign Up Button
             ElevatedButton(
@@ -135,27 +137,21 @@ class _SignupScreenState extends State<SignupScreen> {
               },
               child: Text('SIGN UP'),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             //Already have an account? Login! Gesture
             //Loads us to login screen
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Already have an account? Login!',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () =>
+            //       Navigator.of(context).pushNamed(LoginScreen.routeName),
+            //   child: Text(
+            //     'Already have an account? Login!',
+            //     style: TextStyle(
+            //       color: Colors.blue,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
