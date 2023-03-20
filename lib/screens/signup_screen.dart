@@ -107,7 +107,10 @@ class _SignupScreenState extends State<SignupScreen> {
                             return 'Please enter your first name';
                           }
                           if (value.length < 2 || value.length > 20) {
-                            return 'First name should be between 2 and 20 characters';
+                            return 'Should be between 2 and 20 characters';
+                          }
+                          if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+                            return 'Should only contain letters';
                           }
                           return null;
                         },
@@ -125,7 +128,10 @@ class _SignupScreenState extends State<SignupScreen> {
                             return 'Please enter your surname';
                           }
                           if (value.length < 2 || value.length > 15) {
-                            return 'Surname should be between 2 and 20 characters';
+                            return 'Should be between 2 and 20 characters';
+                          }
+                          if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+                            return ' Should only contain letters';
                           }
                           return null;
                         },

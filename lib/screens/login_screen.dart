@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
+import 'updatePassword_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
@@ -115,6 +116,42 @@ class _LoginScreenState extends State<LoginScreen> {
                         _isPasswordHidden, // added option to hide/show password
                   ),
 
+                  //Forgot password gesture
+                  const SizedBox(height: 10),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        final String email = _emailController.text;
+                        final String? validationResult = emailValidator(email);
+                        if (validationResult != null) {
+                          // Show error message to the user
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(validationResult)),
+                          );
+                        } else {
+                          //first using API send email then navigate to the UpdatePasswordScreen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpdatePasswordScreen(
+                                emailController: _emailController,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Login button
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
