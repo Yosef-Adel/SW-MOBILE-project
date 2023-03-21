@@ -12,7 +12,7 @@ class EventsList extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (ctx, index) {
         return Container(
-          height: 90,
+          height: 70,
           child: Card(
             elevation: 0,
             child: ListTile(

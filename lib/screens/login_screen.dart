@@ -6,6 +6,7 @@ import 'tabs_screen.dart';
 import 'updatePassword_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 // ignore: use_key_in_widget_constructors
 class LoginScreen extends StatefulWidget {
@@ -54,8 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   //'Let's get started' Container
                   Container(
                     alignment: Alignment.topLeft,
-                    padding:
-                        const EdgeInsetsDirectional.only(top: 20, bottom: 10),
                     child: const Text(
                       'Let\'s get started',
                       style: TextStyle(
@@ -70,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     alignment: Alignment.topLeft,
                     padding:
-                        const EdgeInsetsDirectional.only(bottom: 50, end: 100),
+                        const EdgeInsetsDirectional.only(top: 10, bottom: 20),
                     child: const Text(
                       'Sign up or log in to see what\'s happening near you',
                       style: TextStyle(
@@ -156,12 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TabsScreen(),
-                            ));
-
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
                         //Implement login API call
                       }
                     },
@@ -201,74 +195,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //Sign in with Google Buttton
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 300,
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        //Google sign in logic
-                        GoogleSignIn googleSignIn = GoogleSignIn();
-                        GoogleSignInAccount? account =
-                            await googleSignIn.signIn();
-                        if (account != null) {
-                          // Successful Google sign in
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TabsScreen(),
-                            ),
-                          );
+                  SignInButton(
+                    Buttons.Google,
+                    text: "Continue with Google",
+                    onPressed: () async {
+                      //Google sign in logic
+                      GoogleSignIn googleSignIn = GoogleSignIn();
+                      GoogleSignInAccount? account =
+                          await googleSignIn.signIn();
+                      if (account != null) {
+                        // Successful Google sign in
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
 
-                          //Implement login API call
-                        } else {
-                          // Failed Google sign in
-                        }
-                      },
-                      icon: Image.asset('assets/images/Google.png', height: 24),
-                      label: const Text('Continue with Google'),
-                    ),
+                        //Implement login API call
+                      } else {
+                        // Failed Google sign in
+                      }
+                    },
                   ),
-                  const SizedBox(height: 10),
+                  //const SizedBox(height: 10),
 
                   //Sign in with Facebook Buttton
-                  SizedBox(
-                    width: 300,
-                    child: ElevatedButton.icon(
+                  SignInButton(Buttons.Facebook, text: "Continue with Facebook",
                       onPressed: () async {
-                        //Facebook sign in logic (API)
-                        LoginResult result =
-                            await FacebookAuth.instance.login();
-                        if (result.status == LoginStatus.success) {
-                          // Successful Facebook sign in
-                          String token = result.accessToken!.token;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TabsScreen(),
-                            ),
-                          );
-                        } else {
-                          // Failed Facebook sign in
-                        }
-                      },
-                      icon:
-                          Image.asset('assets/images/Facebook.jpg', height: 24),
-                      label: const Text('Continue with Facebook'),
-                    ),
-                  ),
+                    //Facebook sign in logic (API)
+                    LoginResult result = await FacebookAuth.instance.login();
+                    if (result.status == LoginStatus.success) {
+                      // Successful Facebook sign in
+                      String token = result.accessToken!.token;
+                      Navigator.of(context).pushNamed(TabsScreen.routeName);
+                    } else {
+                      // Failed Facebook sign in
+                    }
+                  }),
 
                   //Don't have an account? Sign up! Gesture
                   //Loads us to Sign up screen
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignupScreen(),
-                        ),
-                      );
-                    },
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(SignupScreen.routeName),
                     child: const Text(
                       'Don\'t have an account? Sign up!',
                       style: TextStyle(

@@ -188,12 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TabsScreen(),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed(TabsScreen.routeName);
                     } else {
                       //Implement signup API call
                     }

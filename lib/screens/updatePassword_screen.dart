@@ -2,11 +2,12 @@ import 'package:envie_cross_platform/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
+  static const routeName = '/updatePassword';
   final TextEditingController emailController;
 
   const UpdatePasswordScreen({Key? key, required this.emailController})
       : super(key: key);
-  static const routeName = '/updatePassword';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

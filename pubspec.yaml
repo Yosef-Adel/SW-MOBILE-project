@@ -32,6 +32,9 @@ dependencies:
     sdk: flutter
   material_color_generator: ^1.1.0
   intl: ^0.18.0
+  # provider: ^6.0.5
+  flutter_signin_button: ^2.0.0
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,8 +42,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_sign_in: ^6.0.2
   flutter_facebook_auth: ^5.0.8
-  #google_sign_in: ^6.0.2
-  #flutter_facebook_auth: ^5.0.8
+  
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +54,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.12.0
+
+flutter_icons:
+  android: true
+  image_path: "assets/images/EventBriteAppIcon.png"
+  min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -59,8 +67,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/images/Google.png
-    - assets/images/Facebook.jpg
+  # - assets/images/Google.png
+  # - assets/images/Facebook.jpg
     - assets/images/DemoEvent.jpg
     - assets/images/Lock.png
     - assets/images/UserIcon.jpg
