@@ -1,146 +1,10 @@
 import 'package:envie_cross_platform/widgets/event_list.dart';
 import 'package:flutter/material.dart';
 import '../models/event.dart';
+import '../dummy_data.dart';
+import 'filterEvents_screen.dart';
 
 class LandingScreen extends StatefulWidget {
-  final _AllEvents = [
-    Event(
-      id: 'e1',
-      title: 'Songwriting Workshop',
-      categories: ['c1'],
-      description: 'Learn how to write a song in this 2 hour workshop',
-      imageUrl: "assets/images/DemoEvent.jpg",
-      isOnline: true,
-      date: DateTime.parse('2023-05-27 17:00'),
-      isFree: true,
-      duration: 2.0,
-    ),
-    Event(
-      id: 'e2',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e3',
-      title: 'Songwriting Workshop',
-      categories: ['c1'],
-      description: 'Learn how to write a song in this 2 hour workshop',
-      imageUrl: "assets/images/DemoEvent.jpg",
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York',
-      date: DateTime.parse('2023-05-27 17:00'),
-      isFree: true,
-      duration: 2.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-    Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
-      isOnline: false,
-      location: 'The Music Room, 123 Main Street, New York, NY',
-      date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
-      duration: 3.0,
-    ),
-  ];
-
   @override
   State<LandingScreen> createState() => _LandingScreenState();
 }
@@ -148,6 +12,29 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   final TextEditingController _searchController = TextEditingController();
   String dropdownValue = 'In my current Location';
+  Map<String, bool> _filters = {
+    'Music': false,
+    'FoodAndDrink': false,
+    'CharityAndCauses': false,
+  };
+  final List<Event> _AllEvents = DUMMY_EVENTS;
+  List<Event> _filteredEvents = [];
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+
+      _filteredEvents = _AllEvents.where((event) {
+        if (_filters['Music']! && !event.categories.contains('c1'))
+          return false;
+        if (_filters['FoodAndDrink']! && !event.categories.contains('c2'))
+          return false;
+        if (_filters['CharityAndCauses']! && !event.categories.contains('c3'))
+          return false;
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +99,13 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Row(
               children: [
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FilterEventsScreen(_filters, _setFilters)));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -252,7 +145,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 10.0),
-            child: Text(widget._AllEvents.length.toString() + ' events',
+            child: Text(_AllEvents.length.toString() + ' events',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -261,7 +154,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             padding: EdgeInsets.only(bottom: 50),
-            child: EventsList(widget._AllEvents),
+            child: EventsList(_AllEvents),
           ),
         ],
       ),

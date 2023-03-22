@@ -36,7 +36,7 @@ final DUMMY_EVENTS = [
     categories: ['c1', 'c2'],
     description:
         'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-    imageUrl: 'assets/images/DemoEvent.jpg',
+    imageUrl: 'assets/images/Pyramids.jpg',
     isOnline: false,
     location: 'The Music Room, 123 Main Street, New York',
     date: DateTime.parse('2023-11-05 12:00'),
@@ -58,8 +58,8 @@ final DUMMY_EVENTS = [
   ),
   Event(
     id: 'e4',
-    title: 'David Griffith music party',
-    categories: ['c1', 'c2'],
+    title: 'Halloween Party',
+    categories: ['c3'],
     description:
         'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
     imageUrl: 'assets/images/DemoEvent.jpg',

@@ -25,6 +25,11 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (ctx) => LoginScreen(),
         TabsScreen.routeName: (ctx) => TabsScreen(),
       },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (ctx) => TabsScreen(),
+        );
+      },
     );
   }
 }

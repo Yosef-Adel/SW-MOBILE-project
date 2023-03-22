@@ -12,7 +12,7 @@ class EventsList extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (ctx, index) {
         return Container(
-          height: 70,
+          height: 100,
           child: Card(
             elevation: 0,
             child: ListTile(
@@ -56,6 +56,20 @@ class EventsList extends StatelessWidget {
                           fontSize: 10,
                         )),
                   ),
+                  Row(
+                    children: [
+                      Icon(Icons.person_2_outlined, size: 15),
+                      Text('3100 creator followers',
+                          style: TextStyle(fontSize: 10)),
+                      SizedBox(width: 70),
+                      Row(
+                        children: [
+                          Icon(Icons.upload_outlined, size: 15),
+                          Icon(Icons.favorite_outlined, size: 15),
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

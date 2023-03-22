@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 //'Create an account' Container
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: EdgeInsetsDirectional.only(top: 10, bottom: 50),
+                  padding: EdgeInsetsDirectional.only(top: 10, bottom: 30),
                   child: Text(
                     'Create an account',
                     style: TextStyle(

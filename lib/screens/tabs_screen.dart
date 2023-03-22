@@ -20,14 +20,14 @@ class _TabsScreenState extends State<TabsScreen> {
         'page': LandingScreen(),
         'title': 'Landing Page',
       },
-      // {
-      //   'page': UserTicketsScreen(),
-      //   'title': 'Tickets Page',
-      // },
-      // {
-      //   'page': CreatorEventsScreen(),
-      //   'title': 'Events Page',
-      // },
+      {
+        'page': "",
+        'title': 'Tickets Page',
+      },
+      {
+        'page': "",
+        'title': 'Events Page',
+      },
       {
         'page': SignupScreen(),
         'title': 'Profile Page',
