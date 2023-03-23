@@ -71,7 +71,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 )),
 
             //Sign in button takes us to TabScreen
-            const SizedBox(height: 200),
+            const SizedBox(height: 150),
             SizedBox(
               width: 200, // set the width of the button
               child: ElevatedButton(

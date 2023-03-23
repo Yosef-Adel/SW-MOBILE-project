@@ -1,4 +1,5 @@
 import 'package:envie_cross_platform/screens/login_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
@@ -89,8 +90,48 @@ class UpdatePasswordScreen extends StatelessWidget {
                     fontSize: 17),
               ),
             ),
+            const SizedBox(height: 30),
 
             //Open email app button
+            ElevatedButton(
+              onPressed: () async {
+                final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'yuk@hi.com',
+                  queryParameters: {
+                    'subject': 'Reset Password',
+                    'body':
+                        'Please click on the link to reset your password https://www.example.com/reset-password',
+                  },
+                );
+
+                final String emailLaunchUriString = _emailLaunchUri.toString();
+
+                try {
+                  if (await canLaunch(emailLaunchUriString)) {
+                    await launch(emailLaunchUriString);
+                  } else {
+                    throw 'Could not launch $emailLaunchUriString';
+                  }
+                } catch (e) {
+                  print('Error launching email: $e');
+                }
+              },
+              child: const Text(
+                'Open email app',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
+              ),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.grey,
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Colors.grey),
+                ),
+                minimumSize: const Size(200, 50),
+              ),
+            ),
 
             //Resend verification email gesture
             Container(
@@ -106,7 +147,7 @@ class UpdatePasswordScreen extends StatelessWidget {
                       fontSize: 17),
                 ),
               ),
-              padding: EdgeInsets.only(top: 300),
+              padding: EdgeInsets.only(top: 200),
               alignment: Alignment.bottomCenter,
             ),
           ],
