@@ -95,32 +95,13 @@ class UpdatePasswordScreen extends StatelessWidget {
             //Open email app button
             ElevatedButton(
               onPressed: () async {
-                final Uri _emailLaunchUri = Uri(
-                  scheme: 'mailto',
-                  path: 'yuk@hi.com',
-                  queryParameters: {
-                    'subject': 'Reset Password',
-                    'body':
-                        'Please click on the link to reset your password https://www.example.com/reset-password',
-                  },
-                );
-
-                final String emailLaunchUriString = _emailLaunchUri.toString();
-
-                try {
-                  if (await canLaunch(emailLaunchUriString)) {
-                    await launch(emailLaunchUriString);
-                  } else {
-                    throw 'Could not launch $emailLaunchUriString';
-                  }
-                } catch (e) {
-                  print('Error launching email: $e');
-                }
+                const url = 'https://mail.google.com/mail/u/0/#inbox';
+                launch(url);
               },
               child: const Text(
                 'Open email app',
                 style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
+                    color: Color.fromARGB(255, 14, 13, 13), fontSize: 18),
               ),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.grey,

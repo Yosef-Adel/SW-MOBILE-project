@@ -1,6 +1,7 @@
 /// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
 import 'update_password_screen.dart';
@@ -218,15 +219,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   //Sign in with Facebook Buttton
                   SignInButton(Buttons.Facebook, text: "Continue with Facebook",
                       onPressed: () async {
+                    const url = 'https://facebook.com';
+                    launch(url);
                     //Facebook sign in logic (API)
-                    LoginResult result = await FacebookAuth.instance.login();
-                    if (result.status == LoginStatus.success) {
-                      // Successful Facebook sign in
-                      String token = result.accessToken!.token;
-                      Navigator.of(context).pushNamed(TabsScreen.routeName);
-                    } else {
-                      // Failed Facebook sign in
-                    }
+                    //LoginResult result = await FacebookAuth.instance.login();
+                    //if (result.status == LoginStatus.success) {
+                    // Successful Facebook sign in
+                    //String token = result.accessToken!.token;
+                    //Navigator.of(context).pushNamed(TabsScreen.routeName);
+                    //} else {
+                    // Failed Facebook sign in
+                    //}
                   }),
 
                   //Don't have an account? Sign up! Gesture

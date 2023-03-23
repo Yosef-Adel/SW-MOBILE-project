@@ -188,13 +188,26 @@ class _SignupScreenState extends State<SignupScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.of(context).pushNamed(TabsScreen.routeName);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'A verification email has been sent to your email address. Please click on the link to verify your account.'),
+                          duration: Duration(seconds: 5),
+                        ),
+                      );
+
+                      // Wait for 5 seconds before navigating to the TabsScreen route
+                      //when we integrate with backend we don't navigate to TabsScreen unless email link is pressed and verified
+                      Future.delayed(Duration(seconds: 5), () {
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                      });
                     } else {
                       //Implement signup API call
                     }
                   },
                   child: Text('SIGN UP'),
                 ),
+
                 SizedBox(height: 10),
 
                 //Already have an account? Login! Gesture
