@@ -1,6 +1,6 @@
-import './landing_screen.dart';
-import './signup_screen.dart';
-import './createPassword_screen.dart';
+import 'login_screen.dart';
+import 'landing_screen.dart';
+import 'create_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -22,15 +22,15 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Landing Page',
       },
       {
-        'page': "",
-        'title': 'Tickets Page',
+        'page': CreatePasswordScreen(),
+        'title': 'Create Password Page',
       },
       {
         'page': "",
         'title': 'Events Page',
       },
       {
-        'page': CreatePasswordScreen(),
+        'page': LoginScreen(),
         'title': 'Profile Page',
       },
     ];

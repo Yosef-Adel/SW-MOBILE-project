@@ -1,4 +1,4 @@
-import 'package:envie_cross_platform/screens/tabs_screen.dart';
+import 'tabs_screen.dart';
 import 'package:flutter/material.dart';
 
 class FilterEventsScreen extends StatefulWidget {
