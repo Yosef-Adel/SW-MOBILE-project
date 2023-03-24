@@ -16,6 +16,18 @@ class LoginScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
+
+//Email validation function (to check that it's not empty and in the right format)
+  String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
