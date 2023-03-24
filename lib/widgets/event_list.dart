@@ -1,21 +1,34 @@
+import 'package:envie_cross_platform/providers/events_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/event.dart';
+import 'package:provider/provider.dart';
+import '../screens/events_screen.dart';
 
 class EventsList extends StatelessWidget {
-  final List<Event> _selectedEvents;
+  // final List<Event> _selectedEvents;
 
-  EventsList(this._selectedEvents);
+  //EventsList(this._selectedEvents);
+   void selectEvent(BuildContext ctx, Event e) {
+    Navigator.of(ctx).pushNamed(
+      EventPage.routeName,
+      arguments: e,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final eventsData = Provider.of<Events>(context);
+    final _selectedEvents = eventsData.events;
     return ListView.builder(
-      itemBuilder: (ctx, index) {
+  
+      itemBuilder: (ctx, index) {      
         return Container(
           height: 100,
           child: Card(
             elevation: 0,
             child: ListTile(
+              onTap: () => selectEvent(ctx,_selectedEvents[index]),
               leading: Container(
                 width: 80,
                 height: 110,

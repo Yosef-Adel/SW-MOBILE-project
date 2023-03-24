@@ -1,24 +1,9 @@
-//import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import '../models/event.dart';
 
-import './models/category.dart';
-import './models/event.dart';
-
-const DUMMY_CATEGORIES = [
-  Category(
-    id: 'c1',
-    title: 'Music',
-  ),
-  Category(
-    id: 'c2',
-    title: 'Food & Drink',
-  ),
-  Category(
-    id: 'c3',
-    title: 'Charity & Causes',
-  ),
-];
-
-final DUMMY_EVENTS = [
+// change notifiers enables inherited widgets to establish commmunication channels behind the scenes
+class Events with ChangeNotifier {
+  List<Event> _events = [
      Event(
       id: 'e1',
       title: 'Songwriting Workshop',
@@ -167,3 +152,13 @@ final DUMMY_EVENTS = [
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
 
   ];
+
+  List<Event> get events {
+    return [..._events];
+  }
+
+  void addEvent() {
+    // _events.add(value);
+    notifyListeners();
+  }
+}

@@ -12,7 +12,7 @@ class Event {
   final List<String> categories;
   final bool isFree;
   final double price;
-  final double duration;
+  final String duration;
 
   const Event({
     required this.id,

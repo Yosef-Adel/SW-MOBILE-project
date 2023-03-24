@@ -154,7 +154,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             padding: EdgeInsets.only(bottom: 50),
-            child: EventsList(_filteredEvents),
+            child: EventsList(), // it was before EventList(_filteredEvents), but now since event list is a listener the list will be fetched by the provider
           ),
         ],
       ),
