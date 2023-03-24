@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
-import 'screens/createPassword_screen.dart';
+import 'screens/create_password_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/tabs_screen.dart';
+import 'package:flutter/services.dart';
 //import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -21,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // default is '/'
       routes: {
-        '/': (ctx) => LoginScreen(),
+        '/': (ctx) => TabsScreen(),
         SignupScreen.routeName: (ctx) => SignupScreen(),
         LoginScreen.routeName: (ctx) => LoginScreen(),
         TabsScreen.routeName: (ctx) => TabsScreen(),

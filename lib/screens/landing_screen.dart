@@ -2,7 +2,7 @@ import 'package:envie_cross_platform/widgets/event_list.dart';
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 import '../dummy_data.dart';
-import 'filterEvents_screen.dart';
+import 'filter_events_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   @override

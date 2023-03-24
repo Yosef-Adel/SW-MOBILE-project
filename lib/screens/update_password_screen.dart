@@ -39,10 +39,10 @@ class UpdatePasswordScreen extends StatelessWidget {
             ),
 
             //Lock image
-            Image.asset(
-              'assets/images/Lock.png',
-              height: 70,
-              width: 70,
+            Icon(
+              Icons.lock,
+              size: 100,
+              color: Colors.grey,
             ),
             const SizedBox(height: 20),
 

@@ -79,3 +79,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Windows related
+windows/flutter/generated_plugins.cmake
+windows/flutter/generated_plugin_registrant.cc
+
+# Macos related
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Linux related
+linux/flutter/generated_plugins.cmake
+linux/flutter/generated_plugin_registrant.cc

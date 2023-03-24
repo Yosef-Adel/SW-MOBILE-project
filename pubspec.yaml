@@ -58,8 +58,9 @@ dev_dependencies:
 
 flutter_icons:
   android: true
+# ios: true
   image_path: "assets/images/EventBriteAppIcon.png"
-  min_sdk_android: 21
+# min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -67,12 +68,9 @@ flutter_icons:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-  # - assets/images/Google.png
-  # - assets/images/Facebook.jpg
     - assets/images/DemoEvent.jpg
-    - assets/images/Lock.png
-    - assets/images/UserIcon.jpg
     - assets/images/Pyramids.jpg
+    - assets/images/EventBriteAppIcon.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

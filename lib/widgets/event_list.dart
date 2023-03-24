@@ -37,7 +37,7 @@ class EventsList extends StatelessWidget {
                           .add_jm()
                           .format(_selectedEvents[index].date),
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Color(0xFFD1410C),
                           fontSize: 11,
                           fontWeight: FontWeight.bold),
                     ),
@@ -61,7 +61,7 @@ class EventsList extends StatelessWidget {
                       Icon(Icons.person_2_outlined, size: 15),
                       Text('3100 creator followers',
                           style: TextStyle(fontSize: 10)),
-                      SizedBox(width: 70),
+                      SizedBox(width: 75),
                       Row(
                         children: [
                           Icon(Icons.upload_outlined, size: 15),

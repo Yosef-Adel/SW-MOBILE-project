@@ -25,14 +25,14 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           children: [
             //image of profile
             const SizedBox(height: 10),
-            Image.asset(
-              'assets/images/UserIcon.jpg',
-              height: 150,
-              width: 150,
+            Icon(
+              Icons.person,
+              color: Colors.grey,
+              size: 100,
             ),
 
             //New password field
-            const SizedBox(height: 150),
+            const SizedBox(height: 100),
             Form(
                 key: _formKey,
                 child:
