@@ -37,7 +37,8 @@ class EventsList extends StatelessWidget {
                           .add_jm()
                           .format(_selectedEvents[index].date),
                       style: TextStyle(
-                          color: Color(0xFFD1410C),
+                          //color: Color(0xFFD1410C),
+                          color: Theme.of(context).primaryColor,
                           fontSize: 11,
                           fontWeight: FontWeight.bold),
                     ),

@@ -6,7 +6,7 @@ import 'signup_screen.dart';
 import 'tabs_screen.dart';
 import 'update_password_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 // ignore: use_key_in_widget_constructors

@@ -71,7 +71,7 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
+    id: 'e5',
     title: 'David Griffith music party',
     categories: ['c1', 'c2'],
     description:
@@ -85,7 +85,7 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
+    id: 'e6',
     title: 'David Griffith music party',
     categories: ['c1', 'c2'],
     description:
@@ -99,7 +99,7 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
+    id: 'e7',
     title: 'David Griffith music party',
     categories: ['c1', 'c2'],
     description:
@@ -113,7 +113,7 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
+    id: 'e8',
     title: 'David Griffith music party',
     categories: ['c1', 'c2'],
     description:
@@ -127,7 +127,7 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
+    id: 'e9',
     title: 'David Griffith music party',
     categories: ['c1', 'c2'],
     description:
@@ -141,17 +141,15 @@ final DUMMY_EVENTS = [
     duration: 3.0,
   ),
   Event(
-    id: 'e4',
-    title: 'David Griffith music party',
+    id: 'e10',
+    title: 'Ramadan Charity Organization',
     categories: ['c1', 'c2'],
-    description:
-        'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
+    description: 'Help poor people in the world.',
     imageUrl: 'assets/images/DemoEvent.jpg',
     isOnline: false,
-    location: 'The Music Room, 123 Main Street, New York, NY',
-    date: DateTime.parse('2023-11-05 12:00'),
-    isFree: false,
-    price: 10.0,
-    duration: 3.0,
+    location: 'Dokki, Cairo, Egypt',
+    date: DateTime.parse('2023-11-24 16:00'),
+    isFree: true,
+    duration: 6.0,
   ),
 ];

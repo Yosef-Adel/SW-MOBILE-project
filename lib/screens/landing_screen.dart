@@ -18,7 +18,7 @@ class _LandingScreenState extends State<LandingScreen> {
     'CharityAndCauses': false,
   };
   final List<Event> _AllEvents = DUMMY_EVENTS;
-  List<Event> _filteredEvents = [];
+  List<Event> _filteredEvents = DUMMY_EVENTS;
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -154,7 +154,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             padding: EdgeInsets.only(bottom: 50),
-            child: EventsList(_AllEvents),
+            child: EventsList(_filteredEvents),
           ),
         ],
       ),

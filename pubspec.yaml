@@ -35,13 +35,14 @@ dependencies:
   # provider: ^6.0.5
   flutter_signin_button: ^2.0.0
   url_launcher: ^6.0.0
+  flutter_native_splash: ^2.2.19
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_sign_in: ^6.0.2
-  flutter_facebook_auth: ^5.0.8
+# flutter_facebook_auth: ^5.0.8
   
 
 dev_dependencies:
@@ -55,11 +56,17 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.12.0
+ 
+  
+
+flutter_native_splash: 
+  color: "#d1410c"
+  image: assets/images/EventbriteLogo.png
 
 flutter_icons:
   android: true
-# ios: true
   image_path: "assets/images/EventBriteAppIcon.png"
+# ios: true
 # min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
