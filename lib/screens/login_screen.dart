@@ -58,9 +58,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        //Add icon in the app bar
         appBar: AppBar(
-          title: const Text('Eventbrite'),
+          title: const Text('Envie'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.close_outlined),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(TabsScreen.routeName);
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -75,10 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     alignment: Alignment.topLeft,
                     child: const Text(
-                      'Let\'s get started',
+                      'Let\'s Get Started',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 40,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -93,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Sign up or log in to see what\'s happening near you',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                   ),
