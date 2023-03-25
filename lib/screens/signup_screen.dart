@@ -1,15 +1,17 @@
-// ignore_for_file: prefer_const_constructors
+///This screen is the signup screen. It contains a form that the user can use to sign up to the app.
+///It contains an email validation function to check that the text field is not empty and the email is in the right format.
+///It validates the email and confirm email text fields to check that they match.
+///It contains a password validation function to check that the text field is not empty and the password is at least 8 characters long.
+///It contains a first name and surname validation function to check that the text fields are not empty and that they only contain letters.
 
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'tabs_screen.dart';
 
-// ignore: use_key_in_widget_constructors
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
 
   @override
-  // ignore: library_private_types_in_public_api
   _SignupScreenState createState() => _SignupScreenState();
 }
 
@@ -93,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 SizedBox(height: 10),
 
-                //Row containing First Name and Sur Name text fields
+                //Row containing First Name and Surname text fields
                 Row(
                   children: [
                     Expanded(
@@ -199,7 +201,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       // Wait for 5 seconds before navigating to the TabsScreen route
                       //when we integrate with backend we don't navigate to TabsScreen unless email link is pressed and verified
                       Future.delayed(Duration(seconds: 5), () {
-                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(TabsScreen.routeName);
                       });
                     } else {
                       //Implement signup API call
@@ -213,8 +216,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 //Already have an account? Login! Gesture
                 //Loads us to login screen
                 GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(LoginScreen.routeName),
+                  onTap: () => Navigator.of(context)
+                      .pushReplacementNamed(LoginScreen.routeName),
                   child: Text(
                     'Already have an account? Login!',
                     style: TextStyle(

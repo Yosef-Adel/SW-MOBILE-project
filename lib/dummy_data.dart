@@ -1,4 +1,4 @@
-//import 'package:flutter/material.dart';
+///This file contains dummy data for the categories and events.
 
 import './models/category.dart';
 import './models/event.dart';

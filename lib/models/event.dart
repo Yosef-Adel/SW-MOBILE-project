@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+///This is the model class for the Event object.
 
 class Event {
   final String id;

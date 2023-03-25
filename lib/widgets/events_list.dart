@@ -1,8 +1,13 @@
-import 'package:envie_cross_platform/providers/events_provider.dart';
+///This widget is used to display the list of events on the events screen.
+///It is a stateless widget because it does not need to maintain any state.
+///It is a list view builder because it needs to display a list of event cards.
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/event.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/events_provider.dart';
+import '../models/event.dart';
 import '../screens/event_screen.dart';
 
 class EventsList extends StatelessWidget {

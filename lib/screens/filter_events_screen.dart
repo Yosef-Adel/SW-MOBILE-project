@@ -1,7 +1,15 @@
-import 'tabs_screen.dart';
+///This screen is used to filter the events by category. It is a stateless widget because it does not need to change.
+///It uses the Provider package to get the filters from the EventsProvider class.
+///It uses the CheckboxListTile widget to display the filters as a list of checkboxes.
+///It uses the setAllFilter, setMusicFilter, setFoodAndDrinkFilter, setCharityAndCausesFilter methods from the EventsProvider class to set the filters.
+///It uses the clearFilters method from the EventsProvider class to clear the filters.
+
 import 'package:flutter/material.dart';
-import '../providers/events_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'tabs_screen.dart';
+import '../providers/events_provider.dart';
+
 
 class FilterEventsScreen extends StatelessWidget {
   static const routeName = '/filter-events';
@@ -68,7 +76,8 @@ class FilterEventsScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(TabsScreen.routeName);
+                      Navigator.of(context)
+                          .pushReplacementNamed(TabsScreen.routeName);
                     },
                     child: Text('Apply Filters'),
                     style: ButtonStyle(

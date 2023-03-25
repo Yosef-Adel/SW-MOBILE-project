@@ -1,7 +1,13 @@
+///This screen is the main screen of the app. It contains the bottom navigation bar and the pages that are displayed when the user clicks on the bottom navigation bar.
+///The pages are stored in a list of maps. The map contains the page and the title of the page.
+///The build method returns a Scaffold widget. The Scaffold widget takes a body widget as an argument. In this case, the body widget is the page that is currently selected.
+///The page that is currently selected is determined by the _selectedPageIndex variable.
+
+import 'package:flutter/material.dart';
+
 import 'login_screen.dart';
 import 'landing_screen.dart';
 import 'create_password_screen.dart';
-import 'package:flutter/material.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs';

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:envie_cross_platform/screens/login_screen.dart';
 
+///Unit tests for the login screen
 void main() {
   group('Email validator', () {
     test('Empty email returns error message', () {

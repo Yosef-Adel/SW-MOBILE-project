@@ -61,8 +61,8 @@ dev_dependencies:
   
 
 flutter_native_splash: 
-  color: "#d1410c"
-  image: assets/images/EnvieLogo.jpg
+  color: "#f05536"
+  image: assets/images/EnvieLogo_resized.jpg
 
 flutter_icons:
   android: true

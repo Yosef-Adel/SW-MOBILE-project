@@ -1,3 +1,6 @@
+///This is the screen that is displayed when the user clicks on the url sent in the email after they forgot their password.
+///The screen contains a text field that takes a new password as input.
+
 import 'package:flutter/material.dart';
 import 'tabs_screen.dart';
 

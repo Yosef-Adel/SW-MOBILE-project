@@ -1,6 +1,11 @@
-import 'package:envie_cross_platform/screens/login_screen.dart';
+///This screen is displayed when the user clicks on the 'Forgot Password' button on the login screen.
+///The screen contains a text field that takes the user's email as input.
+///The screen also contains a button that sends the user an email with a link to update their password.
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
+
+import 'login_screen.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
   static const routeName = '/updatePassword';

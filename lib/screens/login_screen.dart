@@ -1,11 +1,21 @@
+///This screen is the login screen. It contains a form that the user can use to log in to the app.
+///The form contains two text fields for the user to enter their email and password.
+///It contains an email validation function to check that the text field is not empty and the email is in the right format.
+///It contains a password validation function to check that the text field is not empty and the password is at least 8 characters long.
+///It contains a 'Forgot password' button that the user can use to navigate to the 'Update Password' screen.
+///It contains a 'Sign up' button that the user can use to navigate to the 'Sign up' screen.
+///It contains a 'Sign in with Google' button that the user can use to log in to the app using their Google account.
+///It contains a 'Sign in with Facebook' button that the user can use to log in to the app using their Facebook account.
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'signup_screen.dart';
-import 'tabs_screen.dart';
-import 'update_password_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+
+import 'signup_screen.dart';
+import 'tabs_screen.dart';
+import 'update_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -164,7 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(TabsScreen.routeName);
                         //Implement login API call
                       }
                     },
@@ -214,7 +225,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           await googleSignIn.signIn();
                       if (account != null) {
                         // Successful Google sign in
-                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(TabsScreen.routeName);
 
                         //Implement login API call
                       } else {
@@ -244,8 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   //Loads us to Sign up screen
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed(SignupScreen.routeName),
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(SignupScreen.routeName),
                     child: const Text(
                       'Don\'t have an account? Sign up!',
                       style: TextStyle(

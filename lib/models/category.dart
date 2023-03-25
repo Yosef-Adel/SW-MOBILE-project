@@ -1,6 +1,5 @@
-//import 'package:flutter/material.dart';
-
-//Categories are Music - Food & Drink - Charity & Causes
+///This is the model class for the Category object.
+///Categories are Music - Food & Drink - Charity & Causes
 
 class Category {
   final String id;

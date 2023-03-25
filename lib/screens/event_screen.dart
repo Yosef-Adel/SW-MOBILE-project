@@ -1,3 +1,6 @@
+///This screen is displayed when the user clicks on an event from the events screen.
+///The screen contains the event details and a button to buy tickets.
+
 import 'package:intl/intl.dart';
 
 import '../models/event.dart';
