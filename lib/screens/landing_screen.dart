@@ -1,8 +1,9 @@
-import 'package:envie_cross_platform/widgets/event_list.dart';
 import 'package:flutter/material.dart';
-import '../models/event.dart';
-import '../dummy_data.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/events_provider.dart';
 import 'filter_events_screen.dart';
+import '../widgets/event_list.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -12,32 +13,11 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   final TextEditingController _searchController = TextEditingController();
   String dropdownValue = 'In my current Location';
-  Map<String, bool> _filters = {
-    'Music': false,
-    'FoodAndDrink': false,
-    'CharityAndCauses': false,
-  };
-  final List<Event> _AllEvents = DUMMY_EVENTS;
-  List<Event> _filteredEvents = DUMMY_EVENTS;
-
-  void _setFilters(Map<String, bool> filterData) {
-    setState(() {
-      _filters = filterData;
-
-      _filteredEvents = _AllEvents.where((event) {
-        if (_filters['Music']! && !event.categories.contains('c1'))
-          return false;
-        if (_filters['FoodAndDrink']! && !event.categories.contains('c2'))
-          return false;
-        if (_filters['CharityAndCauses']! && !event.categories.contains('c3'))
-          return false;
-        return true;
-      }).toList();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final eventsData = Provider.of<EventsProvider>(context);
+    final events = eventsData.filteredEvents;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -99,12 +79,12 @@ class _LandingScreenState extends State<LandingScreen> {
             child: Row(
               children: [
                 ElevatedButton(
+                    key: Key('filtersButton'),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  FilterEventsScreen(_filters, _setFilters)));
+                              builder: (context) => FilterEventsScreen()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +125,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 10.0),
-            child: Text(_AllEvents.length.toString() + ' events',
+            child: Text(events.length.toString() + ' events',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -154,7 +134,7 @@ class _LandingScreenState extends State<LandingScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             padding: EdgeInsets.only(bottom: 50),
-            child: EventsList(), // it was before EventList(_filteredEvents), but now since event list is a listener the list will be fetched by the provider
+            child: EventsList(),
           ),
         ],
       ),

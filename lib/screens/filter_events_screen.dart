@@ -1,45 +1,21 @@
 import 'tabs_screen.dart';
 import 'package:flutter/material.dart';
+import '../providers/events_provider.dart';
+import 'package:provider/provider.dart';
 
-class FilterEventsScreen extends StatefulWidget {
+class FilterEventsScreen extends StatelessWidget {
   static const routeName = '/filter-events';
-
-  final Function saveFilters;
-  final Map<String, bool> currentFilters;
-
-  FilterEventsScreen(this.currentFilters, this.saveFilters);
-
-  @override
-  _FilterEventsScreenState createState() => _FilterEventsScreenState();
-}
-
-class _FilterEventsScreenState extends State<FilterEventsScreen> {
-  bool _Music = false;
-  bool _FoodAndDrink = false;
-  bool _CharityAndCauses = false;
-
-  @override
-  initState() {
-    _Music = widget.currentFilters['Music']!;
-    _FoodAndDrink = widget.currentFilters['FoodAndDrink']!;
-    _CharityAndCauses = widget.currentFilters['CharityAndCauses']!;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final filtersData = Provider.of<EventsProvider>(context);
+    final filters = filtersData.filters;
     return Scaffold(
       appBar: AppBar(
         title: Text('Filters'),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
-                setState(() {
-                  _Music = false;
-                  _FoodAndDrink = false;
-                  _CharityAndCauses = false;
-                });
-              },
+              onPressed: () => filtersData.clearFilters(),
               icon: Icon(Icons.clear_outlined))
         ],
       ),
@@ -58,47 +34,40 @@ class _FilterEventsScreenState extends State<FilterEventsScreen> {
                     )),
                 Material(
                   child: CheckboxListTile(
+                    title: const Text('All'),
+                    value: filtersData.filters['All'],
+                    onChanged: (bool? value) =>
+                        filtersData.setAllFilter(value!),
+                  ),
+                ),
+                Material(
+                  child: CheckboxListTile(
                     title: const Text('Music'),
-                    value: _Music,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _Music = value!;
-                      });
-                    },
+                    value: filtersData.filters['Music'],
+                    onChanged: (bool? value) =>
+                        filtersData.setMusicFilter(value!),
                   ),
                 ),
                 Material(
                   child: CheckboxListTile(
                     title: const Text('Food & Drink'),
-                    value: _FoodAndDrink,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _FoodAndDrink = value!;
-                      });
-                    },
+                    value: filtersData.filters['FoodAndDrink'],
+                    onChanged: (bool? value) =>
+                        filtersData.setFoodAndDrinkFilter(value!),
                   ),
                 ),
                 Material(
                   child: CheckboxListTile(
                     title: const Text('Charity & Causes'),
-                    value: _CharityAndCauses,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _CharityAndCauses = value!;
-                      });
-                    },
+                    value: filtersData.filters['CharityAndCauses'],
+                    onChanged: (bool? value) =>
+                        filtersData.setCharityAndCausesFilter(value!),
                   ),
                 ),
                 Container(
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
                     onPressed: () {
-                      final selectedFilters = {
-                        'Music': _Music,
-                        'FoodAndDrink': _FoodAndDrink,
-                        'CharityAndCauses': _CharityAndCauses,
-                      };
-                      widget.saveFilters(selectedFilters);
                       Navigator.of(context).pushNamed(TabsScreen.routeName);
                     },
                     child: Text('Apply Filters'),

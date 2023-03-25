@@ -3,39 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/event.dart';
 import 'package:provider/provider.dart';
-import '../screens/events_screen.dart';
+import '../screens/event_screen.dart';
 
 class EventsList extends StatelessWidget {
-  // final List<Event> _selectedEvents;
-
-  //EventsList(this._selectedEvents);
-   void selectEvent(BuildContext ctx, Event e) {
+  void selectEvent(BuildContext ctx, Event e) {
     Navigator.of(ctx).pushNamed(
-      EventPage.routeName,
+      EventScreen.routeName,
       arguments: e,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final eventsData = Provider.of<Events>(context);
-    final _selectedEvents = eventsData.events;
+    final eventsData = Provider.of<EventsProvider>(context);
+    final selectedEvents = eventsData.filteredEvents;
     return ListView.builder(
-  
-      itemBuilder: (ctx, index) {      
+      itemBuilder: (ctx, index) {
         return Container(
           height: 100,
           child: Card(
             elevation: 0,
             child: ListTile(
-              onTap: () => selectEvent(ctx,_selectedEvents[index]),
+              onTap: () => selectEvent(ctx, selectedEvents[index]),
               leading: Container(
                 width: 80,
                 height: 110,
                 child: AspectRatio(
                   aspectRatio: 0.5,
                   child: Image.asset(
-                    _selectedEvents[index].imageUrl,
+                    selectedEvents[index].imageUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -48,7 +44,7 @@ class EventsList extends StatelessWidget {
                     child: Text(
                       DateFormat("d MMM yyyy")
                           .add_jm()
-                          .format(_selectedEvents[index].date),
+                          .format(selectedEvents[index].date),
                       style: TextStyle(
                           //color: Color(0xFFD1410C),
                           color: Theme.of(context).primaryColor,
@@ -56,7 +52,7 @@ class EventsList extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Text(_selectedEvents[index].title,
+                  Text(selectedEvents[index].title,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -64,7 +60,7 @@ class EventsList extends StatelessWidget {
                         fontFamily: 'Bebas',
                       )),
                   Container(
-                    child: Text(_selectedEvents[index].location,
+                    child: Text(selectedEvents[index].location,
                         style: TextStyle(
                           color: Color.fromRGBO(72, 72, 72, 0.5),
                           fontSize: 10,
@@ -90,7 +86,7 @@ class EventsList extends StatelessWidget {
           ),
         );
       },
-      itemCount: _selectedEvents.length,
+      itemCount: selectedEvents.length,
     );
   }
 }

@@ -27,7 +27,7 @@ class _TabsScreenState extends State<TabsScreen> {
       },
       {
         'page': "",
-        'title': 'Events Page',
+        'title': 'Creators Events Page',
       },
       {
         'page': LoginScreen(),

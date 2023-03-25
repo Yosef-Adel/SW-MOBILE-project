@@ -1,5 +1,3 @@
-/// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'signup_screen.dart';
@@ -9,12 +7,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-// ignore: use_key_in_widget_constructors
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 
 //Email validation function (to check that it's not empty and in the right format)
@@ -36,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true; // added variable to track password visibility
 
-  //Email validation function (to check that it's not empty and in the right format)
+  //Email validation function to check that it's not empty and in the right format
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter an email';
@@ -78,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  //miniText Container
+                  //MiniText Container
                   Container(
                     alignment: Alignment.topLeft,
                     padding:
@@ -125,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     obscureText:
-                        _isPasswordHidden, // added option to hide/show password
+                        _isPasswordHidden, // Added option to hide/show password
                   ),
 
                   //Forgot password gesture

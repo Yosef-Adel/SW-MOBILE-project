@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:envie_cross_platform/models/event.dart';
+//import 'package:intl/intl.dart';
+//import 'package:envie_cross_platform/models/event.dart';
 
 class EventInfo extends StatelessWidget {
   final String dateTime;

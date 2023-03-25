@@ -19,7 +19,7 @@ const DUMMY_CATEGORIES = [
 ];
 
 final DUMMY_EVENTS = [
-     Event(
+  Event(
       id: 'e1',
       title: 'Songwriting Workshop',
       categories: ['c1'],
@@ -30,8 +30,7 @@ final DUMMY_EVENTS = [
       isFree: true,
       duration: '2 hours',
       summary:
-          'Calling All Climate Warriors! Youth for Climate Justice is hosting a series of webinars where we feature three climate justice-focused initiatives spearheaded by young community organizers. Discover local movements in your community, learn about effective ways to communicate with legislators and lead the charge in climate justice! Series dates: April 20, May 16, June 21'
-    ),
+          'Calling All Climate Warriors! Youth for Climate Justice is hosting a series of webinars where we feature three climate justice-focused initiatives spearheaded by young community organizers. Discover local movements in your community, learn about effective ways to communicate with legislators and lead the charge in climate justice! Series dates: April 20, May 16, June 21'),
   Event(
       id: 'e2',
       title: 'David Griffith music party',
@@ -76,7 +75,7 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
+      id: 'e5',
       title: 'David Griffith music party',
       categories: ['c1', 'c2'],
       description:
@@ -91,7 +90,7 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
+      id: 'e6',
       title: 'David Griffith music party',
       categories: ['c1', 'c2'],
       description:
@@ -106,7 +105,7 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
+      id: 'e7',
       title: 'David Griffith music party',
       categories: ['c1', 'c2'],
       description:
@@ -121,7 +120,7 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
+      id: 'e8',
       title: 'David Griffith music party',
       categories: ['c1', 'c2'],
       description:
@@ -136,7 +135,7 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
+      id: 'e9',
       title: 'David Griffith music party',
       categories: ['c1', 'c2'],
       description:
@@ -151,19 +150,15 @@ final DUMMY_EVENTS = [
       summary:
           'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
   Event(
-      id: 'e4',
-      title: 'David Griffith music party',
-      categories: ['c1', 'c2'],
-      description:
-          'david griffith throws a fun music party. Now, I deeply fall in love with music, the natural and unrestrained music',
-      imageUrl: 'assets/images/DemoEvent.jpg',
+      id: 'e10',
+      title: 'Resala Charity Organization',
+      categories: ['c3'],
+      description: 'Help poor people in the world.',
+      imageUrl: 'assets/images/Resala.jpg',
       isOnline: false,
       location: 'The Music Room, 123 Main Street, New York, NY',
       date: DateTime.parse('2023-11-05 12:00'),
-      isFree: false,
-      price: 10.0,
+      isFree: true,
       duration: '16 minutes',
-      summary:
-          'Guest speakers: Adrien Young, project manager of the Green Bottle Movement; Kim Chul-San, president of legal consultancy For Tomorrow; and Elena Ignacio, spokesperson for the One Planet advocacy organization.'),
-
-  ];
+      summary: 'Distribution of food and clothes to the poor.'),
+];

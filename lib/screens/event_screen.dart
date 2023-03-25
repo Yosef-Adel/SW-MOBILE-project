@@ -4,10 +4,10 @@ import '../models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:envie_cross_platform/widgets/Event_info.dart';
 
-class EventPage extends StatelessWidget {
+class EventScreen extends StatelessWidget {
   //final String id;
   //final String appBarText;
-  static const routeName = '/event-Details';
+  static const routeName = '/event-details';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class EventPage extends StatelessWidget {
         // extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Color.fromARGB(0, 0, 0, 1),
-          foregroundColor: Color(0xFFD1410C),
+          foregroundColor: Theme.of(context).primaryColor,
           elevation: 0,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
