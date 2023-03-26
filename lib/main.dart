@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/', // default is '/'
         routes: {
-          '/': (ctx) => TabsScreen(),
+          '/': (ctx) => LoginScreen(),
           SignupScreen.routeName: (ctx) => SignupScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
           TabsScreen.routeName: (ctx) => TabsScreen(),

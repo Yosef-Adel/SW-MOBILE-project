@@ -12,13 +12,13 @@ class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  SignupScreenState createState() => SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class SignupScreenState extends State<SignupScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController _confirmEmailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true; // added variable to track password visibility
@@ -32,6 +32,58 @@ class _SignupScreenState extends State<SignupScreen> {
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
       return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  //Confirm Email validation function (to check that it's not empty and matches the other email)
+  String? validateConfirmEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your email';
+    }
+    if (value != emailController.text) {
+      return 'Emails do not match';
+    }
+    return null;
+  }
+
+  //First Name validation function (to check that the name is not empty and between 2 and 20 characters
+  //and doesn't contain any characters other than letters)
+  String? validateFirstName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your first name';
+    }
+    if (value.length < 2 || value.length > 20) {
+      return 'Should be between 2 and 20 characters';
+    }
+    if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+      return 'Should only contain letters';
+    }
+    return null;
+  }
+
+  //Sur Name validation function (to check that the name is not empty and between 2 and 20 characters
+  //and doesn't contain any characters other than letters)
+  String? validateSurName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your surname';
+    }
+    if (value.length < 2 || value.length > 20) {
+      return 'Should be between 2 and 20 characters';
+    }
+    if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+      return 'Should only contain letters';
+    }
+    return null;
+  }
+
+  //Password validation function (to check that password field is not empty and has atleast 8 chatracters)
+  String? validatePassword(String? value) {
+    if (value!.isEmpty) {
+      return 'Please enter a password';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
     }
     return null;
   }
@@ -69,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 //Email text field
                 TextFormField(
-                  controller: _emailController,
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
                   ),
@@ -79,20 +131,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 //Confirm email text field
                 TextFormField(
-                  controller: _confirmEmailController,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Email *',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please confirm your email';
-                    }
-                    if (value != _emailController.text) {
-                      return 'Emails do not match';
-                    }
-                    return null;
-                  },
-                ),
+                    controller: _confirmEmailController,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Email *',
+                    ),
+                    validator: validateConfirmEmail),
                 SizedBox(height: 10),
 
                 //Row containing First Name and Surname text fields
@@ -100,44 +143,20 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: _firstNameController,
-                        decoration: InputDecoration(
-                          labelText: 'First name *',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your first name';
-                          }
-                          if (value.length < 2 || value.length > 20) {
-                            return 'Should be between 2 and 20 characters';
-                          }
-                          if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
-                            return 'Should only contain letters';
-                          }
-                          return null;
-                        },
-                      ),
+                          controller: _firstNameController,
+                          decoration: InputDecoration(
+                            labelText: 'First name *',
+                          ),
+                          validator: validateFirstName),
                     ),
                     SizedBox(width: 20),
                     Expanded(
                       child: TextFormField(
-                        controller: _surNameController,
-                        decoration: InputDecoration(
-                          labelText: 'Surname *',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your surname';
-                          }
-                          if (value.length < 2 || value.length > 15) {
-                            return 'Should be between 2 and 20 characters';
-                          }
-                          if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
-                            return ' Should only contain letters';
-                          }
-                          return null;
-                        },
-                      ),
+                          controller: _surNameController,
+                          decoration: InputDecoration(
+                            labelText: 'Surname *',
+                          ),
+                          validator: validateSurName),
                     ),
                   ],
                 ),
@@ -146,15 +165,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 //Password text field
                 TextFormField(
                   controller: _passwordController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a password';
-                    }
-                    if (value.length < 8) {
-                      return 'Password must be at least 8 characters long';
-                    }
-                    return null;
-                  },
+                  validator: validatePassword,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     suffixIcon: IconButton(
