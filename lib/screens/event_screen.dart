@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../models/event.dart';
 import 'package:flutter/material.dart';
-import 'package:envie_cross_platform/widgets/Event_info.dart';
+import 'package:envie_cross_platform/widgets/event_info_widget.dart';
 
 class EventScreen extends StatelessWidget {
   //final String id;

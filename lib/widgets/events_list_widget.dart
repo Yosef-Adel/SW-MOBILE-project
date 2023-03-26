@@ -23,6 +23,7 @@ class EventsList extends StatelessWidget {
     final eventsData = Provider.of<EventsProvider>(context);
     final selectedEvents = eventsData.filteredEvents;
     return ListView.builder(
+      padding: EdgeInsets.zero,
       itemBuilder: (ctx, index) {
         return Container(
           height: 100,

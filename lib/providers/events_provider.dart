@@ -28,7 +28,7 @@ class EventsProvider with ChangeNotifier {
 
   void clearFilters() {
     _filters = {
-      'All': false,
+      'All': true,
       'Music': false,
       'FoodAndDrink': false,
       'CharityAndCauses': false,

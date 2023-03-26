@@ -1,3 +1,5 @@
+/// This is the filter chip widget that is used to display the category filter chips on the event screen.
+
 import 'package:flutter/material.dart';
 
 class CategoryFilterChip extends StatefulWidget {

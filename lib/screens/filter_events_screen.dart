@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'tabs_screen.dart';
 import '../providers/events_provider.dart';
-import '../widgets/filter_chip.dart';
+import '../widgets/filter_chip_widget.dart';
 
 class FilterEventsScreen extends StatelessWidget {
   static const routeName = '/filter-events';
@@ -36,7 +36,7 @@ class FilterEventsScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.85,
             child: Column(
               children: [
                 Container(
@@ -64,7 +64,6 @@ class FilterEventsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.58),
                 // Material(
                 //   child: CheckboxListTile(
                 //     title: const Text('All'),
@@ -97,22 +96,23 @@ class FilterEventsScreen extends StatelessWidget {
                 //         filtersData.setCharityAndCausesFilter(value!),
                 //   ),
                 // ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(TabsScreen.routeName);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size.fromWidth(
-                          MediaQuery.of(context).size.width * 0.9),
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      alignment: Alignment.center,
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(TabsScreen.routeName);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size.fromWidth(
+                            MediaQuery.of(context).size.width * 0.9),
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        alignment: Alignment.center,
+                      ),
+                      child: Text('Apply Filters'),
                     ),
-                    child: Text('Apply Filters'),
                   ),
                 ),
               ],

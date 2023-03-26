@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/events_provider.dart';
 import 'filter_events_screen.dart';
-import '../widgets/events_list.dart';
+import '../widgets/events_list_widget.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -27,9 +27,9 @@ class _LandingScreenState extends State<LandingScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 40),
+          SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
@@ -81,7 +81,7 @@ class _LandingScreenState extends State<LandingScreen> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 5.0, bottom: 5.0, right: 5.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.centerLeft,
             child: Row(
@@ -141,8 +141,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 )),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.6,
-            padding: EdgeInsets.only(bottom: 50),
+            height: MediaQuery.of(context).size.height * 0.7,
+            padding: EdgeInsets.only(bottom: 100),
             child: EventsList(),
           ),
         ],
