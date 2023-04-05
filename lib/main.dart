@@ -8,6 +8,8 @@
 ///The routes argument is a map of routes. The map contains the route name and the widget that is displayed when the route is called.
 ///The onUnknownRoute argument is a function that is called when the route that is called is not in the routes map.
 
+import 'package:envie_cross_platform/providers/user_provider.dart';
+
 import 'providers/events_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
@@ -31,10 +33,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => EventsProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: EventsProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: UserProvider(),
+        )
+      ],
       child: MaterialApp(
-        title: 'Eventbrite',
+        title: 'Envie',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xFFD1410C),

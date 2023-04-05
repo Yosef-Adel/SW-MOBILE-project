@@ -7,12 +7,14 @@
 ///It contains a 'Sign in with Google' button that the user can use to log in to the app using their Google account.
 ///It contains a 'Sign in with Facebook' button that the user can use to log in to the app using their Facebook account.
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-
+import 'package:http/http.dart' as http;
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
 import 'update_password_screen.dart';
@@ -52,6 +54,47 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Please enter a valid email';
     }
     return null;
+  }
+
+  //Login function
+  Future<void> login(String email, String password) async {
+    print('start');
+    const String baseUrl = 'https://envie-backend.vercel.app/auth/login';
+
+    final url = Uri.parse('${baseUrl}');
+    final headers = {'Content-Type': 'application/json'};
+    final body = json.encode({
+      'emailAddress': email,
+      'password': password,
+    });
+    var response;
+    try {
+      response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode != 200) {
+        throw 'Failed to login';
+      } else {
+        print('Navigating');
+        Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      }
+    } catch (error) {
+      if (response != null && response.body != null) {
+        final jsonResponse = json.decode(response.body);
+        final message = jsonResponse['message'];
+        print(message);
+        if (message == 'user not found') {
+          throw 'Invalid email or password';
+        } else if (message == 'Please verify your email first.') {
+          throw 'Please verify your email first';
+        }
+      } else {
+        throw 'Failed to login';
+      }
+    }
   }
 
   @override
@@ -184,9 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.of(context)
-                            .pushReplacementNamed(TabsScreen.routeName);
-                        //Implement login API call
+                        login(_emailController.text, _passwordController.text);
                       }
                     },
                     child: const Text('LOGIN'),
