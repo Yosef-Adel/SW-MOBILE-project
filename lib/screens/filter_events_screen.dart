@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'tabs_screen.dart';
 import '../providers/events_provider.dart';
-import '../widgets/filter_chip_widget.dart';
+import '../widgets/category_filter_chip_widget.dart';
 
 class FilterEventsScreen extends StatelessWidget {
   static const routeName = '/filter-events';

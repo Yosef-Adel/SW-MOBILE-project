@@ -18,6 +18,7 @@ import 'package:http/http.dart' as http;
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
 import 'update_password_screen.dart';
+import '../requests/routes_api.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -59,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
 //Login function
   Future<void> login(String email, String password) async {
     print('start');
-    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
+    // const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
 
-    final url = Uri.parse('${baseUrl}');
+    final url = Uri.parse('$baseUrl+${RoutesAPI.login}');
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'emailAddress': email,

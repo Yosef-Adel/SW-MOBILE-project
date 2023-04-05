@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import '../models/user.dart';
-import '../screens/signup_screen.dart';
 
 class UserProvider with ChangeNotifier {
   // Email validation function (to check that it's not empty and in the right format)
@@ -68,36 +66,5 @@ class UserProvider with ChangeNotifier {
       return 'Password must be at least 8 characters long';
     }
     return null;
-  }
-
-  // A function that signs up a new user
-  Future<void> signup(User newUser) async {
-    const String baseUrl = 'https://envie-backend.vercel.app/auth/sign-up';
-
-    final url = Uri.parse('${baseUrl}');
-    final headers = {'Content-Type': 'application/json'};
-    final body = json.encode({
-      'firstName': newUser.firstName,
-      'lastName': newUser.surName,
-      'emailAddress': newUser.email,
-      'password': newUser.password,
-    });
-
-    try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
-
-      if (response.statusCode != 200) {
-        throw 'Failed to signup';
-      }
-      final jsonResponse = json.decode(response.body);
-      final message = jsonResponse['message'];
-      return message;
-    } catch (error) {
-      throw 'Failed to signup';
-    }
   }
 }

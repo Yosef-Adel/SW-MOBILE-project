@@ -141,8 +141,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 )),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            padding: EdgeInsets.only(bottom: 100),
+            height: MediaQuery.of(context).size.height * 0.8,
+            padding: EdgeInsets.only(bottom: 150),
             child: EventsList(),
           ),
         ],

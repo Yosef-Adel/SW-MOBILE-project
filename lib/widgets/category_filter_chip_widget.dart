@@ -1,6 +1,8 @@
 /// This is the filter chip widget that is used to display the category filter chips on the event screen.
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/events_provider.dart';
 
 class CategoryFilterChip extends StatefulWidget {
   final String chipName;
@@ -8,14 +10,16 @@ class CategoryFilterChip extends StatefulWidget {
   CategoryFilterChip({required this.chipName});
 
   @override
-  _filterChipState createState() => _filterChipState();
+  _CategoryFilterChipState createState() => _CategoryFilterChipState();
 }
 
-class _filterChipState extends State<CategoryFilterChip> {
+class _CategoryFilterChipState extends State<CategoryFilterChip> {
   var _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
+    final filtersData = Provider.of<EventsProvider>(context);
+    final filters = filtersData.filters;
     return FilterChip(
       showCheckmark: false,
       label: Text(widget.chipName),
