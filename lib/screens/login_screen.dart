@@ -56,10 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
-  //Login function
+//Login function
   Future<void> login(String email, String password) async {
     print('start');
-    const String baseUrl = 'https://envie-backend.vercel.app/auth/login';
+    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
 
     final url = Uri.parse('${baseUrl}');
     final headers = {'Content-Type': 'application/json'};
@@ -82,18 +82,21 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
       }
     } catch (error) {
+      String message;
       if (response != null && response.body != null) {
         final jsonResponse = json.decode(response.body);
-        final message = jsonResponse['message'];
+        message = jsonResponse['message'];
         print(message);
         if (message == 'user not found') {
-          throw 'Invalid email or password';
+          message = 'Invalid email or password';
         } else if (message == 'Please verify your email first.') {
-          throw 'Please verify your email first';
+          message = 'Please verify your email first';
         }
       } else {
-        throw 'Failed to login';
+        message = 'Failed to login';
       }
+      final snackBar = SnackBar(content: Text(message));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
