@@ -216,7 +216,7 @@ class SignupScreenState extends State<SignupScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                                'A verification email has been sent to your email address. Please click on the link to verify your account.'),
+                                'A verification email has been sent to your email address. Please click on the link to verify your account and login.'),
                             duration: Duration(seconds: 5),
                           ),
                         );
@@ -225,7 +225,7 @@ class SignupScreenState extends State<SignupScreen> {
                         // when we integrate with backend we don't navigate to TabsScreen unless email link is pressed and verified
                         Future.delayed(Duration(seconds: 5), () {
                           Navigator.of(context)
-                              .pushReplacementNamed(TabsScreen.routeName);
+                              .pushReplacementNamed(LoginScreen.routeName);
                         });
                       }
                     },
