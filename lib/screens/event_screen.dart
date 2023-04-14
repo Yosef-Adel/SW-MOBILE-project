@@ -70,16 +70,16 @@ class EventScreen extends StatelessWidget {
             Container(
                 padding: EdgeInsets.all(10),
                 child: EventInfo(
-                    DateFormat("d MMM yyyy")
+                    dateTime: DateFormat("d MMM yyyy")
                         .add_jm()
-                        .format(selectedEvent.date),
-                    selectedEvent.location,
-                    selectedEvent.duration,
-                    selectedEvent.price.toString(),
-                    '5:00 pm',
-                    selectedEvent.isOnline,
-                    selectedEvent.isFree,
-                    selectedEvent.summary)),
+                        .format(selectedEvent.startDate),
+                    location: selectedEvent.venueName,
+                    //selectedEvent.duration,
+                    price: selectedEvent.price.toString(),
+                    startAt: '5:00 pm',
+                    isOnline: selectedEvent.isOnline,
+                    //selectedEvent.isFree,
+                    summary: selectedEvent.summary)),
             SizedBox(height: 80)
           ],
         ));

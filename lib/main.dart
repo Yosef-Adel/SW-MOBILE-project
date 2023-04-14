@@ -22,11 +22,14 @@ import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/filter_events_screen.dart';
+import 'requests/my_http_overrides.dart';
+import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
 }
 

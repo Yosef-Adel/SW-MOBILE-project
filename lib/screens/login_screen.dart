@@ -59,9 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //Login function
   Future<int> login({String? email, String? password}) async {
-    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
+    //const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
 
-    final url = Uri.parse('${baseUrl}');
+    final url = Uri.parse('${RoutesAPI.login}');
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'emailAddress': email,
