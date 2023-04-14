@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 
-
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
 
@@ -25,13 +24,12 @@ class SignupScreenState extends State<SignupScreen> {
   bool _isPasswordHidden = true; // added variable to track password visibility
   final _formKey = GlobalKey<FormState>();
 
-  // A function that signs up a new user
-  Future<void> signup(
+  Future<bool> signup(
       {String? firstName,
       String? lastName,
       String? emailAddress,
       String? password}) async {
-    const String baseUrl = 'https://envie-backend.vercel.app/auth/sign-up';
+    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/sign-up';
 
     final url = Uri.parse('${baseUrl}');
     final headers = {'Content-Type': 'application/json'};
@@ -41,7 +39,6 @@ class SignupScreenState extends State<SignupScreen> {
       'emailAddress': emailAddress,
       'password': password,
     });
-
     try {
       final response = await http.post(
         url,
@@ -49,13 +46,15 @@ class SignupScreenState extends State<SignupScreen> {
         body: body,
       );
 
-      if (response.statusCode != 200) {
-        throw 'Failed to signup';
-      }
       final jsonResponse = json.decode(response.body);
       final message = jsonResponse['message'];
-      return message;
+      if (message == "Check your email for verification.") {
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
+      print('Error while signing up: $error');
       throw 'Failed to signup';
     }
   }
@@ -237,26 +236,28 @@ class SignupScreenState extends State<SignupScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      signup(
-                          firstName: _firstNameController.text,
-                          lastName: _surNameController.text,
-                          emailAddress: emailController.text,
-                          password: _passwordController.text);
+                      final bool isSignUpSuccessful = await signup(
+                        firstName: _firstNameController.text,
+                        lastName: _surNameController.text,
+                        emailAddress: emailController.text,
+                        password: _passwordController.text,
+                      );
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                              'A verification email has been sent to your email address. Please click on the link to verify your account and login.'),
-                          duration: Duration(seconds: 5),
-                        ),
+                            content: isSignUpSuccessful
+                                ? Text(
+                                    'A verification email has been sent to your email address. Please click on the link to verify your account and login.')
+                                : Text(
+                                    'This email address has been taken by another account!')),
                       );
-
-                      // Wait for 5 seconds before navigating to the TabsScreen route
-                      // when we integrate with backend we don't navigate to TabsScreen unless email link is pressed and verified
-                      Future.delayed(Duration(seconds: 5), () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(LoginScreen.routeName);
-                      });
+                      // Wait for 5 seconds before navigating to the Login route
+                      if (isSignUpSuccessful == true) {
+                        Future.delayed(Duration(seconds: 5), () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(LoginScreen.routeName);
+                        });
+                      }
                     }
                   },
                   child: Text('SIGN UP'),

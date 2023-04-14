@@ -1,8 +1,9 @@
 ///This is the screen that is displayed when the user clicks on the url sent in the email after they forgot their password.
 ///The screen contains a text field that takes a new password as input.
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'tabs_screen.dart';
+import 'dart:convert';
 
 class CreatePasswordScreen extends StatefulWidget {
   static const routeName = '/createPassword';
@@ -78,15 +79,31 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
             SizedBox(
               width: 200, // set the width of the button
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TabsScreen(),
-                        ));
+                    final password = _passwordController.text;
+                    try {
+                      final response = await http.post(
+                        Uri.parse(
+                            "https://sw-backend-project.vercel.app/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDM4OWM1NDcwOGQwZDIzYmRlZTA4ZDciLCJpYXQiOjE2ODE0NDQxMjEsImV4cCI6MTY4MTUzMDUyMX0.ey8UMn6EONA8uE-eyu3luFnbqMldzNxqjKOZ78QI75I"),
+                        headers: {'Content-Type': 'application/json'},
+                        body: jsonEncode(password),
+                      );
 
-                    //Implement API so that backend takes new password saved in _passwordController
+                      if (response.statusCode == 200) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TabsScreen(),
+                          ),
+                        );
+                      } else {
+                        print('error');
+                      }
+                    } catch (error) {
+                      print('Error while logining in: $error');
+                      throw 'Failed to login';
+                    }
                   }
                 },
                 child: const Text('Sign in'),

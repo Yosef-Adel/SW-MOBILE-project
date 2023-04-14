@@ -2,9 +2,11 @@
 ///The screen contains a text field that takes the user's email as input.
 ///The screen also contains a button that sends the user an email with a link to update their password.
 
+import 'dart:convert';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'login_screen.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
@@ -122,8 +124,18 @@ class UpdatePasswordScreen extends StatelessWidget {
             //Resend verification email gesture
             Container(
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   //Resend email API implementation
+                  final url = Uri.parse(
+                      'https://sw-backend-project.vercel.app/auth/forgot-password');
+                  final headers = {'Content-Type': 'application/json'};
+                  final body = json.encode({'emailAddress': emailController});
+
+                  final response = await http.post(
+                    url,
+                    headers: headers,
+                    body: body,
+                  );
                 },
                 child: const Text(
                   'Resend verification email',

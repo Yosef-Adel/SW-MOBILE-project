@@ -58,46 +58,35 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 //Login function
-  Future<void> login(String email, String password) async {
-    print('start');
-    // const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
+  Future<int> login({String? email, String? password}) async {
+    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
 
-    final url = Uri.parse('$baseUrl+${RoutesAPI.login}');
+    final url = Uri.parse('${baseUrl}');
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'emailAddress': email,
       'password': password,
     });
-    var response;
     try {
-      response = await http.post(
+      final response = await http.post(
         url,
         headers: headers,
         body: body,
       );
 
-      if (response.statusCode != 200) {
-        throw 'Failed to login';
-      } else {
-        print('Navigating');
-        Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      final jsonResponse = json.decode(response.body);
+      final message = jsonResponse['message'];
+      if (message == "Please verify your email first.") {
+        return 1;
+      } else if (message == "user nor found") {
+        return 2;
+      } else //successful login
+      {
+        return 3;
       }
     } catch (error) {
-      String message;
-      if (response != null && response.body != null) {
-        final jsonResponse = json.decode(response.body);
-        message = jsonResponse['message'];
-        print(message);
-        if (message == 'user not found') {
-          message = 'Invalid email or password';
-        } else if (message == 'Please verify your email first.') {
-          message = 'Please verify your email first';
-        }
-      } else {
-        message = 'Failed to login';
-      }
-      final snackBar = SnackBar(content: Text(message));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      print('Error while logining in: $error');
+      throw 'Failed to login';
     }
   }
 
@@ -191,37 +180,73 @@ class _LoginScreenState extends State<LoginScreen> {
                         _isPasswordHidden, // Added option to hide/show password
                   ),
 
-                  //Forgot password gesture
-                  const SizedBox(height: 10),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        final String email = _emailController.text;
-                        final String? validationResult = emailValidator(email);
-                        if (validationResult != null) {
+                  //forgot password gesture
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () async {
+                      final String email = _emailController.text;
+                      final String? validationResult = emailValidator(email);
+                      if (validationResult != null) {
+                        // Show error message to the user
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(validationResult)),
+                        );
+                      } else {
+                        try {
+                          final url = Uri.parse(
+                              'https://sw-backend-project.vercel.app/auth/forgot-password');
+                          final headers = {'Content-Type': 'application/json'};
+                          final body = json.encode({'emailAddress': email});
+
+                          final response = await http.post(
+                            url,
+                            headers: headers,
+                            body: body,
+                          );
+                          final jsonResponse = json.decode(response.body);
+                          final message = jsonResponse['message'];
+                          if (response.statusCode == 200) {
+                            // API call successful, navigate to update password screen
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdatePasswordScreen(
+                                  emailController: _emailController,
+                                ),
+                              ),
+                            );
+                          } else if (message == "user not found") {
+                            // Show error message to the user
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'User not found. Check that you entered correct email')),
+                            );
+                          } else if (message ==
+                              "Please verify your email first.") {
+                            // Show error message to the user
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'This email is not verified.Check your inbox to verify your email')),
+                            );
+                          }
+                        } catch (error) {
                           // Show error message to the user
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(validationResult)),
-                          );
-                        } else {
-                          //first using API send email then navigate to the UpdatePasswordScreen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UpdatePasswordScreen(
-                                emailController: _emailController,
-                              ),
-                            ),
+                            SnackBar(
+                                content: Text(
+                                    'Failed to send reset password email')),
                           );
                         }
-                      },
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      }
+                    },
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -229,9 +254,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Login button
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        login(_emailController.text, _passwordController.text);
+                        final int isLoginSuccessful = await login(
+                            email: _emailController.text,
+                            password: _passwordController.text);
+                        //user is not found wrong email or pass
+                        if (isLoginSuccessful == 1) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'This email is not verified.Check your inbox to verify your email'),
+                            ),
+                          );
+                          //email is not yet verified
+                        } else if (isLoginSuccessful == 2) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'You have entered a wrong email or password'),
+                            ),
+                          );
+                        } //else successful login
+                        else if (isLoginSuccessful == 3) {
+                          Navigator.of(context)
+                              .pushReplacementNamed(TabsScreen.routeName);
+                        }
                       }
                     },
                     child: const Text('LOGIN'),
