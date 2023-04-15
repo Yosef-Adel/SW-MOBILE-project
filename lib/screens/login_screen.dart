@@ -305,18 +305,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     Buttons.Google,
                     text: "Continue with Google",
                     onPressed: () async {
-                      //final url = Uri.parse('${RoutesAPI.signinGoogle}');
-                      //Google sign in logic
-                      GoogleSignIn googleSignIn = GoogleSignIn();
-                      GoogleSignInAccount? account =
-                          await googleSignIn.signIn();
-                      if (account != null) {
-                        // Successful Google sign in
-                        Navigator.of(context)
-                            .pushReplacementNamed(TabsScreen.routeName);
-                      } else {
-                        // Failed Google sign in
-                      }
+                      await http.get(Uri.parse('${RoutesAPI.signinGoogle}'));
+                      final url =
+                          Uri.parse('${RoutesAPI.signinGoogleCallBack}');
+                      final headers = {'Content-Type': 'application/json'};
+                      final response = await http.get(
+                        url,
+                        headers: headers,
+                      );
+                      final jsonResponse = json.decode(response.body);
+                      final message = jsonResponse['message'];
+                      final user = jsonResponse['user'];
+                      final token = jsonResponse['token'];
+                      print(message);
+                      print(user);
+                      print(token);
                     },
                   ),
                   //const SizedBox(height: 10),
