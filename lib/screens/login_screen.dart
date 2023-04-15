@@ -8,7 +8,6 @@
 ///It contains a 'Sign in with Facebook' button that the user can use to log in to the app using their Facebook account.
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_sign_in/google_sign_in.dart';

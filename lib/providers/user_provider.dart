@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../models/user.dart';
+import '../requests/routes_api.dart';
 
 class UserProvider with ChangeNotifier {
   late String? token;
   late User user;
-  DateTime tokenTime = DateTime.now();
+  //late DateTime tokenTime;
 
   bool get isAuth {
+    //you call it to check whether the user logged in or not
     return token != null;
   }
 
-  String? get getToken {
-    if (DateTime.now().difference(tokenTime).inHours < 24 && token != null) {
-      return token;
-    }
-    return null;
-  }
+  // String? get token {
+  //   if (_token != null && DateTime.now().difference(tokenTime).inHours < 24) {
+  //     return _token;
+  //   }
+  //   return null;
+  // }
 
   //Login function
   Future<int> login({String? email, String? password}) async {
-    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
-
-    final url = Uri.parse('${baseUrl}');
+    final url = Uri.parse('${RoutesAPI.login}');
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'emailAddress': email,
@@ -49,6 +49,7 @@ class UserProvider with ChangeNotifier {
       {
         final jsonResponse = json.decode(response.body);
         token = jsonResponse['token'];
+        //tokenTime = DateTime.now();
         user = User.fromJson(jsonResponse['user']);
         return 4;
       }

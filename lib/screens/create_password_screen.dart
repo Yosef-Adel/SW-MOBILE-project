@@ -91,12 +91,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       );
 
                       if (response.statusCode == 200) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TabsScreen(),
-                          ),
-                        );
+                        Navigator.of(context)
+                            .pushReplacementNamed(TabsScreen.routeName);
                       } else {
                         print('error');
                       }

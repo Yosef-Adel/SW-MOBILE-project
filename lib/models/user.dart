@@ -6,8 +6,8 @@ class User {
   String? lastName;
   String? emailAddress;
   String? password;
-  String? isVerified;
-  String? isCreator;
+  bool? isVerified;
+  bool? isCreator;
 
   User({
     this.id,

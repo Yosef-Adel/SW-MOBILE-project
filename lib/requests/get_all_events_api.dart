@@ -15,8 +15,8 @@ Future<List<Event>> getAllEvents(BuildContext context) async {
       headers: headers,
     );
     final jsonResponse = json.decode(response.body);
-    print('Response: ${jsonResponse}');
-    print('${jsonResponse['events']}');
+    // print('Response: ${jsonResponse}');
+    // print('${jsonResponse['events']}');
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
     if (responseStatus == 200) {
