@@ -149,74 +149,81 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //forgot password gesture
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () async {
-                      final String email = _emailController.text;
-                      final String? validationResult = emailValidator(email);
-                      if (validationResult != null) {
-                        // Show error message to the user
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(validationResult)),
-                        );
-                      } else {
-                        try {
-                          final url = Uri.parse(
-                              'https://sw-backend-project.vercel.app/auth/forgot-password');
-                          final headers = {'Content-Type': 'application/json'};
-                          final body = json.encode({'emailAddress': email});
-
-                          final response = await http.post(
-                            url,
-                            headers: headers,
-                            body: body,
-                          );
-                          final jsonResponse = json.decode(response.body);
-                          final message = jsonResponse['message'];
-                          if (response.statusCode == 200) {
-                            // API call successful, navigate to update password screen
-
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UpdatePasswordScreen(
-                                  emailController: _emailController,
-                                ),
-                              ),
-                            );
-                          } else if (message == "user not found") {
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () async {
+                          final String email = _emailController.text;
+                          final String? validationResult =
+                              emailValidator(email);
+                          if (validationResult != null) {
                             // Show error message to the user
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      'User not found. Check that you entered correct email')),
+                              SnackBar(content: Text(validationResult)),
                             );
-                          } else if (message ==
-                              "Please verify your email first.") {
-                            // Show error message to the user
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      'This email is not verified.Check your inbox to verify your email')),
-                            );
+                          } else {
+                            try {
+                              final url =
+                                  Uri.parse('${RoutesAPI.forgotPassword}');
+                              final headers = {
+                                'Content-Type': 'application/json'
+                              };
+                              final body = json.encode({'emailAddress': email});
+
+                              final response = await http.post(
+                                url,
+                                headers: headers,
+                                body: body,
+                              );
+                              final jsonResponse = json.decode(response.body);
+                              final message = jsonResponse['message'];
+                              if (response.statusCode == 200) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UpdatePasswordScreen(
+                                      emailController: _emailController,
+                                    ),
+                                  ),
+                                );
+                              } else if (message == "user not found") {
+                                // Show error message to the user
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'User not found. Check that you entered correct email')),
+                                );
+                              } else if (message ==
+                                  "Please verify your email first.") {
+                                // Show error message to the user
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'This email is not verified.Check your inbox to verify your email')),
+                                );
+                              }
+                            } catch (error) {
+                              // Show error message to the user
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        'Failed to send reset password email')),
+                              );
+                            }
                           }
-                        } catch (error) {
-                          // Show error message to the user
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    'Failed to send reset password email')),
-                          );
-                        }
-                      }
-                    },
-                    child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                        },
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
 
                   // Login button
@@ -298,6 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Buttons.Google,
                     text: "Continue with Google",
                     onPressed: () async {
+                      //final url = Uri.parse('${RoutesAPI.signinGoogle}');
                       //Google sign in logic
                       GoogleSignIn googleSignIn = GoogleSignIn();
                       GoogleSignInAccount? account =
@@ -306,8 +314,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         // Successful Google sign in
                         Navigator.of(context)
                             .pushReplacementNamed(TabsScreen.routeName);
-
-                        //Implement login API call
                       } else {
                         // Failed Google sign in
                       }
@@ -320,7 +326,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                     const url = 'https://facebook.com';
                     launch(url);
-                    //Facebook sign in logic (API)
                     //LoginResult result = await FacebookAuth.instance.login();
                     //if (result.status == LoginStatus.success) {
                     // Successful Facebook sign in

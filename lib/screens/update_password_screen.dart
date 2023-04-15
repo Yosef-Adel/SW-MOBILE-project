@@ -3,11 +3,11 @@
 ///The screen also contains a button that sends the user an email with a link to update their password.
 
 import 'dart:convert';
-
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'login_screen.dart';
+import '../requests/routes_api.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
   static const routeName = '/updatePassword';
@@ -126,8 +126,7 @@ class UpdatePasswordScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   //Resend email API implementation
-                  final url = Uri.parse(
-                      'https://sw-backend-project.vercel.app/auth/forgot-password');
+                  final url = Uri.parse('${RoutesAPI.forgotPassword}');
                   final headers = {'Content-Type': 'application/json'};
                   final body = json.encode({'emailAddress': emailController});
 

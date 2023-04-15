@@ -2,8 +2,11 @@
 ///The screen contains a text field that takes a new password as input.
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import 'tabs_screen.dart';
 import 'dart:convert';
+import '../requests/routes_api.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   static const routeName = '/createPassword';
@@ -74,7 +77,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   padding: EdgeInsets.all(10),
                 )),
 
-            //Sign in button takes us to TabScreen
+            //Enter new password button
             const SizedBox(height: 150),
             SizedBox(
               width: 200, // set the width of the button
@@ -83,22 +86,40 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   if (_formKey.currentState!.validate()) {
                     final password = _passwordController.text;
                     try {
-                      final response = await http.post(
-                        Uri.parse(
-                            "https://sw-backend-project.vercel.app/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDM4OWM1NDcwOGQwZDIzYmRlZTA4ZDciLCJpYXQiOjE2ODE0NDQxMjEsImV4cCI6MTY4MTUzMDUyMX0.ey8UMn6EONA8uE-eyu3luFnbqMldzNxqjKOZ78QI75I"),
-                        headers: {'Content-Type': 'application/json'},
-                        body: jsonEncode(password),
-                      );
+                      // final url = Uri.parse(
+                      //     '${RoutesAPI.createNewPassword}/${Provider.of<UserProvider>(context, listen: false).token}');
+                      //should replace with token from url
+                      String token =
+                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDM4OWM1NDcwOGQwZDIzYmRlZTA4ZDciLCJpYXQiOjE2ODE1ODM5MzcsImV4cCI6MTY4MTY3MDMzN30.43tt2jmaViH7gnXP1sb3r4oSznOKMofXG10jKxPiVG0';
+                      final url =
+                          Uri.parse('${RoutesAPI.createNewPassword}/$token');
 
+                      final headers = {'Content-Type': 'application/json'};
+                      final body = jsonEncode({'password': password});
+                      final response = await http.patch(
+                        url,
+                        headers: headers,
+                        body: body,
+                      );
+                      final jsonResponse = json.decode(response.body);
+                      final message = jsonResponse['message'];
                       if (response.statusCode == 200) {
-                        Navigator.of(context)
-                            .pushReplacementNamed(TabsScreen.routeName);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content:
+                                  Text('Password is changed successfully')),
+                        );
+                        // Wait for 5 seconds before navigating to the Login route
+                        Future.delayed(Duration(seconds: 5), () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(TabsScreen.routeName);
+                        });
                       } else {
-                        print('error');
+                        //logout cuz token expired
                       }
                     } catch (error) {
                       print('Error while logining in: $error');
-                      throw 'Failed to login';
+                      throw 'Failed to reach server maybe wrong url';
                     }
                   }
                 },
