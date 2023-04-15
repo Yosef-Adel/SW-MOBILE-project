@@ -6,6 +6,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import '../requests/routes_api.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -29,9 +30,9 @@ class SignupScreenState extends State<SignupScreen> {
       String? lastName,
       String? emailAddress,
       String? password}) async {
-    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/sign-up';
+    //const String baseUrl = 'https://sw-backend-project.vercel.app/auth/sign-up';
 
-    final url = Uri.parse('${baseUrl}');
+    final url = Uri.parse('${RoutesAPI.signUp}');
     final headers = {'Content-Type': 'application/json'};
     final body = json.encode({
       'firstName': firstName,

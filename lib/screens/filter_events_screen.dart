@@ -29,7 +29,8 @@ class FilterEventsScreen extends StatelessWidget {
         title: Text('Filters'),
         actions: <Widget>[
           IconButton(
-              onPressed: () => filtersData.clearFilters(),
+              onPressed: () => {},
+              //onPressed: () => filtersData.clearFilters(),
               icon: Icon(Icons.clear_outlined))
         ],
       ),

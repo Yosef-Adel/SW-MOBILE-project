@@ -5,15 +5,22 @@ import 'package:flutter/material.dart';
 class EventInfo extends StatelessWidget {
   final String dateTime;
   final String location;
-  final String Duration;
-  final String Price;
-  final String StartAt;
+  final String duration;
+  final String price;
+  final String startAt;
   final bool isOnline;
   final bool isFree;
   final String summary;
 
-  EventInfo(this.dateTime, this.location, this.Duration, this.Price,
-      this.StartAt, this.isOnline, this.isFree, this.summary);
+  EventInfo(
+      {required this.dateTime,
+      required this.location,
+      this.duration = "",
+      required this.price,
+      required this.startAt,
+      required this.isOnline,
+      this.isFree = false,
+      required this.summary});
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +64,15 @@ class EventInfo extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
                 )),
-        ListTile(
-            leading: Container(
-              child: Icon(Icons.timelapse_outlined),
-            ),
-            title: Text(
-              "Duration: ${Duration}",
-              style: TextStyle(
-                  fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
-            )),
+        // ListTile(
+        //     leading: Container(
+        //       child: Icon(Icons.timelapse_outlined),
+        //     ),
+        //     title: Text(
+        //       "Duration: ${duration}",
+        //       style: TextStyle(
+        //           fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
+        //     )),
         isFree
             ? ListTile(
                 leading: Container(
@@ -86,7 +93,7 @@ class EventInfo extends StatelessWidget {
                   child: Icon(Icons.confirmation_num_outlined),
                 ),
                 title: Text(
-                  '\$${Price}',
+                  '\$${price}',
                   style: TextStyle(
                       fontSize: 20, color: Color.fromARGB(255, 24, 24, 24)),
                 ),
