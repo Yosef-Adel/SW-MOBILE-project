@@ -1,23 +1,33 @@
 ///This is the model class for the user. It contains the user's uid, username, email and password.
 
 class User {
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String emailAddress;
-  final String password;
-  final String isVerified;
-  final String isCreator;
-  final String verifyEmailToken;
+  String? id;
+  String? firstName;
+  String? lastName;
+  String? emailAddress;
+  String? password;
+  String? isVerified;
+  String? isCreator;
 
-  const User({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.emailAddress,
-    required this.password,
-    required this.isVerified,
-    required this.isCreator,
-    required this.verifyEmailToken,
+  User({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.emailAddress,
+    this.password,
+    this.isVerified,
+    this.isCreator,
   });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      emailAddress: json['emailAddress'],
+      password: json['password'],
+      isVerified: json['isVerified'],
+      isCreator: json['isCreator'],
+    );
+  }
 }

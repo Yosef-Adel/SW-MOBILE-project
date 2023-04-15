@@ -17,6 +17,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
+import '../providers/user_provider.dart';
 import 'update_password_screen.dart';
 import '../requests/routes_api.dart';
 
@@ -44,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true; // added variable to track password visibility
+  final userProvider = UserProvider();
 
   //Email validation function to check that it's not empty and in the right format
   String? emailValidator(String? value) {
@@ -55,39 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Please enter a valid email';
     }
     return null;
-  }
-
-//Login function
-  Future<int> login({String? email, String? password}) async {
-    const String baseUrl = 'https://sw-backend-project.vercel.app/auth/login';
-
-    final url = Uri.parse('${baseUrl}');
-    final headers = {'Content-Type': 'application/json'};
-    final body = json.encode({
-      'emailAddress': email,
-      'password': password,
-    });
-    try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
-
-      final jsonResponse = json.decode(response.body);
-      final message = jsonResponse['message'];
-      if (message == "Please verify your email first.") {
-        return 1;
-      } else if (message == "user nor found") {
-        return 2;
-      } else //successful login
-      {
-        return 3;
-      }
-    } catch (error) {
-      print('Error while logining in: $error');
-      throw 'Failed to login';
-    }
   }
 
   @override
@@ -256,10 +225,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        final int isLoginSuccessful = await login(
+                        final int isLoginSuccessful = await userProvider.login(
                             email: _emailController.text,
                             password: _passwordController.text);
-                        //user is not found wrong email or pass
+                        //email is not yet verified
                         if (isLoginSuccessful == 1) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -267,16 +236,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'This email is not verified.Check your inbox to verify your email'),
                             ),
                           );
-                          //email is not yet verified
+                          //user is not found which means wrong or unsubscribed email
                         } else if (isLoginSuccessful == 2) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                  'You have entered a wrong email or password'),
+                                  'You have entered a wrong email. No account is associated with this email'),
                             ),
                           );
-                        } //else successful login
+                        } //correct email but wrong password
                         else if (isLoginSuccessful == 3) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('You have entered a wrong password'),
+                            ),
+                          );
+                        } else {
+                          //login successful (isLoginSuccessful==4)
                           Navigator.of(context)
                               .pushReplacementNamed(TabsScreen.routeName);
                         }
