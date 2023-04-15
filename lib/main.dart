@@ -24,6 +24,8 @@ import 'screens/tabs_screen.dart';
 import 'screens/filter_events_screen.dart';
 import 'requests/my_http_overrides.dart';
 import 'dart:io';
+import 'screens/tickets_screen.dart';
+import 'providers/ticket_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +45,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: UserProvider(),
-        )
+        ),
+        ChangeNotifierProvider.value(
+          value: TicketsProvider()
+        ),
       ],
       child: MaterialApp(
         title: 'Envie',
@@ -64,6 +69,7 @@ class MyApp extends StatelessWidget {
           CreatePasswordScreen.routeName: (ctx) => CreatePasswordScreen(),
           EventScreen.routeName: (ctx) => EventScreen(),
           FilterEventsScreen.routeName: (ctx) => FilterEventsScreen(),
+          TicketsScreen.routeName: (ctx) => TicketsScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

@@ -63,6 +63,7 @@ class EventsList extends StatelessWidget {
                             ),
                           ),
                           Text(snapshot.data[index].title,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,

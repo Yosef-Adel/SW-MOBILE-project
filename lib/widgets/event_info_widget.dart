@@ -64,15 +64,15 @@ class EventInfo extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
                 )),
-        ListTile(
-            leading: Container(
-              child: Icon(Icons.timelapse_outlined),
-            ),
-            title: Text(
-              "Duration: ${duration}",
-              style: TextStyle(
-                  fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
-            )),
+        // ListTile(
+        //     leading: Container(
+        //       child: Icon(Icons.timelapse_outlined),
+        //     ),
+        //     title: Text(
+        //       "Duration: ${duration}",
+        //       style: TextStyle(
+        //           fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
+        //     )),
         isFree
             ? ListTile(
                 leading: Container(

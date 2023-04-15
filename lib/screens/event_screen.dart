@@ -6,11 +6,18 @@ import 'package:intl/intl.dart';
 import '../models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:envie_cross_platform/widgets/event_info_widget.dart';
+import 'tickets_screen.dart';
 
 class EventScreen extends StatelessWidget {
   //final String id;
   //final String appBarText;
   static const routeName = '/event-details';
+
+   void goToTicketScreen(
+      BuildContext ctx, String title, String date, String id) {
+    Navigator.of(ctx).pushNamed(TicketsScreen.routeName,
+        arguments: {'eventTitle': title, 'eventDate': date, 'eventId': id});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,11 @@ class EventScreen extends StatelessWidget {
           decoration: BoxDecoration(color: Colors.white),
           margin: const EdgeInsets.all(10),
           child: ElevatedButton(
-            onPressed: () => {},
+             onPressed: () => goToTicketScreen(
+                context,
+                selectedEvent.title,
+                DateFormat("d MMM yyyy").add_jm().format(selectedEvent.startDate),
+                selectedEvent.id),
             child: const Center(
               child: Text('Tickets'),
             ),
@@ -40,7 +51,7 @@ class EventScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
-                  child: Image.asset(
+                  child: Image.network(
                     selectedEvent.imageUrl,
                     fit: BoxFit.cover,
                   )),
