@@ -28,7 +28,6 @@ class CategoriesProvider with ChangeNotifier {
         categoryID = category.id;
       }
     }
-    //print("Category is: $categoryID");
     return categoryID;
   }
 
@@ -39,9 +38,12 @@ class CategoriesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // String? get selectedCategoryID {
-  //   return _selectedCategoryID;
-  // }
+  void clearFilters() {
+    for (int i = 0; i < _allCategories.length; i++) {
+      _allCategories[i].isSelected = false;
+    }
+    notifyListeners();
+  }
 
   // set selectedCategoryID(String? categoryID) {
   //   _selectedCategoryID = categoryID;

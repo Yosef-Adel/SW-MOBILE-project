@@ -23,8 +23,8 @@ class EventsList extends StatelessWidget {
     return FutureBuilder(
         future: getEvents(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          // print(snapshot.connectionState);
-          // print(snapshot.data);
+          print(snapshot.connectionState);
+          print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingIndicator();
           } else if (snapshot.data != null &&

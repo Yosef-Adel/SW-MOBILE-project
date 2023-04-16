@@ -18,7 +18,7 @@ Future<List<Category>> getAllCategories(BuildContext context) async {
     );
     final jsonResponse = json.decode(response.body);
     // print('Response: ${jsonResponse}');
-    // print('${jsonResponse['categories']}');
+    print('${jsonResponse['categories']}');
     int responseStatus = response.statusCode;
     List<Category> categoriesList = [];
     if (responseStatus == 200) {

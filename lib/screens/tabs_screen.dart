@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'landing_screen.dart';
 import 'profile_screen.dart';
 import 'create_password_screen.dart';
+import 'user_tickets_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs';
@@ -32,8 +33,8 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Create Password Page',
       },
       {
-        'page': "",
-        'title': 'Creators Events Page',
+        'page': UserTickets(),
+        'title': 'User Tickets Page',
       },
       {
         'page': ProfileScreen(),

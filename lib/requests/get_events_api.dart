@@ -30,16 +30,16 @@ Future<LocationData?> getLocation() async {
   }
   LocationData _locationData;
   _locationData = await location.getLocation();
-  //print(_locationData.latitude);
-  //print(_locationData.longitude);
+  print(_locationData.latitude);
+  print(_locationData.longitude);
   return _locationData;
 }
 
 Future<List<Event>> getEvents(BuildContext context) async {
-  String? categoryID =
-      Provider.of<CategoriesProvider>(context).selectedCategoryID;
+  String? categoryID = Provider.of<CategoriesProvider>(context, listen: false)
+      .selectedCategoryID;
   LocationData? geoLocation = await getLocation();
-
+  print(categoryID);
   final url = (categoryID != null)
       ? Uri.parse(
           '${RoutesAPI.getEvents}?category=${categoryID}&lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}')
@@ -53,14 +53,16 @@ Future<List<Event>> getEvents(BuildContext context) async {
     );
     final jsonResponse = json.decode(response.body);
     //print('Response: ${jsonResponse}');
-    //print(url);
-    //print('${jsonResponse['events']}');
+    print(url);
+    print('${jsonResponse['events']}');
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
+    print(responseStatus);
     if (responseStatus == 200) {
       for (var eventDict in jsonResponse['events']) {
         eventsList.add(Event.fromJson(eventDict));
       }
+      print(eventsList);
       return eventsList;
       //Provider.of<EventsProvider>(context, listen: false).AllEvents = eventsList;
     }

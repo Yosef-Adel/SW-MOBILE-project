@@ -18,8 +18,8 @@ class FilterEventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Category> categories =
-        Provider.of<CategoriesProvider>(context).allCategories;
+    final CategoriesProvider data = Provider.of<CategoriesProvider>(context);
+    final List<Category> categories = data.allCategories;
     List<bool> selectedCategories = [];
     for (var _ in categories) {
       selectedCategories.add(false);
@@ -35,8 +35,11 @@ class FilterEventsScreen extends StatelessWidget {
         title: Text('Filters'),
         actions: <Widget>[
           IconButton(
-              onPressed: () => {},
-              //onPressed: () => filtersData.clearFilters(),
+              onPressed: () {
+                data.clearFilters();
+                Navigator.of(context)
+                    .pushReplacementNamed(TabsScreen.routeName);
+              },
               icon: Icon(Icons.clear_outlined))
         ],
       ),

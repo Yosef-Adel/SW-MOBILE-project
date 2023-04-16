@@ -27,6 +27,7 @@ import 'requests/my_http_overrides.dart';
 import 'dart:io';
 import 'screens/tickets_screen.dart';
 import 'providers/ticket_provider.dart';
+import 'screens/time_filter_events_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
           EventScreen.routeName: (ctx) => EventScreen(),
           FilterEventsScreen.routeName: (ctx) => FilterEventsScreen(),
           TicketsScreen.routeName: (ctx) => TicketsScreen(),
+          TimeFilterEventsScreen.routeName: (ctx) => TimeFilterEventsScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

@@ -11,10 +11,10 @@ class Event {
   final DateTime endDate;
   final String categoryId;
   final double price;
-  final hostedBy;
-  //final bool isPrivate;
-  final venueName;
-  final city;
+  final String hostedBy;
+  final bool isPrivate;
+  final String venueName;
+  final String city;
   //final String address;
   final String country;
 
@@ -30,7 +30,7 @@ class Event {
     required this.categoryId,
     required this.price,
     required this.hostedBy,
-    //this.isPrivate,
+    required this.isPrivate,
     required this.venueName,
     required this.city,
     //required this.address,
@@ -44,13 +44,13 @@ class Event {
       description: json['description'],
       summary: json['summary'],
       imageUrl: json['image'],
-      isOnline: json['isOnline'] ?? false,
+      isOnline: json['isOnline'],
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
       categoryId: json['category'],
       price: json['price'].toDouble(),
       hostedBy: json['hostedBy'],
-      //isPrivate: json['isPrivate'],
+      isPrivate: json['isPrivate'],
       venueName: json['venueName'],
       city: json['city'],
       //address: json['address'],

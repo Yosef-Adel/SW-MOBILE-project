@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../requests/get_categories_api.dart';
 import 'filter_events_screen.dart';
 import '../widgets/events_list_widget.dart';
+import 'time_filter_events_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -86,9 +87,9 @@ class _LandingScreenState extends State<LandingScreen> {
                 Flexible(
                   child: ElevatedButton(
                       onPressed: () async {
-                        await getAllCategories(context).then((_) =>
-                            Navigator.of(context)
-                                .pushNamed(FilterEventsScreen.routeName));
+                        await getAllCategories(context);
+                        Navigator.of(context)
+                            .pushReplacementNamed(FilterEventsScreen.routeName);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +111,9 @@ class _LandingScreenState extends State<LandingScreen> {
                 SizedBox(width: 10),
                 Flexible(
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context)
+                          .pushReplacementNamed(
+                              TimeFilterEventsScreen.routeName),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
