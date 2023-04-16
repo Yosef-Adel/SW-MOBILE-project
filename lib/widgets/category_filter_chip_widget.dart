@@ -26,11 +26,7 @@ class _CategoryFilterChipState extends State<CategoryFilterChip> {
   Widget build(BuildContext context) {
     return FilterChip(
       showCheckmark: false,
-      label: Container(
-          height: 20,
-          width: 100,
-          child: Text(widget.chipName),
-          alignment: Alignment.center),
+      label: Text(widget.chipName),
       labelStyle: TextStyle(
         color: _isSelected ? Colors.white : Colors.black,
         fontSize: 12.0,

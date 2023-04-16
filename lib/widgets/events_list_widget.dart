@@ -2,6 +2,7 @@
 ///It is a stateless widget because it does not need to maintain any state.
 ///It is a list view builder because it needs to display a list of event cards.
 
+import 'package:envie_cross_platform/requests/search_events_api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,11 @@ import '../screens/event_screen.dart';
 import 'loading_indicator.dart';
 
 class EventsList extends StatelessWidget {
+  bool choice;
+  String? keyword;
+
+  EventsList({required this.choice, this.keyword});
+
   void selectEvent(BuildContext ctx, Event e) {
     Navigator.of(ctx).pushNamed(
       EventScreen.routeName,
@@ -21,10 +27,8 @@ class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getEvents(context),
+        future: choice ? getEvents(context) : searchEvents(context, keyword),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(snapshot.connectionState);
-          print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingIndicator();
           } else if (snapshot.data != null &&

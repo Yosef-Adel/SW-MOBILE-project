@@ -57,11 +57,13 @@ class FilterEventsScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 12),
                     )),
                 SizedBox(
-                    width: double.infinity,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
+                      alignment: WrapAlignment.start,
                       direction: Axis.horizontal,
-                      spacing: 7.0,
+                      spacing: 5.0,
                       //runSpacing: 5.0,
                       children: List.generate(
                         categories.length,
@@ -74,7 +76,7 @@ class FilterEventsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-           
+                ),
                 Expanded(
                   child: Align(
                     alignment: Alignment.bottomCenter,

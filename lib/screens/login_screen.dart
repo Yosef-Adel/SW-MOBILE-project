@@ -14,6 +14,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
+import '../requests/login_api.dart';
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
 import '../providers/user_provider.dart';
@@ -44,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true; // added variable to track password visibility
-  final userProvider = UserProvider();
 
   //Email validation function to check that it's not empty and in the right format
   String? emailValidator(String? value) {
@@ -231,7 +231,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        final int isLoginSuccessful = await userProvider.login(
+                        final int isLoginSuccessful = await login(
+                            context: context,
                             email: _emailController.text,
                             password: _passwordController.text);
                         //email is not yet verified
@@ -317,9 +318,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       final message = jsonResponse['message'];
                       final user = jsonResponse['user'];
                       final token = jsonResponse['token'];
-                      print(message);
-                      print(user);
-                      print(token);
+                      // print(message);
+                      // print(user);
+                      // print(token);
                     },
                   ),
                   //const SizedBox(height: 10),

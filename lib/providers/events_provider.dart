@@ -5,34 +5,32 @@ import '../dummy_data.dart';
 // ChangeNotifier enables inherited widgets to establish commmunication channels behind the scenes
 class EventsProvider with ChangeNotifier {
   List<Event> _allEvents = [];
-  List<Event> _filteredEvents = [];
-  Map<String, bool> _filters = {
-    'All': true,
-    'Music': false,
-    'FoodAndDrink': false,
-    'CharityAndCauses': false,
-  };
+  // List<Event> _filteredEvents = [];
+  // Map<String, bool> _filters = {
+  //   'All': true,
+  //   'Music': false,
+  //   'FoodAndDrink': false,
+  //   'CharityAndCauses': false,
+  // };
 
-  set AllEvents(List<Event> events) {
+  set allEvents(List<Event> events) {
     _allEvents = events;
     //refreshFilteredEvents();
     notifyListeners();
   }
 
-  List<Event> get AllEvents {
+  List<Event> get allEvents {
     return [..._allEvents];
   }
 
-  List<Event> get filteredEvents {
-    //refreshFilteredEvents();
-    return [..._filteredEvents];
-  }
+  // List<Event> get filteredEvents {
+  //   //refreshFilteredEvents();
+  //   return [..._filteredEvents];
+  // }
 
-  Map<String, bool> get filters {
-    return {..._filters};
-  }
-
-
+  // Map<String, bool> get filters {
+  //   return {..._filters};
+  // }
 
 //   void setAllFilter(bool value) {
 //     _filters['All'] = value;
@@ -57,8 +55,6 @@ class EventsProvider with ChangeNotifier {
 //     refreshFilteredEvents();
 //     notifyListeners();
 //   }
-
-  
 
 //   void refreshFilteredEvents() {
 //     _filteredEvents = _allEvents.where((event) {

@@ -16,8 +16,10 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-  final TextEditingController _searchController = TextEditingController();
+  TextEditingController _searchController =
+      TextEditingController(text: 'Search for...');
   String? dropdownValue = 'In my current Location';
+  bool choice = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,21 @@ class _LandingScreenState extends State<LandingScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: TextField(
+              onTap: () => setState(() {
+                _searchController.text = "";
+              }),
+              onSubmitted: (value) => setState(() {
+                choice = false;
+              }),
               controller: _searchController,
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
               decoration: InputDecoration(
                 icon: Icon(Icons.search),
-                labelText: 'Search for...',
-                labelStyle: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+                //labelText: 'Search for...',
                 suffixIcon: IconButton(
                     icon: Icon(Icons.clear),
                     onPressed: () {
@@ -132,7 +140,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ],
             ),
           ),
-          EventsList(),
+          EventsList(choice: choice, keyword: _searchController.text),
         ],
       ),
     );

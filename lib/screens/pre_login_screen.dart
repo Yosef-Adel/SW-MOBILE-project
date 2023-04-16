@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class PreLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

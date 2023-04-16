@@ -39,12 +39,20 @@ Future<List<Event>> getEvents(BuildContext context) async {
   String? categoryID = Provider.of<CategoriesProvider>(context, listen: false)
       .selectedCategoryID;
   LocationData? geoLocation = await getLocation();
-  print(categoryID);
-  final url = (categoryID != null)
-      ? Uri.parse(
-          '${RoutesAPI.getEvents}?category=${categoryID}&lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}')
-      : Uri.parse(
+  final url;
+  if (geoLocation?.latitude != null && geoLocation?.longitude != null) {
+    if (categoryID != null)
+      url = Uri.parse(
+          '${RoutesAPI.getEvents}?category=${categoryID}&lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}');
+    else
+      url = Uri.parse(
           '${RoutesAPI.getEvents}?lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}');
+  } else {
+    if (categoryID != null)
+      url = Uri.parse('${RoutesAPI.getEvents}?category=${categoryID}');
+    else
+      url = Uri.parse('${RoutesAPI.getEvents}');
+  }
   final headers = {'Content-Type': 'application/json'};
   try {
     final response = await http.get(
@@ -54,15 +62,13 @@ Future<List<Event>> getEvents(BuildContext context) async {
     final jsonResponse = json.decode(response.body);
     //print('Response: ${jsonResponse}');
     print(url);
-    print('${jsonResponse['events']}');
+    //print('${jsonResponse['events']}');
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
-    print(responseStatus);
     if (responseStatus == 200) {
       for (var eventDict in jsonResponse['events']) {
         eventsList.add(Event.fromJson(eventDict));
       }
-      print(eventsList);
       return eventsList;
       //Provider.of<EventsProvider>(context, listen: false).AllEvents = eventsList;
     }

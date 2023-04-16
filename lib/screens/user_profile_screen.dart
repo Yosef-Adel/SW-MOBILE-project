@@ -1,5 +1,10 @@
+import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
+import '../requests/logout_api.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -21,6 +26,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProv = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Profile'),
@@ -42,7 +48,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _userName,
+                      '${userProv.user.firstName} ${userProv.user.lastName}',
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     const SizedBox(width: 8),
@@ -54,7 +60,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  _email,
+                  '${userProv.user.emailAddress}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 const SizedBox(height: 16),
@@ -84,7 +90,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Manage Data'),
+                  child: Text('Manage Events'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
@@ -93,7 +99,11 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    logout(context);
+                    Navigator.of(context)
+                        .pushReplacementNamed(TabsScreen.routeName);
+                  },
                   child: Text('Logout'),
                 ),
               ],

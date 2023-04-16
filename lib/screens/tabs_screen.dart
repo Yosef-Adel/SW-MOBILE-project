@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:envie_cross_platform/providers/user_provider.dart';
 import 'landing_screen.dart';
-import 'profile_screen.dart';
+import 'merged_profile_screen.dart';
+import 'pre_login_screen.dart';
 import 'create_password_screen.dart';
 import 'user_tickets_screen.dart';
 import 'user_profile_screen.dart';
@@ -23,86 +24,46 @@ class _TabsScreenState extends State<TabsScreen> {
   late List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
 
-  void _buildPages(bool isAuth) {
-    if (isAuth) {
-      _pages = [
-        {
-          'page': LandingScreen(),
-          'title': 'Landing Page',
-        },
-        {
-          'page': CreatePasswordScreen(),
-          'title': 'Create Password Page',
-        },
-        {
-          'page': UserTickets(),
-          'title': 'User Tickets Page',
-        },
-        {
-          'page': UserProfileScreen(),
-          'title': 'User Profile Page',
-        },
-      ];
-    } else {
-      _pages = [
-        {
-          'page': LandingScreen(),
-          'title': 'Landing Page',
-        },
-        {
-          'page': CreatePasswordScreen(),
-          'title': 'Create Password Page',
-        },
-        {
-          'page': UserTickets(),
-          'title': 'User Tickets Page',
-        },
-        {
-          'page': ProfileScreen(),
-          'title': 'Profile Page',
-        },
-      ];
-    }
+  @override
+  void initState() {
+    _pages = [
+      {
+        'page': LandingScreen(),
+        'title': 'Landing Page',
+      },
+      {
+        'page': CreatePasswordScreen(),
+        'title': 'Create Password Page',
+      },
+      {
+        'page': UserTickets(),
+        'title': 'User Tickets Page',
+      },
+      {
+        'page': MergedProfileScreen(),
+        'title': 'Profile Page',
+      },
+    ];
+    super.initState();
   }
 
-  // @override
-  // void initState() {
-  //   _pages = [
-  //     {
-  //       'page': LandingScreen(),
-  //       'title': 'Landing Page',
-  //     },
-  //     {
-  //       'page': CreatePasswordScreen(),
-  //       'title': 'Create Password Page',
-  //     },
-  //     {
-  //       'page': UserTickets(),
-  //       'title': 'User Tickets Page',
-  //     },
-  //     {
-  //       'page': ProfileScreen(),
-  //       'title': 'Profile Page',
-  //     },
-  //   ];
-  //   super.initState();
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
   // }
-
-  void didChangeDependencies() {
-    final userProvider = Provider.of<UserProvider>(context);
-    _buildPages(userProvider.isAuth);
-    super.didChangeDependencies();
-  }
 
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
+      // if (Auth == true && index == 3) {
+      //   _selectedPageIndex = 4;
+      // }
+      // print(_selectedPageIndex);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
+    //final userProv = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: _pages[_selectedPageIndex]['page'] as Widget,
