@@ -6,13 +6,13 @@ import '../models/user.dart';
 import '../requests/routes_api.dart';
 
 class UserProvider with ChangeNotifier {
-  late String? token;
+  late String token = 'null';
   late User user;
   //late DateTime tokenTime;
 
   bool get isAuth {
     //you call it to check whether the user logged in or not
-    return token != null;
+    return token != 'null';
   }
 
   // String? get token {
@@ -51,11 +51,18 @@ class UserProvider with ChangeNotifier {
         token = jsonResponse['token'];
         //tokenTime = DateTime.now();
         user = User.fromJson(jsonResponse['user']);
+        notifyListeners();
         return 4;
       }
     } catch (error) {
       print('Error while logining in: $error');
       throw 'Failed to login';
     }
+  }
+
+  //Logout function
+  Future<void> logout() async {
+    token = 'null';
+    notifyListeners();
   }
 }
