@@ -12,6 +12,7 @@ class UserProvider with ChangeNotifier {
 
   bool get isAuth {
     //you call it to check whether the user logged in or not
+    notifyListeners();
     return token != 'null';
   }
 
