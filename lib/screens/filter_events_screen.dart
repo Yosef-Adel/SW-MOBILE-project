@@ -56,38 +56,25 @@ class FilterEventsScreen extends StatelessWidget {
                       'I\'m interested in...',
                       style: TextStyle(fontSize: 12),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      child: Wrap(
-                        spacing: 5.0,
-                        runSpacing: 5.0,
-                        children: <Widget>[
-                          ListView.builder(
-                            itemBuilder: (context, index) {
-                              return CategoryFilterChip(
-                                  chipName: '${categories[index].name}',
-                                  index: index,
-                                  selectedCategories: selectedCategories);
-                            },
-                            shrinkWrap: true,
-                            itemCount: categories.length,
-                          ),
-                        ],
+                SizedBox(
+                    width: double.infinity,
+                    child: Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      direction: Axis.horizontal,
+                      spacing: 7.0,
+                      //runSpacing: 5.0,
+                      children: List.generate(
+                        categories.length,
+                        (index) {
+                          return CategoryFilterChip(
+                              chipName: '${categories[index].name}',
+                              index: index,
+                              selectedCategories: selectedCategories);
+                        },
                       ),
                     ),
                   ),
-                ),
-                // Material(
-                //   child: CheckboxListTile(
-                //     title: const Text('Charity & Causes'),
-                //     value: filtersData.filters['CharityAndCauses'],
-                //     onChanged: (bool? value) =>
-                //         filtersData.setCharityAndCausesFilter(value!),
-                //   ),
-                // ),
+           
                 Expanded(
                   child: Align(
                     alignment: Alignment.bottomCenter,

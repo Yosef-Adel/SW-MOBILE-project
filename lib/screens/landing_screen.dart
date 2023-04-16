@@ -112,8 +112,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 Flexible(
                   child: ElevatedButton(
                       onPressed: () => Navigator.of(context)
-                          .pushReplacementNamed(
-                              TimeFilterEventsScreen.routeName),
+                          .pushNamed(TimeFilterEventsScreen.routeName),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
