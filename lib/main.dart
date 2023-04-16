@@ -10,6 +10,7 @@
 
 import 'package:envie_cross_platform/providers/user_provider.dart';
 
+import 'providers/categories_provider.dart';
 import 'providers/events_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
@@ -46,8 +47,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: UserProvider(),
         ),
+        ChangeNotifierProvider.value(value: TicketsProvider()),
         ChangeNotifierProvider.value(
-          value: TicketsProvider()
+          value: CategoriesProvider(),
         ),
       ],
       child: MaterialApp(

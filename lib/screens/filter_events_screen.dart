@@ -7,6 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/category.dart';
+import '../providers/categories_provider.dart';
 import 'tabs_screen.dart';
 import '../providers/events_provider.dart';
 import '../widgets/category_filter_chip_widget.dart';
@@ -16,8 +18,12 @@ class FilterEventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filtersData = Provider.of<EventsProvider>(context);
-    final filters = filtersData.filters;
+    final List<Category> categories =
+        Provider.of<CategoriesProvider>(context).allCategories;
+    List<bool> selectedCategories = [];
+    for (var _ in categories) {
+      selectedCategories.add(false);
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blue),
@@ -56,39 +62,21 @@ class FilterEventsScreen extends StatelessWidget {
                         spacing: 5.0,
                         runSpacing: 5.0,
                         children: <Widget>[
-                          CategoryFilterChip(chipName: 'All'),
-                          CategoryFilterChip(chipName: 'Music'),
-                          CategoryFilterChip(chipName: 'Food & Drink'),
-                          CategoryFilterChip(chipName: 'Charity & Causes'),
+                          ListView.builder(
+                            itemBuilder: (context, index) {
+                              return CategoryFilterChip(
+                                  chipName: '${categories[index].name}',
+                                  index: index,
+                                  selectedCategories: selectedCategories);
+                            },
+                            shrinkWrap: true,
+                            itemCount: categories.length,
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                // Material(
-                //   child: CheckboxListTile(
-                //     title: const Text('All'),
-                //     value: filtersData.filters['All'],
-                //     onChanged: (bool? value) =>
-                //         filtersData.setAllFilter(value!),
-                //   ),
-                // ),
-                // Material(
-                //   child: CheckboxListTile(
-                //     title: const Text('Music'),
-                //     value: filtersData.filters['Music'],
-                //     onChanged: (bool? value) =>
-                //         filtersData.setMusicFilter(value!),
-                //   ),
-                // ),
-                // Material(
-                //   child: CheckboxListTile(
-                //     title: const Text('Food & Drink'),
-                //     value: filtersData.filters['FoodAndDrink'],
-                //     onChanged: (bool? value) =>
-                //         filtersData.setFoodAndDrinkFilter(value!),
-                //   ),
-                // ),
                 // Material(
                 //   child: CheckboxListTile(
                 //     title: const Text('Charity & Causes'),
@@ -102,6 +90,8 @@ class FilterEventsScreen extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton(
                       onPressed: () {
+                        Provider.of<CategoriesProvider>(context, listen: false)
+                            .setAllFilters(selectedCategories);
                         Navigator.of(context)
                             .pushReplacementNamed(TabsScreen.routeName);
                       },

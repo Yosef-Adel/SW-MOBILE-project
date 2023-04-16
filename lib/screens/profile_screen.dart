@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
-import '../requests/get_all_events_api.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override

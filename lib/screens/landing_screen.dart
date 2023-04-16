@@ -5,9 +5,7 @@
 ///The TextField widget is used to allow the user to search for events. The Row widget contains a Text widget and a FilterEventsScreen widget. The Text widget is used to display the text 'Filter by'. The FilterEventsScreen widget is used to allow the user to filter the events by category. The EventList widget is used to display the list of events.
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/events_provider.dart';
+import '../requests/get_categories_api.dart';
 import 'filter_events_screen.dart';
 import '../widgets/events_list_widget.dart';
 
@@ -18,12 +16,10 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   final TextEditingController _searchController = TextEditingController();
-  String dropdownValue = 'In my current Location';
+  String? dropdownValue = 'In my current Location';
 
   @override
   Widget build(BuildContext context) {
-    final eventsData = Provider.of<EventsProvider>(context);
-    final events = eventsData.filteredEvents;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -89,8 +85,11 @@ class _LandingScreenState extends State<LandingScreen> {
               children: [
                 Flexible(
                   child: ElevatedButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(FilterEventsScreen.routeName),
+                      onPressed: () async {
+                        await getAllCategories(context).then((_) =>
+                            Navigator.of(context)
+                                .pushNamed(FilterEventsScreen.routeName));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -131,20 +130,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ],
             ),
           ),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 10.0),
-            child: Text(events.length.toString() + ' events',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                )),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.8,
-            padding: EdgeInsets.only(bottom: 150),
-            child: EventsList(),
-          ),
+          EventsList(),
         ],
       ),
     );

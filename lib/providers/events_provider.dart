@@ -32,16 +32,7 @@ class EventsProvider with ChangeNotifier {
     return {..._filters};
   }
 
-//   void clearFilters() {
-//     _filters = {
-//       'All': true,
-//       'Music': false,
-//       'FoodAndDrink': false,
-//       'CharityAndCauses': false,
-//     };
-//     refreshFilteredEvents();
-//     notifyListeners();
-//   }
+
 
 //   void setAllFilter(bool value) {
 //     _filters['All'] = value;
@@ -67,11 +58,7 @@ class EventsProvider with ChangeNotifier {
 //     notifyListeners();
 //   }
 
-//   void setFilters(Map<String, bool> filterData) {
-//     _filters = filterData;
-//     refreshFilteredEvents();
-//     notifyListeners();
-//   }
+  
 
 //   void refreshFilteredEvents() {
 //     _filteredEvents = _allEvents.where((event) {
