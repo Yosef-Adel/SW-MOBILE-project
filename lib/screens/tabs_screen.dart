@@ -23,47 +23,47 @@ class _TabsScreenState extends State<TabsScreen> {
   late List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
 
-  void _buildPages(bool isAuth) {
-    if (isAuth) {
-      _pages = [
-        {
-          'page': LandingScreen(),
-          'title': 'Landing Page',
-        },
-        {
-          'page': CreatePasswordScreen(),
-          'title': 'Create Password Page',
-        },
-        {
-          'page': "",
-          'title': 'Creators Events Page',
-        },
-        {
-          'page': UserProfileScreen(),
-          'title': 'User Profile Page',
-        },
-      ];
-    } else {
-      _pages = [
-        {
-          'page': LandingScreen(),
-          'title': 'Landing Page',
-        },
-        {
-          'page': CreatePasswordScreen(),
-          'title': 'Create Password Page',
-        },
-        {
-          'page': "",
-          'title': 'Creators Events Page',
-        },
-        {
-          'page': ProfileScreen(),
-          'title': 'Profile Page',
-        },
-      ];
-    }
-  }
+  // void _buildPages(bool isAuth) {
+  //   if (isAuth) {
+  //     _pages = [
+  //       {
+  //         'page': LandingScreen(),
+  //         'title': 'Landing Page',
+  //       },
+  //       {
+  //         'page': CreatePasswordScreen(),
+  //         'title': 'Create Password Page',
+  //       },
+  //       {
+  //         'page': "",
+  //         'title': 'Creators Events Page',
+  //       },
+  //       {
+  //         'page': UserProfileScreen(),
+  //         'title': 'User Profile Page',
+  //       },
+  //     ];
+  //   } else {
+  //     _pages = [
+  //       {
+  //         'page': LandingScreen(),
+  //         'title': 'Landing Page',
+  //       },
+  //       {
+  //         'page': CreatePasswordScreen(),
+  //         'title': 'Create Password Page',
+  //       },
+  //       {
+  //         'page': "",
+  //         'title': 'Creators Events Page',
+  //       },
+  //       {
+  //         'page': ProfileScreen(),
+  //         'title': 'Profile Page',
+  //       },
+  //     ];
+  //   }
+  // }
 
   @override
   void initState() {
@@ -86,11 +86,13 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     ];
     super.initState();
-  void didChangeDependencies() {
-    final userProvider = Provider.of<UserProvider>(context);
-    _buildPages(userProvider.isAuth);
-    super.didChangeDependencies();
   }
+
+  // void didChangeDependencies() {
+  //   final userProvider = Provider.of<UserProvider>(context);
+  //   _buildPages(userProvider.isAuth);
+  //   super.didChangeDependencies();
+  // }
 
   void _selectPage(int index) {
     setState(() {
