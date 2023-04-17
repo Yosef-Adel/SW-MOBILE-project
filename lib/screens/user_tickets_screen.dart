@@ -7,12 +7,14 @@ class UserTickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          SizedBox(height: 40),
-          Text('Tickets',
-              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40)),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 30.0),
+        child: Column(
+          children: [
+            Text('Tickets',
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40)),
+          ],
+        ),
       ),
     );
   }

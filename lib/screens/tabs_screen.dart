@@ -32,10 +32,6 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Landing Page',
       },
       {
-        'page': CreatePasswordScreen(),
-        'title': 'Create Password Page',
-      },
-      {
         'page': UserTickets(),
         'title': 'User Tickets Page',
       },
@@ -47,17 +43,9 @@ class _TabsScreenState extends State<TabsScreen> {
     super.initState();
   }
 
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  // }
-
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
-      // if (Auth == true && index == 3) {
-      //   _selectedPageIndex = 4;
-      // }
-      // print(_selectedPageIndex);
     });
   }
 
@@ -91,12 +79,6 @@ class _TabsScreenState extends State<TabsScreen> {
               activeIcon: Icon(Icons.confirmation_num_outlined,
                   color: Color(0xFFD1410C)),
             ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.event_outlined,
-                    color: Color.fromARGB(136, 27, 27, 27)),
-                label: '',
-                activeIcon:
-                    Icon(Icons.event_outlined, color: Color(0xFFD1410C))),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person_2_outlined,
                     color: Color.fromARGB(136, 27, 27, 27)),
