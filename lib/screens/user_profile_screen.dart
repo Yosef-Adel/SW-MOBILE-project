@@ -1,7 +1,7 @@
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../screens/creator_view.dart';
 import '../providers/user_provider.dart';
 import '../requests/logout_api.dart';
 
@@ -68,7 +68,6 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                
                       IconButton(
                         icon: Icon(Icons.edit),
                         color: Color.fromARGB(255, 2, 46, 112),
@@ -90,9 +89,12 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     children: [
                       Expanded(child: _buildCountColumn('Likes', _likesCount)),
                       const VerticalDivider(),
-                      Expanded(child: _buildCountColumn('Tickets', _ticketsCount)),
+                      Expanded(
+                          child: _buildCountColumn('Tickets', _ticketsCount)),
                       const VerticalDivider(),
-                      Expanded(child: _buildCountColumn('Following', _followingCount)),
+                      Expanded(
+                          child:
+                              _buildCountColumn('Following', _followingCount)),
                     ],
                   ),
                 ],
@@ -101,7 +103,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
           ),
           Container(
             padding:
-                const EdgeInsets.only(top: 0, bottom: 20, left: 20, right: 20),
+                const EdgeInsets.only(top: 0, bottom: 50, left: 20, right: 20),
             color: Colors.grey[200],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,20 +137,22 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     alignment: Alignment.center,
                   ),
                   onPressed: () {
-                    if (isCreator != null)
-                      (isCreator == true)
-                          ? () {
-                              // Navigator.of(context).pushReplacementNamed(
-                              //     CreatorDrawer.routeName);
-                            }
-                          : () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'You are not registered as a creator'),
-                                ),
-                              );
-                            };
+                    print(isCreator);
+                    if (isCreator != null) {
+                      if (isCreator == true) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(CreatorView.routeName);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('You are not registered as a creator'),
+                          ),
+                        );
+                      }
+                    } else {
+                      print('isCreator = null');
+                    }
                   },
                   child: Text('Manage Events'),
                 ),

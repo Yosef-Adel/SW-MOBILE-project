@@ -28,6 +28,11 @@ import 'dart:io';
 import 'screens/tickets_screen.dart';
 import 'providers/ticket_provider.dart';
 import 'screens/time_filter_events_screen.dart';
+import 'screens/creator_view.dart';
+import 'screens/creator_tickets.dart';
+import 'screens/creator_dashboard.dart';
+import 'screens/creator_publish.dart';
+import 'screens/creator_manage_attendees.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,6 +79,11 @@ class MyApp extends StatelessWidget {
           FilterEventsScreen.routeName: (ctx) => FilterEventsScreen(),
           TicketsScreen.routeName: (ctx) => TicketsScreen(),
           TimeFilterEventsScreen.routeName: (ctx) => TimeFilterEventsScreen(),
+          CreatorView.routeName: (ctx) => CreatorView(),
+          CreatorTickets.routeName: (ctx) => CreatorTickets(),
+          CreatorDashboard.routeName: (ctx) => CreatorDashboard(),
+          CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
+          CreatorPublish.routeName: (ctx) => CreatorPublish(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
