@@ -37,7 +37,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 if (_searchController.text == searchForText)
                   _searchController.clear();
               },
-              onSubmitted: (value) => setState(() {
+              onSubmitted: (_) => setState(() {
                 choice = false;
               }),
               controller: _searchController,
