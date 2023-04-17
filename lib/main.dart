@@ -33,6 +33,7 @@ import 'screens/creator_tickets.dart';
 import 'screens/creator_dashboard.dart';
 import 'screens/creator_publish.dart';
 import 'screens/creator_manage_attendees.dart';
+import 'screens/check_out_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
           CreatorDashboard.routeName: (ctx) => CreatorDashboard(),
           CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
+           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

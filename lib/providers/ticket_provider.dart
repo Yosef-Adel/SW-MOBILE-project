@@ -5,22 +5,29 @@ import '../models/ticket.dart';
 import '../dummy_tickets.dart';
 
 class TicketsProvider with ChangeNotifier {
-  final List<Ticket> _tickets = dummyTickets;
+ List<Ticket> _tickets = [];
+
+  // TicketsProvider(List<Ticket> tickets) {
+  //   this._tickets = tickets;
+  //   notifyListeners();
+  // }
+
+  set setTickets(List<Ticket> tickets) {
+    _tickets = tickets;
+    notifyListeners();
+  }
+
+  void upgradeCount(int index, int counter) {
+    _tickets[index].count = counter;
+    notifyListeners();
+  }
+
+  void discountPrice(int index, int discount) {
+    _tickets[index].price =(_tickets[index].price*(discount / 100)).ceil();
+    notifyListeners();
+  }
 
   List<Ticket> get allTickets {
     return [..._tickets];
   }
 }
-
-
-
-// const url ="endpoint+verb"
-
-//post request
-///http.post(url,body: json.encode{
-///  */map*/
-///   'key': value
-///}).then((response){
-///  print(json.decode(response.body))
-///  // code to be executed on response // then function in future  
-///})

@@ -1,11 +1,14 @@
+import 'package:envie_cross_platform/models/ticket.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/ticket_provider.dart';
 import 'counter.dart';
 
 class TicketContainer extends StatefulWidget {
-  final String title;
-  final String description;
+  Ticket ticket;
+  int ticketIndex;
 
-  TicketContainer({Key? key, required this.title, required this.description})
+    TicketContainer({Key? key, required this.ticket, required this.ticketIndex})
       : super(key: key);
 
   @override
@@ -16,6 +19,7 @@ class _TicketContainerState extends State<TicketContainer> {
   int _count = 0;
   @override
   Widget build(BuildContext context) {
+    List<Ticket> tickets = Provider.of<TicketsProvider>(context,listen: false).allTickets;
     return Container(
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.all(10),
@@ -27,22 +31,33 @@ class _TicketContainerState extends State<TicketContainer> {
           title: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Text(
-              widget.title,
+               widget.ticket.name,
               style: TextStyle(
                 overflow: TextOverflow.ellipsis,
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          subtitle: Text(
-            widget.description,
-            style: TextStyle(
-              fontSize: 16,
-            ),
+          subtitle:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'price: ${widget.ticket.price.toString()}',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(widget.ticket.decription),
+            ],
           ),
           trailing:
-              HorizontalCounter(initialValue: 0, minValue: 0, maxValue: 10),
+               HorizontalCounter(
+              initialValue: 0,
+              minValue: 0,
+              maxValue: 10,
+              index: widget.ticketIndex),
           horizontalTitleGap: BorderSide.strokeAlignCenter,
         ));
   }

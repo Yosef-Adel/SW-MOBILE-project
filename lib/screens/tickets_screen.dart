@@ -1,13 +1,60 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import '../widgets/tickets_list_widget.dart';
+import 'package:envie_cross_platform/models/ticket.dart';
+import 'package:envie_cross_platform/providers/ticket_provider.dart';
+import 'package:provider/provider.dart';
+import 'check_out_screen.dart';
+import '../requests/check_valid_promo.dart';
 
-class TicketsScreen extends StatelessWidget {
+class TicketsScreen extends StatefulWidget {
   static const routeName = '/ticket-details';
+
+  @override
+  State<TicketsScreen> createState() => _TicketsScreenState();
+}
+
+class _TicketsScreenState extends State<TicketsScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String _promoCode = '';
   final TextEditingController _promoCodeController = TextEditingController();
+
+  void goToCheckOutScreen(BuildContext ctx, String eventId, String promoCode) {
+    Navigator.of(ctx).pushNamed(CheckOutScreen.routeName,
+        arguments: {'eventId': eventId, 'promoCodeId': promoCode});
+  }
+
+    Future<List<Object>> checkPromoCode(
+      BuildContext ctx, String promoCode, String eventId) async {
+    print(eventId);
+    print(promoCode);
+    List<Object> isPromoCodeValid = await checkPromo(ctx, promoCode, eventId);
+    print(isPromoCodeValid[0]);
+    return isPromoCodeValid;
+  }
+
+   bool ticketSelected(List<Ticket> tickets) {
+    int counter = 0;
+    int size = tickets.length;
+    print('size of list: ${size}');
+    for (int i = 0; i < size; ++i) {
+      if (tickets[i].count == 0) {
+        counter++;
+      }
+    }
+    print('counter: ${counter}');
+    if (counter == size) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      String _promoCodeId = "";   
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(0, 0, 0, 1),
@@ -27,9 +74,18 @@ class TicketsScreen extends StatelessWidget {
         decoration: BoxDecoration(color: Colors.white),
         margin: const EdgeInsets.all(10),
         child: ElevatedButton(
-          onPressed: () => {},
+           onPressed: () {
+            // bool thereIsATicketSelected = ticketSelected(ticketsList);
+            if (true) {
+              goToCheckOutScreen(
+                  context, eventTicketDetails['eventId']!, _promoCodeId);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('There is no tickets selected')));
+            }
+          },
           child: const Center(
-            child: Text('Register'),
+            child: Text('Checkout'),  
           ),
         ),
       ),
@@ -45,7 +101,7 @@ class TicketsScreen extends StatelessWidget {
           )),
           padding: EdgeInsets.all(20),
           child: Center(
-            child: Column(
+            child: Column(  
               children: [
                 Text(
                   eventTicketDetails['eventTitle']!,
@@ -63,14 +119,22 @@ class TicketsScreen extends StatelessWidget {
           child: Card(
             child: Stack(
               children: [
-                TextField(
-                  controller: _promoCodeController,
-                  decoration: InputDecoration(
-                    labelText: 'Promo Code',
-                    border: OutlineInputBorder(),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    hintText: 'Enter code here',
+                 Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    controller: _promoCodeController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "please enter a promocode";
+                      }
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Promo Code',
+                      border: OutlineInputBorder(),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                      hintText: 'Enter code here',
+                    ),
                   ),
                 ),
                 Positioned(
@@ -82,8 +146,20 @@ class TicketsScreen extends StatelessWidget {
                         elevation: MaterialStateProperty.all(0),
                         foregroundColor: MaterialStateProperty.all<Color>(
                             Color.fromARGB(255, 92, 90, 90))),
-                    onPressed: () {
-                      // Add your apply button logic here
+                     onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final List<Object> isPromoCode = await checkPromo(
+                            context,
+                            _promoCodeController.text,
+                            eventTicketDetails['eventId']);
+
+                        _promoCodeId = isPromoCode[1].toString();
+
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: (isPromoCode[0] == true)
+                                ? Text('Promo Code will be applied')
+                                : Text('Invalid Promocode')));
+                      }
                     },
                     child: Text('Apply'),
                   ),
@@ -93,8 +169,8 @@ class TicketsScreen extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height*0.7,
-          child: TicketInfo(),
+        height: MediaQuery.of(context).size.height * 0.7,
+          child: TicketInfo(eventTicketDetails['eventId']!),  
         )
       ])),
     );

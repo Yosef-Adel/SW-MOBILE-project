@@ -1,14 +1,28 @@
 class Ticket {
   final String id;
-  final String title;
+  final String eventId;
+  final String name;
   final String decription;
-  final double price;
-  final int count;
+  int price;
+  int count;
 
-  const Ticket(
+
+  Ticket(
       {required this.id,
-      required this.title,
+      required this.name,
+      required this.eventId,
       this.decription = "",
       required this.price,
       this.count = 0});
+
+    factory Ticket.fromJson(Map<String, dynamic> json) {
+    return Ticket(
+        id: json['_id'],
+        name: json['name'],
+        price: json['price'],
+        eventId: json['event']);
+  }
+  void upgradeCount(int counter) {
+    count = counter;
+  }   
 }
