@@ -30,29 +30,60 @@ Future<LocationData?> getLocation() async {
   }
   LocationData _locationData;
   _locationData = await location.getLocation();
-  print(_locationData.latitude);
-  print(_locationData.longitude);
+  //print(_locationData.latitude);
+  //print(_locationData.longitude);
   return _locationData;
 }
 
 Future<List<Event>> getEvents(BuildContext context) async {
-  String? categoryID = Provider.of<CategoriesProvider>(context, listen: false)
-      .selectedCategoryID;
+  String? categoryName = Provider.of<CategoriesProvider>(context, listen: false)
+      .selectedCategoryName;
+  String? selectedTimeCategory =
+      Provider.of<CategoriesProvider>(context, listen: false)
+          .selectedTimeCategory;
   LocationData? geoLocation = await getLocation();
-  final url;
-  if (geoLocation?.latitude != null && geoLocation?.longitude != null) {
-    if (categoryID != null)
-      url = Uri.parse(
-          '${RoutesAPI.getEvents}?category=${categoryID}&lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}');
-    else
-      url = Uri.parse(
-          '${RoutesAPI.getEvents}?lat=${geoLocation?.latitude}&lng=${geoLocation?.longitude}');
-  } else {
-    if (categoryID != null)
-      url = Uri.parse('${RoutesAPI.getEvents}?category=${categoryID}');
-    else
-      url = Uri.parse('${RoutesAPI.getEvents}');
+  bool isOnCategory =
+      Provider.of<CategoriesProvider>(context, listen: false).isOnlineCategory;
+
+  final String baseUrl = '${RoutesAPI.getEvents}';
+  String queryString = '';
+
+  // Conditionally add each parameter to the query string
+  if (categoryName != null) {
+    if (queryString.isNotEmpty) {
+      queryString += '&';
+    } else {
+      queryString += '?';
+    }
+    queryString += 'category=$categoryName';
   }
+
+  if (isOnCategory == true) {
+    if (queryString.isNotEmpty) {
+      queryString += '&';
+    } else {
+      queryString += '?';
+    }
+    queryString += 'isOnline=$isOnCategory';
+  } else if (geoLocation != null) {
+    if (queryString.isNotEmpty) {
+      queryString += '&';
+    } else {
+      queryString += '?';
+    }
+    queryString += 'lat=${geoLocation.latitude}&lng=${geoLocation.longitude}';
+  }
+
+  if (selectedTimeCategory != null) {
+    if (queryString.isNotEmpty) {
+      queryString += '&';
+    } else {
+      queryString += '?';
+    }
+    queryString += 'time=$selectedTimeCategory';
+  }
+  print(baseUrl + queryString);
+  Uri url = Uri.parse(baseUrl + queryString);
   final headers = {'Content-Type': 'application/json'};
   try {
     final response = await http.get(
@@ -61,16 +92,13 @@ Future<List<Event>> getEvents(BuildContext context) async {
     );
     final jsonResponse = json.decode(response.body);
     //print('Response: ${jsonResponse}');
-    print(url);
-    //print('${jsonResponse['events']}');
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
     if (responseStatus == 200) {
-      for (var eventDict in jsonResponse['events']) {
+      for (var eventDict in jsonResponse) {
         eventsList.add(Event.fromJson(eventDict));
       }
       return eventsList;
-      //Provider.of<EventsProvider>(context, listen: false).AllEvents = eventsList;
     }
     return [];
   } catch (error) {

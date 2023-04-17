@@ -15,7 +15,6 @@ class EventsProvider with ChangeNotifier {
 
   set allEvents(List<Event> events) {
     _allEvents = events;
-    //refreshFilteredEvents();
     notifyListeners();
   }
 

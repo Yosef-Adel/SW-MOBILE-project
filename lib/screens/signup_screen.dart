@@ -40,13 +40,17 @@ class SignupScreenState extends State<SignupScreen> {
       'emailAddress': emailAddress,
       'password': password,
     });
+    print(url);
+    print(headers);
+    print(body);
     try {
       final response = await http.post(
         url,
         headers: headers,
         body: body,
       );
-
+      print("Response status: ${response.statusCode}");
+      print("==========================================");
       final jsonResponse = json.decode(response.body);
       final message = jsonResponse['message'];
       if (message == "Check your email for verification.") {

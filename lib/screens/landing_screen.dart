@@ -4,7 +4,9 @@
 ///The SingleChildScrollView widget takes a child widget as an argument. In this case, the child widget is a Column widget. The Column widget takes a list of widgets as an argument. In this case, the list contains a SizedBox widget, a TextField widget, a Row widget and an EventList widget. The SizedBox widget is used to add some space between the top of the screen and the TextField widget.
 ///The TextField widget is used to allow the user to search for events. The Row widget contains a Text widget and a FilterEventsScreen widget. The Text widget is used to display the text 'Filter by'. The FilterEventsScreen widget is used to allow the user to filter the events by category. The EventList widget is used to display the list of events.
 
+import 'package:envie_cross_platform/providers/categories_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../requests/get_categories_api.dart';
 import 'filter_events_screen.dart';
 import '../widgets/events_list_widget.dart';
@@ -16,9 +18,10 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  String searchForText = 'Search for...';
   TextEditingController _searchController =
       TextEditingController(text: 'Search for...');
-  String? dropdownValue = 'In my current Location';
+  //String? dropdownValue = 'In my current Location';
   bool choice = true;
 
   @override
@@ -30,9 +33,10 @@ class _LandingScreenState extends State<LandingScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: TextField(
-              onTap: () => setState(() {
-                _searchController.text = "";
-              }),
+              onTap: () {
+                if (_searchController.text == searchForText)
+                  _searchController.clear();
+              },
               onSubmitted: (value) => setState(() {
                 choice = false;
               }),
@@ -44,11 +48,14 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               decoration: InputDecoration(
                 icon: Icon(Icons.search),
-                //labelText: 'Search for...',
+                //hintText: 'Search for...',
                 suffixIcon: IconButton(
                     icon: Icon(Icons.clear),
                     onPressed: () {
-                      _searchController.clear();
+                      _searchController.text = searchForText;
+                      setState(() {
+                        choice = true;
+                      });
                     }),
               ),
             ),
@@ -60,7 +67,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 Icon(Icons.location_on, size: 20),
                 SizedBox(width: 10),
                 DropdownButton<String>(
-                  value: dropdownValue,
+                  value: Provider.of<CategoriesProvider>(context, listen: false)
+                      .locationDropDownValue,
                   elevation: 0,
                   underline: Container(
                     height: 0,
@@ -78,7 +86,15 @@ class _LandingScreenState extends State<LandingScreen> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      dropdownValue = newValue!;
+                      Provider.of<CategoriesProvider>(context, listen: false)
+                          .locationDropDownValue = newValue;
+                      (newValue == 'In my current Location')
+                          ? Provider.of<CategoriesProvider>(context,
+                                  listen: false)
+                              .isOnlineCategory = false
+                          : Provider.of<CategoriesProvider>(context,
+                                  listen: false)
+                              .isOnlineCategory = true;
                     });
                   },
                 ),

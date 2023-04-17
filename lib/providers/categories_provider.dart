@@ -5,7 +5,36 @@ import '../models/event.dart';
 // ChangeNotifier enables inherited widgets to establish commmunication channels behind the scenes
 class CategoriesProvider with ChangeNotifier {
   List<Category> _allCategories = [];
-  // String? _selectedCategoryID;
+  String? _selectedTimeCategory;
+  bool _isOnlineCategory = false;
+  String? locationDropDownValue = 'In my current Location';
+
+  set isOnlineCategory(bool isOnline) {
+    _isOnlineCategory = isOnline;
+    notifyListeners();
+  }
+
+  bool get isOnlineCategory {
+    return _isOnlineCategory;
+  }
+
+  set selectedTimeCategory(String? timeCategory) {
+    if (timeCategory != null && timeCategory == 'This Week')
+      _selectedTimeCategory = 'week';
+    else if (timeCategory != null && timeCategory == 'This Month')
+      _selectedTimeCategory = 'month';
+    else if (timeCategory != null && timeCategory == 'Today')
+      _selectedTimeCategory = timeCategory.toLowerCase();
+    else if (timeCategory != null && timeCategory == 'Tomorrow')
+      _selectedTimeCategory = timeCategory.toLowerCase();
+    else
+      _selectedTimeCategory = null;
+    notifyListeners();
+  }
+
+  String? get selectedTimeCategory {
+    return _selectedTimeCategory;
+  }
 
   set allCategories(List<Category> categories) {
     _allCategories = categories;
@@ -21,14 +50,14 @@ class CategoriesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String? get selectedCategoryID {
-    String? categoryID;
+  String? get selectedCategoryName {
+    String? categoryName;
     for (var category in _allCategories) {
       if (category.isSelected == true) {
-        categoryID = category.id;
+        categoryName = category.name;
       }
     }
-    return categoryID;
+    return categoryName;
   }
 
   void setAllFilters(List<bool> selectedCategories) {

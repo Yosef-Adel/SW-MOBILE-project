@@ -1,16 +1,29 @@
-import 'tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TimeFilterEventsScreen extends StatefulWidget {
-  const TimeFilterEventsScreen({super.key});
+import '../providers/categories_provider.dart';
+import '../widgets/time_filter_chip.dart';
+
+class TimeFilterEventsScreen extends StatelessWidget {
   static const routeName = '/time-filter-events';
+  final List<String> timeFilter = [
+    'Anytime',
+    'Today',
+    'Tomorrow',
+    'This Week',
+    'This Month'
+  ];
+  List<bool> selectedTimeCategories = [false, false, false, false, false];
 
-  @override
-  State<TimeFilterEventsScreen> createState() => _TimeFilterEventsScreenState();
-}
+  void setTimeFilters(BuildContext context) {
+    for (int i = 0; i < selectedTimeCategories.length; i++) {
+      if (selectedTimeCategories[i] == true) {
+        Provider.of<CategoriesProvider>(context, listen: false)
+            .selectedTimeCategory = timeFilter[i];
+      }
+    }
+  }
 
-class _TimeFilterEventsScreenState extends State<TimeFilterEventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,18 +36,27 @@ class _TimeFilterEventsScreenState extends State<TimeFilterEventsScreen> {
         elevation: 0,
         title: Text('When do you want to go out?'),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height * 0.85,
-            child: Column(children: [
-              OutlinedButton(
-                  onPressed: () => Navigator.of(context)
-                      .pushReplacementNamed(TabsScreen.routeName),
-                  child: Text('Today')),
-            ]),
+      body: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            direction: Axis.horizontal,
+            spacing: 5.0,
+            //runSpacing: 5.0,
+            children: List.generate(
+              timeFilter.length,
+              (index) {
+                return TimeFilterChip(
+                    chipName: '${timeFilter[index]}',
+                    index: index,
+                    selectedTimeCategories: selectedTimeCategories,
+                    funcSetTimeFilter: setTimeFilters);
+              },
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

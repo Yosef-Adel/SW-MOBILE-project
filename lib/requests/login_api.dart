@@ -28,14 +28,14 @@ Future<int> login(
     final message = jsonResponse['message'];
     if (message == "Please verify your email first.") {
       return 1;
-    } else if (message == "user nor found") {
+    } else if (message == "user not found") {
       return 2;
     } else if (message == "Password is incorrect") {
       return 3;
     } else //successful login
     {
       final jsonResponse = json.decode(response.body);
-      print(jsonResponse['user']);
+      //print(jsonResponse['user']);
       Provider.of<UserProvider>(context, listen: false).token =
           jsonResponse['token'];
       Provider.of<UserProvider>(context, listen: false).user =

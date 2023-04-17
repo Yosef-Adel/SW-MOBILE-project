@@ -10,13 +10,13 @@ class User {
   bool? isCreator;
 
   User({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.emailAddress,
-    this.password,
-    this.isVerified,
-    this.isCreator,
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.emailAddress,
+    required this.password,
+    required this.isVerified,
+    required this.isCreator,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {

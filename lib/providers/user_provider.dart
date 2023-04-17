@@ -12,7 +12,6 @@ class UserProvider with ChangeNotifier {
   bool _isAuth = false;
 
   String? get token {
-    print('Token is: $_token');
     return _token;
   }
 
@@ -22,7 +21,6 @@ class UserProvider with ChangeNotifier {
   }
 
   bool get isAuth {
-    print('isAuth is: $_isAuth');
     return _isAuth;
   }
 
@@ -37,7 +35,6 @@ class UserProvider with ChangeNotifier {
   }
 
   User get user {
-    print('User is: $_user');
     return _user;
   }
 }
