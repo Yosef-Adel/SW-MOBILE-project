@@ -95,7 +95,7 @@ Future<List<Event>> getEvents(BuildContext context) async {
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
     if (responseStatus == 200) {
-      for (var eventDict in jsonResponse) {
+      for (var eventDict in jsonResponse['events']) {
         eventsList.add(Event.fromJson(eventDict));
       }
       return eventsList;
