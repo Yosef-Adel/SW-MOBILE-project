@@ -119,14 +119,32 @@ class _LandingScreenState extends State<LandingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(Icons.tune, size: 20),
-                          Text('Filters', style: TextStyle(fontSize: 12)),
+                          Text(
+                              Provider.of<CategoriesProvider>(context,
+                                          listen: false)
+                                      .isCategorySelected
+                                  ? Provider.of<CategoriesProvider>(context,
+                                          listen: false)
+                                      .selectedCategoryName!
+                                  : 'Filters',
+                              style: TextStyle(fontSize: 12)),
                           Icon(Icons.arrow_drop_down_outlined),
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
-                        backgroundColor: Color.fromARGB(255, 192, 200, 231),
-                        foregroundColor: Colors.black,
+                        backgroundColor: Provider.of<CategoriesProvider>(
+                                    context,
+                                    listen: false)
+                                .isCategorySelected
+                            ? Color.fromARGB(255, 64, 94, 211)
+                            : Color.fromARGB(255, 192, 200, 231),
+                        foregroundColor: Provider.of<CategoriesProvider>(
+                                    context,
+                                    listen: false)
+                                .isCategorySelected
+                            ? Colors.white
+                            : Colors.black,
                         // fixedSize:
                         //     Size(MediaQuery.of(context).size.width * 0.4, 40),
                         alignment: Alignment.center,
@@ -141,14 +159,33 @@ class _LandingScreenState extends State<LandingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(Icons.calendar_today_outlined, size: 15),
-                          Text('Anytime', style: TextStyle(fontSize: 12)),
+                          Text(
+                              Provider.of<CategoriesProvider>(context,
+                                          listen: false)
+                                      .isTimeCategorySelected
+                                  ? Provider.of<CategoriesProvider>(context,
+                                          listen: false)
+                                      .selectedTimeCategory!
+                                      .toUpperCase()
+                                  : 'Anytime',
+                              style: TextStyle(fontSize: 12)),
                           Icon(Icons.arrow_drop_down_outlined),
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
-                        backgroundColor: Color.fromARGB(255, 192, 200, 231),
-                        foregroundColor: Colors.black,
+                        backgroundColor: Provider.of<CategoriesProvider>(
+                                    context,
+                                    listen: false)
+                                .isTimeCategorySelected
+                            ? Color.fromARGB(255, 64, 94, 211)
+                            : Color.fromARGB(255, 192, 200, 231),
+                        foregroundColor: Provider.of<CategoriesProvider>(
+                                    context,
+                                    listen: false)
+                                .isTimeCategorySelected
+                            ? Colors.white
+                            : Colors.black,
                         //fixedSize: Size(125, 40),
                         alignment: Alignment.center,
                       )),

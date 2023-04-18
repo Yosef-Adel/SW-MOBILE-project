@@ -42,9 +42,7 @@ class TimeFilterEventsScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Wrap(
             alignment: WrapAlignment.start,
-            direction: Axis.horizontal,
-            spacing: 5.0,
-            //runSpacing: 5.0,
+            direction: Axis.vertical,
             children: List.generate(
               timeFilter.length,
               (index) {

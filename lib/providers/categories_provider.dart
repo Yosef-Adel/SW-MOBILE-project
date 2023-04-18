@@ -36,6 +36,10 @@ class CategoriesProvider with ChangeNotifier {
     return _selectedTimeCategory;
   }
 
+  bool get isTimeCategorySelected {
+    return _selectedTimeCategory != null;
+  }
+
   set allCategories(List<Category> categories) {
     _allCategories = categories;
     notifyListeners();
@@ -58,6 +62,16 @@ class CategoriesProvider with ChangeNotifier {
       }
     }
     return categoryName;
+  }
+
+  bool get isCategorySelected {
+    bool isCategorySelected = false;
+    for (var category in _allCategories) {
+      if (category.isSelected == true) {
+        isCategorySelected = true;
+      }
+    }
+    return isCategorySelected;
   }
 
   void setAllFilters(List<bool> selectedCategories) {
