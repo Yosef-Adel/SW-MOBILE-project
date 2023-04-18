@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/ticket.dart';
 import '../providers/ticket_provider.dart';
 import 'ticket_card.dart';
 import '../requests/get_all_tickets_api.dart';
@@ -13,12 +14,20 @@ class TicketInfo extends StatefulWidget {
 }
 
 class _TicketInfoState extends State<TicketInfo> {
+   late Future<List<Ticket>> _ticketsFuture;
+  @override
+  void initState() {
+    super.initState();
+    _ticketsFuture = getAllTicketsForAnEvent(context, widget.eventId);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final ticketsData = Provider.of<TicketsProvider>(context).allTickets;
     // print(ticketsData);
     return FutureBuilder(
-        future: getAllTicketsForAnEvent(context, widget.eventId),
+        future: _ticketsFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             print('loading');

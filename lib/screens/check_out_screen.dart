@@ -1,4 +1,3 @@
-
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import '../widgets/app_bar.dart';
 import '../models/ticket.dart';
 import '../requests/routes_api.dart';
 import 'dart:convert';
+import '../providers/user_provider.dart';
 
 class CheckOutScreen extends StatefulWidget {
   static const routeName = '/check-out';
@@ -29,7 +29,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       required String email,
       required List<Ticket> tickets,
       required String eventId,
-      required String token,
+      String? token,
       required String promoCodeId}) async {
     final url = Uri.parse('${RoutesAPI.placeOrder}${eventId}');
     print(url);
@@ -60,14 +60,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         'email': email
       });
     } else {
-       body = json.encode({
+      body = json.encode({
         'ticketsBought': ticketsBought,
-        'promocode':promoCodeId,
+        'promocode': promoCodeId,
         'firstName': firstname,
         'lastName': lastname,
         'email': email
       });
-
     }
 
     print(body);
@@ -144,7 +143,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     var ticketsProv = Provider.of<TicketsProvider>(context, listen: false);
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-
+    var usrtoken = Provider.of<UserProvider>(context,listen: false).token;
     return Scaffold(
         appBar: MyAppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -162,7 +161,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     tickets: ticketsProv.allTickets,
                     eventId: eventTicketDetails['eventId']!,
                     token:
-                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNWI3ZmE3MjhlOGQ1M2Q4M2IwYzUiLCJpYXQiOjE2ODE2ODEwMTMsImV4cCI6MTY4MTc2NzQxM30.nL--R8iDUscteZTfMaD_4DZWdpvKLwuZW6qKVez8Ct4',
+                        usrtoken,
                     promoCodeId: eventTicketDetails['promoCodeId']!);
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(

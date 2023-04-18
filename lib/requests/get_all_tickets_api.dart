@@ -21,7 +21,7 @@ Future<List<Ticket>> getAllTicketsForAnEvent(
     );
     final jsonResponse = json.decode(response.body);
     print('Response: ${jsonResponse}');
-    print('${jsonResponse['events']}');
+    print('${jsonResponse['tickets']}');
     int responseStatus = response.statusCode;
     List<Ticket> ticketsList = [];
     if (responseStatus == 200) {
