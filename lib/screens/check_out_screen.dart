@@ -11,85 +11,13 @@ import '../providers/user_provider.dart';
 
 class CheckOutScreen extends StatefulWidget {
   static const routeName = '/check-out';
-
-  @override
-  State<CheckOutScreen> createState() => _CheckOutScreenState();
-}
-
-class _CheckOutScreenState extends State<CheckOutScreen> {
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController _confirmEmailController = TextEditingController();
 
-  Future<bool> placeOrder(
-      {required String firstname,
-      required String lastname,
-      required String email,
-      required List<Ticket> tickets,
-      required String eventId,
-      String? token,
-      required String promoCodeId}) async {
-    final url = Uri.parse('${RoutesAPI.placeOrder}${eventId}');
-    print(url);
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
-    };
-
-    var ticketsBought = [];
-    print(tickets);
-
-    for (int i = 0; i < tickets.length; ++i) {
-      Map<String, dynamic> ticket = {};
-      if (tickets[i].count > 0) {
-        print(tickets[i].id);
-        print(tickets[i].count);
-        ticket["ticketClass"] = tickets[i].id;
-        ticket['number'] = tickets[i].count;
-        ticketsBought.add(ticket);
-      }
-    }
-    var body;
-    if (promoCodeId == null || promoCodeId.isEmpty) {
-      body = json.encode({
-        'ticketsBought': ticketsBought,
-        'firstName': firstname,
-        'lastName': lastname,
-        'email': email
-      });
-    } else {
-      body = json.encode({
-        'ticketsBought': ticketsBought,
-        'promocode': promoCodeId,
-        'firstName': firstname,
-        'lastName': lastname,
-        'email': email
-      });
-    }
-
-    print(body);
-
-    try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
-      final jsonResponse = json.decode(response.body);
-      final message = jsonResponse["message"];
-      print(message);
-      if (message == "Order created successfully!") {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      print('Error while placing order: $error');
-      throw 'Failed to place order';
-    }
-  }
+  @override
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -137,13 +65,86 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
     return null;
   }
+}
+
+class _CheckOutScreenState extends State<CheckOutScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  Future<bool> placeOrder(
+      {required String firstname,
+      required String lastname,
+      required String email,
+      required List<Ticket> tickets,
+      required String eventId,
+      String? token,
+      required String promoCodeId}) async {
+    final url = Uri.parse('${RoutesAPI.placeOrder}${eventId}');
+    print(url);
+    print(token);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var ticketsBought = [];
+
+    for (int i = 0; i < tickets.length; ++i) {
+      Map<String, dynamic> ticket = {};
+      if (tickets[i].count > 0) {
+        //print(tickets[i].id);
+        //print(tickets[i].count);
+        ticket["ticketClass"] = tickets[i].id;
+        ticket['number'] = tickets[i].count;
+        ticketsBought.add(ticket);
+      }
+    }
+    var body;
+    if (promoCodeId == null || promoCodeId.isEmpty) {
+      body = json.encode({
+        'ticketsBought': ticketsBought,
+        'firstName': firstname,
+        'lastName': lastname,
+        'email': email
+      });
+    } else {
+      body = json.encode({
+        'ticketsBought': ticketsBought,
+        'promocode': promoCodeId,
+        'firstName': firstname,
+        'lastName': lastname,
+        'email': email
+      });
+    }
+
+    print(body);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+      final jsonResponse = json.decode(response.body);
+      final message = jsonResponse["message"];
+      print(message);
+      if (message == "Order created successfully!") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      print('Error while placing order: $error');
+      throw 'Failed to place order';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var ticketsProv = Provider.of<TicketsProvider>(context, listen: false);
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    var usrtoken = Provider.of<UserProvider>(context,listen: false).token;
+    var usrtoken = Provider.of<UserProvider>(context, listen: false).token;
+    print(usrtoken);
     return Scaffold(
         appBar: MyAppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -155,19 +156,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 final bool orderPlaced = await placeOrder(
-                    firstname: _firstNameController.text,
-                    lastname: _surNameController.text,
-                    email: emailController.text,
+                    firstname: widget._firstNameController.text,
+                    lastname: widget._surNameController.text,
+                    email: widget.emailController.text,
                     tickets: ticketsProv.allTickets,
                     eventId: eventTicketDetails['eventId']!,
-                    token:
-                        usrtoken,
+                    token: usrtoken,
                     promoCodeId: eventTicketDetails['promoCodeId']!);
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: orderPlaced
                         ? Text('Order has been placed succesfully')
-                        : Text('Order have not been placed due to an error')));
+                        : Text('Order has not been placed due to an error')));
                 if (orderPlaced) {
                   Future.delayed(Duration(seconds: 5), () {
                     Navigator.of(context)
@@ -209,40 +209,40 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                    controller: _firstNameController,
+                                    controller: widget._firstNameController,
                                     decoration: InputDecoration(
                                       labelText: 'First name *',
                                     ),
-                                    validator: validateFirstName),
+                                    validator: widget.validateFirstName),
                               ),
                               SizedBox(width: 20),
                               Expanded(
                                 child: TextFormField(
-                                    controller: _surNameController,
+                                    controller: widget._surNameController,
                                     decoration: InputDecoration(
                                       labelText: 'last name *',
                                     ),
-                                    validator: validateSurName),
+                                    validator: widget.validateSurName),
                               ),
                             ],
                           ),
                           SizedBox(height: 10),
 
                           TextFormField(
-                            controller: emailController,
+                            controller: widget.emailController,
                             decoration: InputDecoration(
                               labelText: 'Email',
                             ),
-                            validator: emailValidator,
+                            validator: widget.emailValidator,
                           ),
                           SizedBox(height: 10),
 
                           TextFormField(
-                              controller: _confirmEmailController,
+                              controller: widget._confirmEmailController,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Email *',
                               ),
-                              validator: validateConfirmEmail),
+                              validator: widget.validateConfirmEmail),
                           SizedBox(height: 10),
                         ])))));
   }

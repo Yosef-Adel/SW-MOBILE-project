@@ -25,23 +25,23 @@ class _TicketsScreenState extends State<TicketsScreen> {
 
     Future<List<Object>> checkPromoCode(
       BuildContext ctx, String promoCode, String eventId) async {
-    print(eventId);
-    print(promoCode);
+    //print(eventId);
+    //print(promoCode);
     List<Object> isPromoCodeValid = await checkPromo(ctx, promoCode, eventId);
-    print(isPromoCodeValid[0]);
+    //print(isPromoCodeValid[0]);
     return isPromoCodeValid;
   }
 
    bool ticketSelected(List<Ticket> tickets) {
     int counter = 0;
     int size = tickets.length;
-    print('size of list: ${size}');
+    //print('size of list: ${size}');
     for (int i = 0; i < size; ++i) {
       if (tickets[i].count == 0) {
         counter++;
       }
     }
-    print('counter: ${counter}');
+    //print('counter: ${counter}');
     if (counter == size) {
       return false;
     } else {

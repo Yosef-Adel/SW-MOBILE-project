@@ -1,8 +1,9 @@
+/// This file contains the EventsProvider class which is used to manage the events data. It contains the list of events and the methods to update the events.
+
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 import '../dummy_data.dart';
 
-// ChangeNotifier enables inherited widgets to establish commmunication channels behind the scenes
 class EventsProvider with ChangeNotifier {
   List<Event> _allEvents = [];
   // List<Event> _filteredEvents = [];

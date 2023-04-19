@@ -20,19 +20,17 @@ Future<List<Ticket>> getAllTicketsForAnEvent(
       headers: headers,
     );
     final jsonResponse = json.decode(response.body);
-    print('Response: ${jsonResponse}');
-    print('${jsonResponse['tickets']}');
+    //print('Response: ${jsonResponse}');
+    //print('${jsonResponse['tickets']}');
     int responseStatus = response.statusCode;
     List<Ticket> ticketsList = [];
     if (responseStatus == 200) {
       for (var ticketDict in jsonResponse['tickets']) {
         ticketsList.add(Ticket.fromJson(ticketDict));
       }
-      print(ticketsList);
-      print('Ana hakhosh aho el provider');
+      //print(ticketsList);
       ticketProvider.setTickets = ticketsList;
-      print('Ana kharagt aho men el provider');
-      print(ticketProvider.allTickets);
+      //print(ticketProvider.allTickets);
       return ticketsList;
     }
     return [];

@@ -40,8 +40,8 @@ class _HorizontalCounterState extends State<HorizontalCounter> {
         tickets[widget.index].upgradeCount(_count);
       }
     });
-    print(tickets[widget.index].count);
-    print(tickets[widget.index].id);
+    //print(tickets[widget.index].count);
+    //print(tickets[widget.index].id);
   }
 
  void _decrementCount(BuildContext ctx) {
@@ -53,7 +53,7 @@ class _HorizontalCounterState extends State<HorizontalCounter> {
         tickets[widget.index].upgradeCount(_count);
       }
     });
-    print(tickets[widget.index].count);
+    //print(tickets[widget.index].count);
   }
 
   @override

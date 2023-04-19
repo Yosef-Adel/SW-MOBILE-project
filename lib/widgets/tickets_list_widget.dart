@@ -25,12 +25,10 @@ class _TicketInfoState extends State<TicketInfo> {
   @override
   Widget build(BuildContext context) {
     final ticketsData = Provider.of<TicketsProvider>(context).allTickets;
-    // print(ticketsData);
     return FutureBuilder(
         future: _ticketsFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            print('loading');
             return LoadingIndicator();
           } else if (snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(

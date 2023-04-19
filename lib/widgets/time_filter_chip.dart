@@ -1,4 +1,4 @@
-import 'package:envie_cross_platform/screens/tabs_screen.dart';
+import '../screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 
 class TimeFilterChip extends StatefulWidget {

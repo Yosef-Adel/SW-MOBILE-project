@@ -137,7 +137,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     alignment: Alignment.center,
                   ),
                   onPressed: () {
-                    print(isCreator);
+                    //print(isCreator);
                     if (isCreator != null) {
                       if (isCreator == true) {
                         Navigator.of(context)
@@ -151,7 +151,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                         );
                       }
                     } else {
-                      print('isCreator = null');
+                      //print('isCreator = null');
                     }
                   },
                   child: Text('Manage Events'),

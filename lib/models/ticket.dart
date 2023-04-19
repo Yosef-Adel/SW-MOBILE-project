@@ -1,3 +1,5 @@
+///This is the model class for the Ticket.
+
 class Ticket {
   final String id;
   final String eventId;
@@ -5,7 +7,6 @@ class Ticket {
   final String decription;
   int price;
   int count;
-
 
   Ticket(
       {required this.id,
@@ -15,7 +16,7 @@ class Ticket {
       required this.price,
       this.count = 0});
 
-    factory Ticket.fromJson(Map<String, dynamic> json) {
+  factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
         id: json['_id'],
         name: json['name'],
@@ -24,5 +25,5 @@ class Ticket {
   }
   void upgradeCount(int counter) {
     count = counter;
-  }   
+  }
 }

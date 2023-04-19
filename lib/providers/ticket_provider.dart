@@ -1,3 +1,5 @@
+/// This file contains the provider for the tickets. It contains the list of tickets and the methods to update the tickets.
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

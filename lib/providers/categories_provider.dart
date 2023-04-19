@@ -1,8 +1,9 @@
+/// This file contains the provider for the categories. It contains the list of categories and the methods to update the categories.
+
 import 'package:flutter/material.dart';
 import '../models/category.dart';
 import '../models/event.dart';
 
-// ChangeNotifier enables inherited widgets to establish commmunication channels behind the scenes
 class CategoriesProvider with ChangeNotifier {
   List<Category> _allCategories = [];
   String? _selectedTimeCategory;
@@ -51,7 +52,6 @@ class CategoriesProvider with ChangeNotifier {
 
   void updateCategorySelection(int index, bool isSelect) {
     _allCategories[index].isSelected = isSelect;
-    notifyListeners();
   }
 
   String? get selectedCategoryName {

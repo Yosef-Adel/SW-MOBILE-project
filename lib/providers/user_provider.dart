@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'package:flutter/material.dart';
+/// This file contains the UserProvider class which is used to store the user data and the methods to update the user data.
+
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+
 import '../models/user.dart';
-import '../requests/routes_api.dart';
 
 class UserProvider with ChangeNotifier {
   String? _token;

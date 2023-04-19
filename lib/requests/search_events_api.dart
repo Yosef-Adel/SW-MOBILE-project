@@ -18,7 +18,7 @@ Future<List<Event>> searchEvents(BuildContext context, String? keyword) async {
       headers: headers,
     );
     final jsonResponse = json.decode(response.body);
-    print('Response: ${jsonResponse}');
+    //print('Response: ${jsonResponse}');
     int responseStatus = response.statusCode;
     List<Event> eventsList = [];
     if (responseStatus == 200) {
