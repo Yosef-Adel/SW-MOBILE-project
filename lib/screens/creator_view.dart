@@ -8,7 +8,7 @@ class CreatorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Basic Info'),
+        title: Text('Events'),
       ),
       drawer: CreatorDrawer(),
       body: Container(),

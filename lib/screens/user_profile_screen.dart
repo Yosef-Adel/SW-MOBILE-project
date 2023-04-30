@@ -1,9 +1,12 @@
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 import '../screens/creator_view.dart';
 import '../providers/user_provider.dart';
 import '../requests/logout_api.dart';
+import '../requests/routes_api.dart';
+import 'dart:convert';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -40,7 +43,8 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userProv = Provider.of<UserProvider>(context);
-    bool? isCreator = userProv.user.isCreator;
+    var token = Provider.of<UserProvider>(context, listen: false).token;
+    final userID = userProv.user.id;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -136,22 +140,32 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     foregroundColor: Colors.black,
                     alignment: Alignment.center,
                   ),
-                  onPressed: () {
-                    //print(isCreator);
-                    if (isCreator != null) {
-                      if (isCreator == true) {
-                        Navigator.of(context)
-                            .pushReplacementNamed(CreatorView.routeName);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('You are not registered as a creator'),
-                          ),
-                        );
-                      }
+                  onPressed: () async {
+                    //print(userID);
+                    final url =
+                        Uri.parse('${RoutesAPI.changeToCreator}/$userID');
+                    //print(url);
+                    //print(token);
+                    final headers = {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer $token'
+                    };
+                    final response = await http.get(
+                      url,
+                      headers: headers,
+                    );
+                    final jsonResponse = json.decode(response.body);
+                    final message = jsonResponse['message'];
+                    if (message ==
+                        "Your token is invalid, your are not authorized!") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('You are not authorized'),
+                        ),
+                      );
                     } else {
-                      //print('isCreator = null');
+                      Navigator.of(context)
+                          .pushReplacementNamed(CreatorView.routeName);
                     }
                   },
                   child: Text('Manage Events'),

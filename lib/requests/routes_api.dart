@@ -11,9 +11,12 @@ class RoutesAPI {
   static const getEvents = _baseUrl + '/api/events';
   static const getAllCategories = _baseUrl + '/api/categories';
   static const searchEvents = _baseUrl + '/api/events/search';
+  static const changeToCreator = _baseUrl + '/user/to-creator';
+  static const changeToAttendee = _baseUrl + '/user/to-attendee';
 
   //For tickets
   static const _baseUrl2 = 'https://sw-backend-project.vercel.app/';
+
   static const getAllTickets = _baseUrl2;
   static const checkPromo = _baseUrl2 + 'promocode/';
   static const placeOrder = _baseUrl2 + 'order/';
