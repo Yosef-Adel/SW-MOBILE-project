@@ -9,8 +9,8 @@ import 'routes_api.dart';
 
 Future<List<Object>> checkPromo(
     BuildContext ctx, String promoCode, eventId) async {
-  final url =
-      Uri.parse('${RoutesAPI.checkPromo}${eventId}/${promoCode}/checkPromo');
+  final url = Uri.parse(
+      '${RoutesAPI.checkPromo}${eventId}/${promoCode}/checkPromoSecured');
   //print(promoCode);
   print(url);
   final headers = {'Content-Type': 'application/json'};

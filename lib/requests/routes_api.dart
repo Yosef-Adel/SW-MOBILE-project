@@ -8,7 +8,7 @@ class RoutesAPI {
   static const signinGoogleCallBack = _baseUrl + '/auth/google/callback';
   static const createNewPassword = _baseUrl + '/auth/reset-password';
   static const getUser = _baseUrl + '/user';
-  static const getEvents = _baseUrl + '/api/events';
+  static const getEvents = _baseUrl + '/api/events/paginated';
   static const getAllCategories = _baseUrl + '/api/categories';
   static const searchEvents = _baseUrl + '/api/events/search';
   static const changeToCreator = _baseUrl + '/user/to-creator';
