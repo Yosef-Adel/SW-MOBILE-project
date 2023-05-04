@@ -166,8 +166,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: orderPlaced
-                        ? Text('Order has been placed succesfully')
-                        : Text('Order has not been placed due to an error')));
+                        ? Text(
+                            'Order has been placed succesfully. Check confirmation email!')
+                        : Text('Please login first!')));
                 if (orderPlaced) {
                   Future.delayed(Duration(seconds: 5), () {
                     Navigator.of(context)
@@ -243,7 +244,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 labelText: 'Confirm Email *',
                               ),
                               validator: widget.validateConfirmEmail),
-                          SizedBox(height: 10),
+                          SizedBox(height: 100),
                         ])))));
   }
 }

@@ -59,7 +59,7 @@ class _MyAppBarState extends State<MyAppBar> {
         backgroundColor: Colors.white, // Set the background color to white
         foregroundColor: Colors.black,
         elevation: 0,
-        automaticallyImplyLeading: false,
+
         title: Center(
           child: Text("Checkout"),
         ),
