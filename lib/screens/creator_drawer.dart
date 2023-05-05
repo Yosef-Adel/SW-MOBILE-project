@@ -1,9 +1,9 @@
+import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:envie_cross_platform/screens/creator_dashboard.dart';
 import 'package:envie_cross_platform/screens/creator_manage_attendees.dart';
 import 'package:envie_cross_platform/screens/creator_publish.dart';
 import 'package:envie_cross_platform/screens/creator_tickets.dart';
-import 'package:envie_cross_platform/screens/creator_view.dart';
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -31,8 +31,10 @@ class CreatorDrawer extends StatelessWidget {
             leading: Icon(Icons.event),
             title: Text('Events'),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, CreatorView.routeName);
+              //print(userID);
+              //print(token);
+              Navigator.of(context)
+                  .pushReplacementNamed(CreatorEvents.routeName);
             },
           ),
           Divider(),
@@ -90,7 +92,7 @@ class CreatorDrawer extends StatelessWidget {
               );
               final jsonResponse = json.decode(response.body);
               final message = jsonResponse['message'];
-              print(message);
+              //print(message);
               if (message ==
                   "Your token is invalid, your are not authorized!") {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -107,36 +109,6 @@ class CreatorDrawer extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CreatorTickets extends StatelessWidget {
-  static const routeName = '/creatorTickets';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Creator Tickets'),
-      ),
-      drawer: CreatorDrawer(),
-      body: Container(),
-    );
-  }
-}
-
-class CreatorView extends StatelessWidget {
-  static const routeName = '/creatorView';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Creator View'),
-      ),
-      drawer: CreatorDrawer(),
-      body: Container(),
     );
   }
 }

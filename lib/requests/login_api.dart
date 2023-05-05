@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
+import 'shared_preferences.dart';
 
 //Login function
 Future<int> login(
@@ -42,6 +43,11 @@ Future<int> login(
           User.fromJson(jsonResponse['user']);
       Provider.of<UserProvider>(context, listen: false).isAuth = true;
       //print(Provider.of<UserProvider>(context).token);
+
+      //Editted by Hla
+      saveUserData(Provider.of<UserProvider>(context, listen: false).token!,
+          Provider.of<UserProvider>(context, listen: false).user.id!);
+
       return 4;
     }
   } catch (error) {

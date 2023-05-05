@@ -102,7 +102,7 @@ Future<List<Event>> getEvents(BuildContext context) async {
     }
     return [];
   } catch (error) {
-    print('Error: $error');
+    print('Error (Get Events API): $error');
     return [];
   }
 }

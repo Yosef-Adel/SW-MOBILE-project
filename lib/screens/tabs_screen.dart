@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:envie_cross_platform/providers/user_provider.dart';
+import '../requests/shared_preferences.dart';
 import 'landing_screen.dart';
 import 'merged_profile_screen.dart';
 import 'pre_login_screen.dart';
@@ -51,41 +52,44 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final userProv = Provider.of<UserProvider>(context, listen: false);
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      body: _pages[_selectedPageIndex]['page'] as Widget,
-      bottomNavigationBar: Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
-        child: BottomNavigationBar(
-          onTap: _selectPage,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          unselectedItemColor: Colors.white,
-          selectedItemColor: Theme.of(context).primaryColor,
-          currentIndex: _selectedPageIndex,
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined,
-                  color: Color.fromARGB(136, 27, 27, 27)),
-              label: '',
-              activeIcon: Icon(Icons.home_outlined, color: Color(0xFFD1410C)),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.confirmation_num_outlined,
-                  color: Color.fromARGB(136, 27, 27, 27)),
-              label: '',
-              activeIcon: Icon(Icons.confirmation_num_outlined,
-                  color: Color(0xFFD1410C)),
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_2_outlined,
+    getUserData(context);
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        body: _pages[_selectedPageIndex]['page'] as Widget,
+        bottomNavigationBar: Container(
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
+          child: BottomNavigationBar(
+            onTap: _selectPage,
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Theme.of(context).primaryColor,
+            currentIndex: _selectedPageIndex,
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined,
                     color: Color.fromARGB(136, 27, 27, 27)),
                 label: '',
-                activeIcon:
-                    Icon(Icons.person_2_outlined, color: Color(0xFFD1410C))),
-          ],
+                activeIcon: Icon(Icons.home_outlined, color: Color(0xFFD1410C)),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.confirmation_num_outlined,
+                    color: Color.fromARGB(136, 27, 27, 27)),
+                label: '',
+                activeIcon: Icon(Icons.confirmation_num_outlined,
+                    color: Color(0xFFD1410C)),
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_2_outlined,
+                      color: Color.fromARGB(136, 27, 27, 27)),
+                  label: '',
+                  activeIcon:
+                      Icon(Icons.person_2_outlined, color: Color(0xFFD1410C))),
+            ],
+          ),
         ),
       ),
     );

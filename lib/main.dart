@@ -8,32 +8,32 @@
 ///The routes argument is a map of routes. The map contains the route name and the widget that is displayed when the route is called.
 ///The onUnknownRoute argument is a function that is called when the route that is called is not in the routes map.
 
+import 'dart:io';
+
 import 'package:envie_cross_platform/providers/user_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:material_color_generator/material_color_generator.dart';
+import 'package:provider/provider.dart';
 
 import 'providers/categories_provider.dart';
 import 'providers/events_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:material_color_generator/material_color_generator.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
-import 'screens/event_screen.dart';
+import 'providers/ticket_provider.dart';
+import 'requests/my_http_overrides.dart';
+import 'screens/check_out_screen.dart';
 import 'screens/create_password_screen.dart';
+import 'screens/creator_dashboard.dart';
+import 'screens/creator_events_screen.dart';
+import 'screens/creator_manage_attendees.dart';
+import 'screens/creator_publish.dart';
+import 'screens/creator_tickets.dart';
+import 'screens/event_screen.dart';
+import 'screens/filter_events_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/tabs_screen.dart';
-import 'screens/filter_events_screen.dart';
-import 'requests/my_http_overrides.dart';
-import 'dart:io';
 import 'screens/tickets_screen.dart';
-import 'providers/ticket_provider.dart';
 import 'screens/time_filter_events_screen.dart';
-import 'screens/creator_view.dart';
-import 'screens/creator_tickets.dart';
-import 'screens/creator_dashboard.dart';
-import 'screens/creator_publish.dart';
-import 'screens/creator_manage_attendees.dart';
-import 'screens/check_out_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,12 +80,12 @@ class MyApp extends StatelessWidget {
           FilterEventsScreen.routeName: (ctx) => FilterEventsScreen(),
           TicketsScreen.routeName: (ctx) => TicketsScreen(),
           TimeFilterEventsScreen.routeName: (ctx) => TimeFilterEventsScreen(),
-          CreatorView.routeName: (ctx) => CreatorView(),
+          CreatorEvents.routeName: (ctx) => CreatorEvents(),
           CreatorTickets.routeName: (ctx) => CreatorTickets(),
           CreatorDashboard.routeName: (ctx) => CreatorDashboard(),
           CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
-           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
+          CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

@@ -80,7 +80,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       required String promoCodeId}) async {
     final url = Uri.parse('${RoutesAPI.placeOrder}${eventId}');
     print(url);
-    print(token);
+    //print(token);
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
@@ -116,8 +116,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       });
     }
 
-    print(body);
-
     try {
       final response = await http.post(
         url,
@@ -126,7 +124,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       );
       final jsonResponse = json.decode(response.body);
       final message = jsonResponse["message"];
-      print(message);
       if (message == "Order created successfully!") {
         return true;
       } else {
@@ -144,7 +141,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     var usrtoken = Provider.of<UserProvider>(context, listen: false).token;
-    print(usrtoken);
     return Scaffold(
         appBar: MyAppBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -166,8 +162,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: orderPlaced
-                        ? Text('Order has been placed succesfully')
-                        : Text('Order has not been placed due to an error')));
+                        ? Text(
+                            'Order has been placed succesfully. Check confirmation email!')
+                        : Text('Please login first!')));
                 if (orderPlaced) {
                   Future.delayed(Duration(seconds: 5), () {
                     Navigator.of(context)
@@ -243,7 +240,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 labelText: 'Confirm Email *',
                               ),
                               validator: widget.validateConfirmEmail),
-                          SizedBox(height: 10),
+                          SizedBox(height: 100),
                         ])))));
   }
 }
