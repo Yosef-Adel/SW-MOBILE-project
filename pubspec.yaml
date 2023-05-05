@@ -46,6 +46,7 @@ dependencies:
 # flutter_facebook_auth: ^5.0.8
   dartdoc: ^6.2.1
   location: ^4.2.0
+  flutter_datetime_picker: ^1.5.1
   
 
 dev_dependencies:
