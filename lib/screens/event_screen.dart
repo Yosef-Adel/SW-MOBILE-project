@@ -13,7 +13,7 @@ class EventScreen extends StatelessWidget {
   //final String appBarText;
   static const routeName = '/event-details';
 
-   void goToTicketScreen(
+  void goToTicketScreen(
       BuildContext ctx, String title, String date, String id) {
     Navigator.of(ctx).pushNamed(TicketsScreen.routeName,
         arguments: {'eventTitle': title, 'eventDate': date, 'eventId': id});
@@ -35,10 +35,12 @@ class EventScreen extends StatelessWidget {
           decoration: BoxDecoration(color: Colors.white),
           margin: const EdgeInsets.all(10),
           child: ElevatedButton(
-             onPressed: () => goToTicketScreen(
+            onPressed: () => goToTicketScreen(
                 context,
                 selectedEvent.title,
-                DateFormat("d MMM yyyy").add_jm().format(selectedEvent.startDate),
+                DateFormat("d MMM yyyy")
+                    .add_jm()
+                    .format(selectedEvent.startDate),
                 selectedEvent.id),
             child: const Center(
               child: Text('Tickets'),
@@ -52,7 +54,7 @@ class EventScreen extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: Image.network(
-                    selectedEvent.imageUrl,
+                    selectedEvent.imageUrl!,
                     fit: BoxFit.cover,
                   )),
             ),

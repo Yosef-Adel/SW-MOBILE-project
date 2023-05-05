@@ -5,7 +5,7 @@ class Event {
   final String title;
   final String description;
   final String summary;
-  final String imageUrl;
+  final String? imageUrl;
   final bool isOnline;
   final DateTime startDate;
   final DateTime endDate;
@@ -15,7 +15,6 @@ class Event {
   final bool isPrivate;
   final String venueName;
   final String city;
-  //final String address;
   final String country;
 
   const Event({
@@ -23,7 +22,7 @@ class Event {
     required this.title,
     required this.description,
     required this.summary,
-    required this.imageUrl,
+    this.imageUrl,
     required this.isOnline,
     required this.startDate,
     required this.endDate,
@@ -33,7 +32,6 @@ class Event {
     required this.isPrivate,
     required this.venueName,
     required this.city,
-    //required this.address,
     required this.country,
   });
 
@@ -43,7 +41,9 @@ class Event {
       title: json['name'],
       description: json['description'],
       summary: json['summary'],
-      imageUrl: json['image'],
+      imageUrl: json.containsKey('image')
+          ? json['image']
+          : 'https://res.cloudinary.com/dv2ei7dxk/image/upload/v1681899611/DEV/zlpblybrvv4psyovd7f9.png',
       isOnline: json['isOnline'],
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
@@ -53,7 +53,6 @@ class Event {
       isPrivate: json['isPrivate'],
       venueName: json['venueName'],
       city: json['city'],
-      //address: json['address'],
       country: json['country'],
     );
   }

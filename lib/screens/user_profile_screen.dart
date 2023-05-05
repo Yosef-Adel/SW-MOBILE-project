@@ -1,8 +1,8 @@
+import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import '../screens/creator_view.dart';
 import '../providers/user_provider.dart';
 import '../requests/logout_api.dart';
 import '../requests/routes_api.dart';
@@ -117,14 +117,14 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                   children: [
                     Icon(
                       Icons.settings,
-                      color: Color.fromARGB(255, 2, 46, 112),
+                      color: Theme.of(context).primaryColor,
                       size: 24,
                     ),
                     SizedBox(width: 8),
                     Text(
                       'Settings',
                       style: TextStyle(
-                        color: Color.fromARGB(255, 2, 46, 112),
+                        color: Theme.of(context).primaryColor,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -165,7 +165,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                       );
                     } else {
                       Navigator.of(context)
-                          .pushReplacementNamed(CreatorView.routeName);
+                          .pushReplacementNamed(CreatorEvents.routeName);
                     }
                   },
                   child: Text('Manage Events'),

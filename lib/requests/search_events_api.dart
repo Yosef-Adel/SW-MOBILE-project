@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:envie_cross_platform/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 import '../models/event.dart';
 import 'routes_api.dart';
@@ -29,7 +27,7 @@ Future<List<Event>> searchEvents(BuildContext context, String? keyword) async {
     }
     return [];
   } catch (error) {
-    print('Error: $error');
+    print('Error (Search Events API): $error');
     return [];
   }
 }
