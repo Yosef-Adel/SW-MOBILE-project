@@ -43,17 +43,17 @@ class TicketClass {
 
 class CreateEventTicketsState extends State<CreateEventTickets> {
   String? _eventID;
-  late String
-      token; //='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
+  late String token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
 
   @override
   void initState() {
     super.initState();
     _eventID = widget.eventID;
     print(_eventID);
-    token = Provider.of<UserProvider>(context, listen: false)
-        .token!; // initialize token in initState
-    print(token);
+    // token = Provider.of<UserProvider>(context, listen: false)
+    //     .token!; // initialize token in initState
+    // print(token);
   }
 
   //can add dummy data
@@ -139,7 +139,7 @@ class CreateEventTicketsState extends State<CreateEventTickets> {
           backgroundColor: Color.fromARGB(255, 227, 89, 4),
         ),
         bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(left: 300.0, bottom: 20),
+            padding: EdgeInsets.only(left: 275.0, bottom: 20),
             child: InkWell(
               onTap: () {
                 if (notEmpty == 1) {
@@ -170,8 +170,8 @@ class CreateEventTicketsState extends State<CreateEventTickets> {
                 }
               },
               child: Container(
-                width: 50.0,
-                height: 50.0,
+                width: 54.0,
+                height: 54.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color.fromARGB(255, 227, 89, 4),
@@ -212,7 +212,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
       _isTicketTypeSelected = true;
 
       if (type == 'Free') {
-        _priceController.text = '0';
+        _priceController.text = '1';
         _priceController.clearComposing();
       }
     });
@@ -263,12 +263,14 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 160, top: 3.5),
-                  child: Text('Tickets Type:',
-                      style: TextStyle(fontWeight: FontWeight.w500)),
+                  padding: const EdgeInsets.only(right: 120, top: 8),
+                  child: Text(
+                    'Tickets Type:',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
                       onPressed: () => _selectTicketType('Paid'),
@@ -279,16 +281,13 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                             : Color.fromARGB(255, 144, 141, 140),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 100, left: 20),
-                      child: ElevatedButton(
-                        onPressed: () => _selectTicketType('Free'),
-                        child: Text('Free'),
-                        style: ElevatedButton.styleFrom(
-                          primary: _ticketType == 'Free'
-                              ? Color.fromARGB(255, 210, 85, 7)
-                              : Color.fromARGB(255, 144, 141, 140),
-                        ),
+                    ElevatedButton(
+                      onPressed: () => _selectTicketType('Free'),
+                      child: Text('Free'),
+                      style: ElevatedButton.styleFrom(
+                        primary: _ticketType == 'Free'
+                            ? Color.fromARGB(255, 210, 85, 7)
+                            : Color.fromARGB(255, 144, 141, 140),
                       ),
                     ),
                   ],
