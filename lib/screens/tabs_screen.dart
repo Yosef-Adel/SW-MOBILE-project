@@ -4,15 +4,11 @@
 ///The page that is currently selected is determined by the _selectedPageIndex variable.
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:envie_cross_platform/providers/user_provider.dart';
+
 import '../requests/shared_preferences.dart';
 import 'landing_screen.dart';
 import 'merged_profile_screen.dart';
-import 'pre_login_screen.dart';
-import 'create_password_screen.dart';
 import 'user_tickets_screen.dart';
-import 'user_profile_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs';

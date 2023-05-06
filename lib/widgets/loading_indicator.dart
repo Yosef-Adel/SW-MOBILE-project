@@ -5,7 +5,8 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Container(
+      padding: EdgeInsets.only(top: 150),
       child: CircularProgressIndicator(),
     );
   }
