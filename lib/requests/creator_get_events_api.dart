@@ -22,7 +22,7 @@ Future<List<Event>> creatorGetEvents(BuildContext context, int choice) async {
     'Authorization': 'Bearer $token'
   };
   //print(headers);
-  //print('Token: ${token}');
+  print('Token: ${token}');
   print(url);
   try {
     final response = await http.get(
@@ -31,14 +31,23 @@ Future<List<Event>> creatorGetEvents(BuildContext context, int choice) async {
     );
     final jsonResponse = json.decode(response.body);
     //print('Response: ${jsonResponse}');
+
     int responseStatus = response.statusCode;
-    List<Event> eventsList = [];
+
     if (responseStatus == 200) {
-      for (var eventDict in jsonResponse['events']) {
+      List<Event> eventsList = [];
+      final Dict;
+      if (choice == 0)
+        Dict = jsonResponse['events'];
+      else
+        Dict = jsonResponse['userEvents'];
+
+      for (var eventDict in Dict) {
         eventsList.add(Event.fromJson(eventDict));
       }
       return eventsList;
     }
+
     return [];
   } catch (error) {
     print('Error: $error');

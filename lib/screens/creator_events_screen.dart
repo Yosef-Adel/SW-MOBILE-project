@@ -36,24 +36,17 @@ class CreatorEvents extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            SingleChildScrollView(
-              child: Column(children: [
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: TabBarView(
+              children: [
                 CreatorEventsList(choice: 0),
-              ]),
-            ),
-            SingleChildScrollView(
-              child: Column(children: [
                 CreatorEventsList(choice: 1),
-              ]),
-            ),
-            SingleChildScrollView(
-              child: Column(children: [
                 CreatorEventsList(choice: 2),
-              ]),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

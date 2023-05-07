@@ -1,3 +1,4 @@
+import 'package:envie_cross_platform/widgets/creator_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -26,61 +27,27 @@ class CreatorEventsList extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  padding: EdgeInsets.only(bottom: 150),
+                  height: MediaQuery.of(context).size.height - 250,
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     itemBuilder: (ctx, index) {
-                      return Container(
-                        height: 100,
-                        child: Card(
-                          elevation: 0,
-                          child: ListTile(
-                            //onTap: () => selectEvent(ctx, snapshot.data[index])
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(snapshot.data[index].title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Bebas',
-                                    )),
-                                Text(
-                                  DateFormat("d MMM yyyy")
-                                      .add_jm()
-                                      .format(snapshot.data[index].startDate),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                                // Text(
-                                //   '${snapshot.data[index].description}/${snapshot.data[index].description}',
-                                //   style: TextStyle(
-                                //     color: Colors.black,
-                                //     fontSize: 11,
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      return CreatorEventCard(
+                        title: snapshot.data[index].title,
+                        date: DateFormat('dd/MM/yyyy')
+                            .format(snapshot.data[index].startDate),
                       );
                     },
                     itemCount: snapshot.data.length,
                   ),
                 ),
-                (choice == 0)
-                    ? FloatingActionButton(
+                choice == 0
+                    ? FloatingActionButton.extended(
                         onPressed: () async => creatorExportEvents(context),
-                        child: Icon(Icons.file_download),
+                        label: Text('CSV Export'),
+                        icon: Icon(Icons.download),
                         backgroundColor: Theme.of(context).primaryColor,
                       )
-                    : SizedBox(height: 20),
+                    : SizedBox(height: 0),
               ],
             );
           } else {
@@ -92,7 +59,6 @@ class CreatorEventsList extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     )),
-                SizedBox(height: 20),
               ],
             );
           }
