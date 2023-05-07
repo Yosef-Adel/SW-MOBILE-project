@@ -38,6 +38,7 @@ class PromocodeClass {
 
 class CreateEventPromocodesState extends State<CreateEventPromocodes> {
   String? _eventID;
+
   late String token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
 
@@ -65,51 +66,51 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
     }
   }
 
-  Future<void> sendRequest() async {
-    for (var i = 0; i < _PromocodeClasses.length; i++) {
-      final PromocodeClass = _PromocodeClasses[i];
-      //print(
-      //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
-      final url = Uri.parse(
-          '${RoutesAPI.getAllTickets}ticket/${_eventID}/createTicket');
-      print(url);
+  // Future<void> sendRequest() async {
+  //   for (var i = 0; i < _PromocodeClasses.length; i++) {
+  //     final PromocodeClass = _PromocodeClasses[i];
+  //     //print(
+  //     //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
+  //     final url = Uri.parse(
+  //         '${RoutesAPI.getAllTickets}ticket/${_eventID}/createTicket');
+  //     print(url);
 
-      final Map<String, dynamic> body;
+  //     final Map<String, dynamic> body;
 
-      if (PromocodeClass.amountOff == 0) {
-        //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
-        body = <String, dynamic>{
-          'name': PromocodeClass.name.toString(),
-          //'tickets': PromocodeClass.type.toString(),
-          'percentOff': PromocodeClass.percentOff,
-          'startDate': PromocodeClass.startDate.toString(),
-          'endDate': PromocodeClass.endDate.toString(),
-        };
-      } else {
-        //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
-        body = <String, dynamic>{
-          'name': PromocodeClass.name.toString(),
-          //'tickets': PromocodeClass.type.toString(),
-          'amountOff': PromocodeClass.amountOff,
-          'startDate': PromocodeClass.startDate.toString(),
-          'endDate': PromocodeClass.endDate.toString(),
-        };
-      }
-      final headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token'
-      };
-      final response =
-          await http.post(url, headers: headers, body: jsonEncode(body));
-      if (response.statusCode != 201) {
-        print('Failed');
-        final jsonResponse = json.decode(response.body);
-        print('${jsonResponse['message']}');
-      } else {
-        print('successed');
-      }
-    }
-  }
+  //     if (PromocodeClass.amountOff == 0) {
+  //       //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
+  //       body = <String, dynamic>{
+  //         'name': PromocodeClass.name.toString(),
+  //         //'tickets': PromocodeClass.type.toString(),
+  //         'percentOff': PromocodeClass.percentOff,
+  //         'startDate': PromocodeClass.startDate.toString(),
+  //         'endDate': PromocodeClass.endDate.toString(),
+  //       };
+  //     } else {
+  //       //'${PromocodeClass.name}, ${PromocodeClass.type}, ${PromocodeClass.capacity}, ${PromocodeClass.price}, ${PromocodeClass.minQuantityPerOrder}, ${PromocodeClass.maxQuantityPerOrder}, ${PromocodeClass.startDate}, ${PromocodeClass.endDate}');
+  //       body = <String, dynamic>{
+  //         'name': PromocodeClass.name.toString(),
+  //         //'tickets': PromocodeClass.type.toString(),
+  //         'amountOff': PromocodeClass.amountOff,
+  //         'startDate': PromocodeClass.startDate.toString(),
+  //         'endDate': PromocodeClass.endDate.toString(),
+  //       };
+  //     }
+  //     final headers = {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $token'
+  //     };
+  //     final response =
+  //         await http.post(url, headers: headers, body: jsonEncode(body));
+  //     if (response.statusCode != 201) {
+  //       print('Failed');
+  //       final jsonResponse = json.decode(response.body);
+  //       print('${jsonResponse['message']}');
+  //     } else {
+  //       print('successed');
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +125,9 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
             return Card(
               child: ListTile(
                 title: Text(promocode.name),
-                subtitle: Text('Gives: \$${promocode.amountOff} off'),
+                subtitle: promocode.amountOff == 0
+                    ? Text('Gives ${promocode.percentOff}% off')
+                    : Text('Gives \$${promocode.amountOff} off'),
                 trailing: IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
@@ -143,29 +146,29 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
           backgroundColor: Color.fromARGB(255, 227, 89, 4),
         ),
         bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(left: 300.0, bottom: 20),
+            padding: EdgeInsets.only(left: 322.0, bottom: 20),
             child: InkWell(
               onTap: () {
-                sendRequest().then((_) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                  );
-                }).catchError((error) {
-                  print(error);
+                // sendRequest().then((_) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => LoginScreen(),
+                //     ),
+                //   );
+                // }).catchError((error) {
+                //   print(error);
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('An error occured try again!'),
-                    ),
-                  );
-                });
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       content: Text('An error occured try again!'),
+                //     ),
+                //   );
+                // });
               },
               child: Container(
-                width: 50.0,
-                height: 50.0,
+                width: 54.0,
+                height: 54.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color.fromARGB(255, 227, 89, 4),
@@ -193,36 +196,34 @@ class promocodeFormPopupState extends State<promocodeFormPopup> {
 
   //final _chosenTicketsController = TextEditingController();
   late String? _selectedOption = '';
-  final _amountOffController = TextEditingController();
-  final _percentOffController = TextEditingController();
+  late var _amountOffController = TextEditingController();
+  var _percentOffController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
 
-  void dispose() {
-    _amountOffController.dispose();
-    _percentOffController.dispose();
-    super.dispose();
-  }
+  // void dispose() {
+  //   _amountOffController.dispose();
+  //   _percentOffController.dispose();
+  //   super.dispose();
+  // }
 
   void _savePromocode() {
-    if (_formKey.currentState!.validate()) {
-      final name = _nameController.text;
-      //final tickets = _chosenTicketsController;
-      final amountOff = int.parse(_amountOffController.text);
-      final percentOff = int.parse(_percentOffController.text);
-      final startDate = DateTime.parse(_startDateController.text);
-      final endDate = DateTime.parse(_endDateController.text);
-      final promocode = PromocodeClass(
-        name: name,
-        //tickets: tickets,
-        percentOff: percentOff,
-        amountOff: amountOff,
-        startDate: startDate,
-        endDate: endDate,
-      );
+    final name = _nameController.text;
+    //final tickets = _chosenTicketsController;
+    final amountOff = int.parse(_amountOffController.text);
+    final percentOff = int.parse(_percentOffController.text);
+    final startDate = DateTime.parse(_startDateController.text);
+    final endDate = DateTime.parse(_endDateController.text);
+    final promocode = PromocodeClass(
+      name: name,
+      //tickets: tickets,
+      percentOff: percentOff,
+      amountOff: amountOff,
+      startDate: startDate,
+      endDate: endDate,
+    );
 
-      Navigator.of(context).pop(promocode);
-    }
+    Navigator.of(context).pop(promocode);
   }
 
   @override
@@ -279,6 +280,18 @@ class promocodeFormPopupState extends State<promocodeFormPopup> {
                             ? Icon(Icons.attach_money)
                             : Icon(Icons.percent),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a value';
+                        }
+                        if (int.tryParse(value) == null) {
+                          return 'Please enter a valid integer value';
+                        }
+                        if (int.parse(value) <= 0) {
+                          return 'Please enter a value greater than zero';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
@@ -345,8 +358,15 @@ class promocodeFormPopupState extends State<promocodeFormPopup> {
                     SizedBox(width: 16),
                     ElevatedButton(
                       onPressed: () {
-                        _selectedOption = '';
-                        _savePromocode();
+                        if (_formKey.currentState!.validate()) {
+                          if (_selectedOption == 'amount') {
+                            _percentOffController.text = '0';
+                          } else {
+                            _amountOffController.text = '0';
+                          }
+                          _selectedOption = '';
+                          _savePromocode();
+                        }
                       },
                       child: Text('Add'),
                     ),
