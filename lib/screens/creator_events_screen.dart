@@ -4,6 +4,7 @@
 
 import 'package:envie_cross_platform/widgets/creator_events_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'event_creation_basic_info_screen.dart';
 
 import 'creator_drawer.dart';
 
@@ -21,7 +22,7 @@ class CreatorEvents extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(Icons.add),
           onPressed: () {
-            //Navigator.of(context).pushReplacementNames(AddEvent.routeName);
+            Navigator.of(context).pushReplacementNamed(EventBasicInfo.routeName);
           },
         ),
         drawer: CreatorDrawer(),

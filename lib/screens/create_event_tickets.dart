@@ -3,15 +3,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../requests/routes_api.dart';
+import 'create_event_promocodes.dart';
 import 'login_screen.dart';
 import '../providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class CreateEventTickets extends StatefulWidget {
   static const routeName = '/tickets';
-  final String eventID;
-
-  const CreateEventTickets({Key? key, required this.eventID}) : super(key: key);
+  String eventID = "";
 
   @override
   CreateEventTicketsState createState() => CreateEventTicketsState();
@@ -42,18 +41,15 @@ class TicketClass {
 }
 
 class CreateEventTicketsState extends State<CreateEventTickets> {
-  String? _eventID;
-  late String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
+  late String token;
 
   @override
   void initState() {
     super.initState();
-    _eventID = widget.eventID;
-    print(_eventID);
-    // token = Provider.of<UserProvider>(context, listen: false)
-    //     .token!; // initialize token in initState
-    // print(token);
+
+    token = Provider.of<UserProvider>(context, listen: false)
+        .token!; // initialize token in initState
+    print(token);
   }
 
   //can add dummy data
@@ -78,7 +74,7 @@ class CreateEventTicketsState extends State<CreateEventTickets> {
       //print(
       //'${ticketClass.name}, ${ticketClass.type}, ${ticketClass.capacity}, ${ticketClass.price}, ${ticketClass.minQuantityPerOrder}, ${ticketClass.maxQuantityPerOrder}, ${ticketClass.sellingStartDate}, ${ticketClass.sellingEndDate}');
       final url = Uri.parse(
-          '${RoutesAPI.getAllTickets}ticket/${_eventID}/createTicket');
+          '${RoutesAPI.getAllTickets}ticket/${widget.eventID}/createTicket');
       print(url);
       final body = <String, dynamic>{
         'name': ticketClass.name.toString(),
@@ -106,8 +102,14 @@ class CreateEventTicketsState extends State<CreateEventTickets> {
     }
   }
 
+  void goToPromocodesScreen(BuildContext ctx, String eventId) {
+    Navigator.of(ctx)
+        .pushNamed(CreateEventPromocodes.routeName, arguments: eventId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    widget.eventID = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         appBar: AppBar(
           title: Text('Manage Event Tickets'),
@@ -143,30 +145,7 @@ class CreateEventTicketsState extends State<CreateEventTickets> {
             child: InkWell(
               onTap: () {
                 if (notEmpty == 1) {
-                  sendRequest().then((_) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
-                  }).catchError((error) {
-                    print(error);
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('An error occured try again!'),
-                      ),
-                    );
-                  });
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Press the + button and enter at least one type of tickets to continue creating your event!',
-                      ),
-                    ),
-                  );
+                  goToPromocodesScreen(context, widget.eventID);
                 }
               },
               child: Container(
