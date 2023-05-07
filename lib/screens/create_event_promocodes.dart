@@ -36,6 +36,17 @@ class PromocodeClass {
   });
 }
 
+class TicketClass {
+  String id;
+  String name;
+
+  TicketClass({required this.id, required this.name});
+
+  factory TicketClass.fromJson(Map<String, dynamic> json) {
+    return TicketClass(id: json['_id'], name: json['name']);
+  }
+}
+
 class CreateEventPromocodesState extends State<CreateEventPromocodes> {
   String? _eventID;
 
