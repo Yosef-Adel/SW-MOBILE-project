@@ -9,10 +9,7 @@ import 'package:provider/provider.dart';
 
 class CreateEventPromocodes extends StatefulWidget {
   static const routeName = '/promocodes';
-  final String eventID;
-
-  const CreateEventPromocodes({Key? key, required this.eventID})
-      : super(key: key);
+  String eventID = "";
 
   @override
   CreateEventPromocodesState createState() => CreateEventPromocodesState();
@@ -37,15 +34,13 @@ class PromocodeClass {
 }
 
 class CreateEventPromocodesState extends State<CreateEventPromocodes> {
-  String? _eventID;
+  
 
-  late String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
+  late String token;
 
   @override
   void initState() {
     super.initState();
-    _eventID = widget.eventID;
     // token = Provider.of<UserProvider>(context, listen: false)
     //     .token!; // initialize token in initState
     // print(token);
@@ -114,6 +109,7 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
 
   @override
   Widget build(BuildContext context) {
+    widget.eventID = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         appBar: AppBar(
           title: Text('Manage Event Promo Codes'),

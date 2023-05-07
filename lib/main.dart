@@ -34,6 +34,9 @@ import 'screens/signup_screen.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
+import 'screens/event_creation_basic_info_screen.dart';
+import 'screens/create_event_tickets.dart';
+import 'screens/create_event_promocodes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +74,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/', // default is '/'
         routes: {
-          '/': (ctx) => TabsScreen(),
+          '/': (ctx) => LoginScreen(),
           SignupScreen.routeName: (ctx) => SignupScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
           TabsScreen.routeName: (ctx) => TabsScreen(),
@@ -86,6 +89,9 @@ class MyApp extends StatelessWidget {
           CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
+          EventBasicInfo.routeName:(ctx)=>EventBasicInfo(),
+          CreateEventTickets.routeName: (ctx)=>CreateEventTickets(),
+          CreateEventPromocodes.routeName: (ctx)=>CreateEventPromocodes(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

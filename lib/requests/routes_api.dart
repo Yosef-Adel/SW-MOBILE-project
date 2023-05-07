@@ -15,6 +15,8 @@ class RoutesAPI {
   static const changeToAttendee = _baseUrl + '/user/to-attendee';
   static const createTickets = _baseUrl + '/ticket/';
   static const creatorGetEvents = _baseUrl + '/api/events';
+  static const createEvent = _baseUrl + '/api/events';
+
 
   //For tickets
   static const _baseUrl2 = 'https://sw-backend-project.vercel.app/';
