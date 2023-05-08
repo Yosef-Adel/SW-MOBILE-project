@@ -8,7 +8,7 @@ import '../providers/user_provider.dart';
 import 'creator_drawer.dart';
 
 class CreatorTickets extends StatefulWidget {
-  static const routeName = '/creatorTicketss';
+  static const routeName = '/creatorTickets';
 
   @override
   CreatorTicketsState createState() => CreatorTicketsState();
