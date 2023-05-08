@@ -5,10 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
-import '../screens/tabs_screen.dart';
 import 'routes_api.dart';
 
-Future<void> switchtoAttendee(BuildContext context) async {
+Future<int> switchtoAttendee(BuildContext context) async {
   final userProv = Provider.of<UserProvider>(context);
   var token = Provider.of<UserProvider>(context, listen: false).token;
   final userID = userProv.user.id;
@@ -28,12 +27,7 @@ Future<void> switchtoAttendee(BuildContext context) async {
   final message = jsonResponse['message'];
   //print(message);
   if (message == "Your token is invalid, your are not authorized!") {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('You are not authorized'),
-      ),
-    );
-  } else {
-    Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+    return -1;
   }
+  return 0;
 }

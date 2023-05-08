@@ -20,6 +20,7 @@ class CreatorEvents extends StatelessWidget {
       child: Scaffold(
         drawer: CreatorSwitchToAttendeeDrawer(),
         floatingActionButton: FloatingActionButton(
+          heroTag: "Create Event Button",
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(Icons.add),
           onPressed: () {

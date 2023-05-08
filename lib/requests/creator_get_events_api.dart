@@ -22,8 +22,8 @@ Future<List<Event>> creatorGetEvents(BuildContext context, int choice) async {
     'Authorization': 'Bearer $token'
   };
   //print(headers);
-  print('Token: ${token}');
-  print(url);
+  //print('Token: ${token}');
+  //print(url);
   try {
     final response = await http.get(
       url,

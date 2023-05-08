@@ -137,6 +137,7 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
           },
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "Create Promocode btn",
           onPressed: _addPromocodeClass,
           child: Icon(Icons.add),
           backgroundColor: Color.fromARGB(255, 227, 89, 4),

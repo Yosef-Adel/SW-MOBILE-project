@@ -202,6 +202,7 @@ class _CreatorPublishState extends State<CreatorPublish> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "Publish btn",
         onPressed: () {
           //API call to save the event
           //Navigator.of(context).pop();

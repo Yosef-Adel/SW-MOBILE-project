@@ -1,11 +1,13 @@
 import 'package:envie_cross_platform/screens/creator_dashboard.dart';
-import 'package:envie_cross_platform/screens/creator_manage_attendees.dart';
+import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/creator_publish.dart';
 import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
 
 import '../requests/switch_to_attendee_api.dart';
 import 'creator_show_basic_info.dart';
+import 'manage_attendees_screen.dart';
+import 'tabs_screen.dart';
 
 class CreatorDrawer extends StatelessWidget {
   static const routeName = '/creatorDrawer';
@@ -52,7 +54,7 @@ class CreatorDrawer extends StatelessWidget {
             title: Text('Manage Attendees'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, CreatorManageAttendees.routeName);
+              Navigator.pushNamed(context, ManageAttendees.routeName);
             },
           ),
           Divider(),
@@ -66,11 +68,12 @@ class CreatorDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.home_outlined),
-            title: Text('Back to Home Page'),
-            onTap: () async => switchtoAttendee(context),
-            //Navigator.pushNamed(context, TabsScreen.routeName);
-          ),
+              leading: Icon(Icons.event_outlined),
+              title: Text('Events'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, CreatorEvents.routeName);
+              }),
         ],
       ),
     );

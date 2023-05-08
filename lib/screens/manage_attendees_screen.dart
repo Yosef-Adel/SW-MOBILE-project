@@ -1,4 +1,5 @@
 import 'package:envie_cross_platform/providers/ticket_provider.dart';
+import 'package:envie_cross_platform/screens/creator_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +36,7 @@ class _ManageAttendees extends State<ManageAttendees> {
         Provider.of<TicketsProvider>(context, listen: false).allTickets;
     var totalPrice = calcTotalPrice(ticketsData);
     return Scaffold(
+        drawer: CreatorDrawer(),
         appBar: AppBar(
           backgroundColor: Color.fromARGB(0, 0, 0, 1),
           foregroundColor: Colors.black,

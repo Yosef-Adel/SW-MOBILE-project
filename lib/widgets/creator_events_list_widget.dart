@@ -2,10 +2,8 @@ import 'package:envie_cross_platform/widgets/creator_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/event.dart';
 import '../requests/creator_export_events.dart';
 import '../requests/creator_get_events_api.dart';
-import '../screens/event_creation_basic_info_screen.dart';
 import 'loading_indicator.dart';
 
 class CreatorEventsList extends StatelessWidget {
@@ -44,6 +42,7 @@ class CreatorEventsList extends StatelessWidget {
                 ),
                 if (choice == 0)
                   FloatingActionButton.extended(
+                    heroTag: "CSV Export Button",
                     onPressed: () async => creatorExportEvents(context),
                     label: Text('CSV Export'),
                     icon: Icon(Icons.download),

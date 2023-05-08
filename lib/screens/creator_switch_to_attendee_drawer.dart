@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../requests/switch_to_attendee_api.dart';
-import 'creator_show_basic_info.dart';
+import 'tabs_screen.dart';
 
 class CreatorSwitchToAttendeeDrawer extends StatelessWidget {
   static const routeName = '/creatorDrawer';
@@ -14,13 +14,15 @@ class CreatorSwitchToAttendeeDrawer extends StatelessWidget {
           AppBar(
             automaticallyImplyLeading: false,
           ),
-          Divider(),
           ListTile(
-            leading: Icon(Icons.info_outlined),
+            leading: Icon(Icons.home_outlined),
             title: Text('Switch to Attendee'),
-            onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(CreatorShowBasicInfo.routeName);
+            onTap: () async {
+              int result = await switchtoAttendee(context);
+              if (result == 0) {
+                Navigator.of(context)
+                    .pushReplacementNamed(TabsScreen.routeName);
+              }
             },
           ),
         ],
