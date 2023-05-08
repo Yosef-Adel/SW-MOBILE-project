@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../models/ticket.dart';
+import '../requests/get_all_tickets_api.dart';
 import '../requests/routes_api.dart';
 import 'login_screen.dart';
 import '../providers/user_provider.dart';
@@ -33,29 +35,37 @@ class PromocodeClass {
   });
 }
 
-class TicketClass {
-  String id;
-  String name;
+// class TicketClass {
+//   String id;
+//   String name;
 
-  TicketClass({required this.id, required this.name});
+//   TicketClass({required this.id, required this.name});
 
-  factory TicketClass.fromJson(Map<String, dynamic> json) {
-    return TicketClass(id: json['_id'], name: json['name']);
-  }
-}
+//   factory TicketClass.fromJson(Map<String, dynamic> json) {
+//     return TicketClass(id: json['_id'], name: json['name']);
+//   }
+// }
+
+// class TicketClassList {
+//   List<TicketClass> tickets;
+
+//   TicketClassList({required this.tickets});
+
+//   factory TicketClassList.fromJson(List<dynamic> parsedJson) {
+//     List<TicketClass> tickets = <TicketClass>[];
+//     tickets = parsedJson.map((i) => TicketClass.fromJson(i)).toList();
+
+//     return TicketClassList(tickets: tickets);
+//   }
+// }
 
 class CreateEventPromocodesState extends State<CreateEventPromocodes> {
-  
+  late String token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDNjNGI0NjY0MzA0ODg2YWNkNDM1YzMiLCJpYXQiOjE2ODMyMzgzMDIsImV4cCI6MTY4MzMyNDcwMn0.rSsGJH5t5RXfzMavpxRxk2V3853FzWcB2rXzHWio-OA';
 
-  late String token;
-
-  @override
-  void initState() {
-    super.initState();
-    // token = Provider.of<UserProvider>(context, listen: false)
-    //     .token!; // initialize token in initState
-    // print(token);
-  }
+  // token = Provider.of<UserProvider>(context, listen: false)
+  //     .token!; // initialize token in initState
+  // print(token);
 
   //can add dummy data
   final List<PromocodeClass> _PromocodeClasses = [];
@@ -63,7 +73,9 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
   void _addPromocodeClass() async {
     final result = await showDialog<PromocodeClass>(
       context: context,
-      builder: (context) => promocodeFormPopup(),
+      builder: (context) => promocodeFormPopup(
+        eventID: widget.eventID,
+      ),
     );
     if (result != null) {
       setState(() {
@@ -191,28 +203,38 @@ class CreateEventPromocodesState extends State<CreateEventPromocodes> {
 }
 
 class promocodeFormPopup extends StatefulWidget {
-  const promocodeFormPopup({super.key});
+  final String eventID;
+
+  promocodeFormPopup({required this.eventID});
 
   @override
   promocodeFormPopupState createState() => promocodeFormPopupState();
 }
 
 class promocodeFormPopupState extends State<promocodeFormPopup> {
+  late List<Ticket> _tickets = [];
+
+  void initState() {
+    super.initState();
+    getAllTicketsForAnEvent(context, widget.eventID).then((tickets) {
+      setState(() {
+        _tickets = tickets;
+        print(_tickets);
+      });
+    }).catchError((error) {
+      print("Error loading tickets: $error");
+    });
+  }
+
+  //inputs from form
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-
   //final _chosenTicketsController = TextEditingController();
   late String? _selectedOption = '';
   late var _amountOffController = TextEditingController();
   var _percentOffController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
-
-  // void dispose() {
-  //   _amountOffController.dispose();
-  //   _percentOffController.dispose();
-  //   super.dispose();
-  // }
 
   void _savePromocode() {
     final name = _nameController.text;
@@ -235,6 +257,7 @@ class promocodeFormPopupState extends State<promocodeFormPopup> {
 
   @override
   Widget build(BuildContext context) {
+    //widget.eventID = ModalRoute.of(context)!.settings.arguments as String;
     return AlertDialog(
         title: Text('Add Promo code'),
         content: SingleChildScrollView(
@@ -302,6 +325,18 @@ class promocodeFormPopupState extends State<promocodeFormPopup> {
                     ),
                   ],
                 ),
+                Text('Please select a ticket class'),
+                SizedBox(
+                  height: 20.0,
+                ),
+                // DropdownButton(
+                //     value: _selectedTicket,
+                //     items: _dropdownMenuItems,
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedTicket = value!;
+                //       });
+                //     }),
                 TextFormField(
                   controller: _startDateController,
                   decoration: InputDecoration(
