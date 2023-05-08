@@ -8,6 +8,7 @@ import '../requests/switch_to_attendee_api.dart';
 import 'creator_show_basic_info.dart';
 import 'manage_attendees_screen.dart';
 import 'tabs_screen.dart';
+import 'manage_attendees_screen.dart';
 
 class CreatorDrawer extends StatelessWidget {
   static const routeName = '/creatorDrawer';
