@@ -9,7 +9,6 @@ import '../models/event.dart';
 import '../requests/create_event.dart';
 import 'login_screen.dart';
 import '../providers/user_provider.dart';
-import './create_event_tickets.dart';
 
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
@@ -51,11 +50,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
             picked.toString(); // Update the text field with the selected date
       });
     }
-  }
-
-  void goToEventTicketsScreen(BuildContext ctx, String eventId) {
-    Navigator.of(ctx)
-        .pushNamed(CreateEventTickets.routeName, arguments: eventId);
   }
 
   Future<void> _pickImage() async {
@@ -326,29 +320,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                       },
                       child: const Center(
                         child: Text('Create Event'),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      (eventId == "")?
-                      ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Try Again!"))):
-                      goToEventTicketsScreen(context, eventId!);
-                    },
-                    child: Container(
-                      width: 50.0,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 227, 89, 4),
-                      ),
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                        size: 30.0,
                       ),
                     ),
                   ),
