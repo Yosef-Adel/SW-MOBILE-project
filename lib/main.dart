@@ -11,6 +11,7 @@
 import 'dart:io';
 
 import 'package:envie_cross_platform/providers/user_provider.dart';
+import 'package:envie_cross_platform/screens/manage_attendees_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_color_generator/material_color_generator.dart';
@@ -25,7 +26,6 @@ import 'screens/check_out_screen.dart';
 import 'screens/create_password_screen.dart';
 import 'screens/creator_dashboard.dart';
 import 'screens/creator_events_screen.dart';
-import 'screens/creator_manage_attendees.dart';
 import 'screens/creator_publish.dart';
 import 'screens/creator_show_basic_info.dart';
 import 'screens/creator_tickets.dart';
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
           CreatorEvents.routeName: (ctx) => CreatorEvents(),
           CreatorTickets.routeName: (ctx) => CreatorTickets(),
           CreatorDashboard.routeName: (ctx) => CreatorDashboard(),
-          CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
+          ManageAttendees.routeName: (ctx) => ManageAttendees(),
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
