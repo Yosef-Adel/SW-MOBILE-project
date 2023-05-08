@@ -1,15 +1,12 @@
-import 'dart:math';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import '../providers/creator_events_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../models/event.dart';
-import '../requests/create_event.dart';
-import 'login_screen.dart';
 import '../providers/user_provider.dart';
-import './create_event_tickets.dart';
+import '../requests/create_event.dart';
 
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
@@ -51,11 +48,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
             picked.toString(); // Update the text field with the selected date
       });
     }
-  }
-
-  void goToEventTicketsScreen(BuildContext ctx, String eventId) {
-    Navigator.of(ctx)
-        .pushNamed(CreateEventTickets.routeName, arguments: eventId);
   }
 
   Future<void> _pickImage() async {
@@ -332,12 +324,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {
-                      (eventId == "")?
-                      ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Try Again!"))):
-                      goToEventTicketsScreen(context, eventId!);
-                    },
+                    onTap: () {},
                     child: Container(
                       width: 50.0,
                       height: 50.0,

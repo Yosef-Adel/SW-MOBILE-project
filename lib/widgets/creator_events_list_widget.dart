@@ -5,15 +5,12 @@ import 'package:intl/intl.dart';
 import '../models/event.dart';
 import '../requests/creator_export_events.dart';
 import '../requests/creator_get_events_api.dart';
+import '../screens/event_creation_basic_info_screen.dart';
 import 'loading_indicator.dart';
 
 class CreatorEventsList extends StatelessWidget {
   int choice;
   CreatorEventsList({required this.choice});
-
-  void selectEvent(BuildContext ctx, Event e) {
-    //Navigator.of(ctx).pushNamed();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +29,7 @@ class CreatorEventsList extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     itemBuilder: (ctx, index) {
                       return CreatorEventCard(
+                        eventId: snapshot.data[index].id,
                         title: snapshot.data[index].title,
                         date: DateFormat('dd/MM/yyyy')
                             .format(snapshot.data[index].startDate),
@@ -44,14 +42,13 @@ class CreatorEventsList extends StatelessWidget {
                     itemCount: snapshot.data.length,
                   ),
                 ),
-                choice == 0
-                    ? FloatingActionButton.extended(
-                        onPressed: () async => creatorExportEvents(context),
-                        label: Text('CSV Export'),
-                        icon: Icon(Icons.download),
-                        backgroundColor: Theme.of(context).primaryColor,
-                      )
-                    : SizedBox(height: 0),
+                if (choice == 0)
+                  FloatingActionButton.extended(
+                    onPressed: () async => creatorExportEvents(context),
+                    label: Text('CSV Export'),
+                    icon: Icon(Icons.download),
+                    backgroundColor: Theme.of(context).primaryColor,
+                  )
               ],
             );
           } else {

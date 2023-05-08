@@ -17,6 +17,7 @@ import 'package:material_color_generator/material_color_generator.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/categories_provider.dart';
+import 'providers/creator_event_provider.dart';
 import 'providers/events_provider.dart';
 import 'providers/ticket_provider.dart';
 import 'requests/my_http_overrides.dart';
@@ -26,6 +27,7 @@ import 'screens/creator_dashboard.dart';
 import 'screens/creator_events_screen.dart';
 import 'screens/creator_manage_attendees.dart';
 import 'screens/creator_publish.dart';
+import 'screens/creator_show_basic_info.dart';
 import 'screens/creator_tickets.dart';
 import 'screens/event_screen.dart';
 import 'screens/filter_events_screen.dart';
@@ -35,7 +37,6 @@ import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/event_creation_basic_info_screen.dart';
-import 'screens/create_event_tickets.dart';
 import 'screens/create_event_promocodes.dart';
 
 void main() {
@@ -57,9 +58,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: UserProvider(),
         ),
-        ChangeNotifierProvider.value(value: TicketsProvider()),
+        ChangeNotifierProvider.value(
+          value: TicketsProvider(),
+        ),
         ChangeNotifierProvider.value(
           value: CategoriesProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: CreatorEventProvider(),
         ),
       ],
       child: MaterialApp(
@@ -74,7 +80,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/', // default is '/'
         routes: {
-          '/': (ctx) => LoginScreen(),
+          '/': (ctx) => TabsScreen(),
           SignupScreen.routeName: (ctx) => SignupScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
           TabsScreen.routeName: (ctx) => TabsScreen(),
@@ -89,9 +95,10 @@ class MyApp extends StatelessWidget {
           CreatorManageAttendees.routeName: (ctx) => CreatorManageAttendees(),
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
-          EventBasicInfo.routeName:(ctx)=>EventBasicInfo(),
-          CreateEventTickets.routeName: (ctx)=>CreateEventTickets(),
-          CreateEventPromocodes.routeName: (ctx)=>CreateEventPromocodes(),
+          EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
+          CreateEventPromocodes.routeName: (ctx) => CreateEventPromocodes(),
+          CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
+          
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(

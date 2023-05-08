@@ -4,9 +4,9 @@
 
 import 'package:envie_cross_platform/widgets/creator_events_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'event_creation_basic_info_screen.dart';
 
-import 'creator_drawer.dart';
+import 'creator_switch_to_attendee_drawer.dart';
+import 'event_creation_basic_info_screen.dart';
 
 class CreatorEvents extends StatelessWidget {
   const CreatorEvents({super.key});
@@ -18,6 +18,7 @@ class CreatorEvents extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        drawer: CreatorSwitchToAttendeeDrawer(),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(Icons.add),
@@ -25,7 +26,6 @@ class CreatorEvents extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed(EventBasicInfo.routeName);
           },
         ),
-        drawer: CreatorDrawer(),
         appBar: AppBar(
           title: Text('Events'),
           bottom: TabBar(
