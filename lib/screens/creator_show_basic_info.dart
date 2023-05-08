@@ -1,15 +1,180 @@
+
+import 'package:envie_cross_platform/models/event.dart';
 import 'package:envie_cross_platform/screens/creator_drawer.dart';
+import 'package:envie_cross_platform/widgets/events_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/creator_event_provider.dart';
 
 class CreatorShowBasicInfo extends StatelessWidget {
   static const routeName = '/creator-show-basic-info';
 
-  const CreatorShowBasicInfo({super.key});
+  //const CreatorShowBasicInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Event event =
+    //     Provider.of<CreatorEventProvider>(context).selectedEvent as Event;
+
+    final TextEditingController _eventNameController =
+        TextEditingController(text: 'test');
+    final TextEditingController _eventDerscriptionController =
+        TextEditingController(text: 'test');
+    final TextEditingController _startDateController =
+        TextEditingController(text: '27-05-22');
+    final TextEditingController _endDateController =
+        TextEditingController(text: '27-05-21');
+    final TextEditingController _venueNameController =
+        TextEditingController(text: 'test');
+    final TextEditingController _countryController =
+        TextEditingController(text: 'test');
+    final TextEditingController _cityController =
+        TextEditingController(text: 'test');
+    final TextEditingController _addressController = TextEditingController();
+    final TextEditingController _categoryController =
+        TextEditingController(text: 'Music');
     return Scaffold(
-      body: Text("CreatorShowBasicInfo"),
+      appBar: AppBar(
+          backgroundColor: Color.fromARGB(0, 0, 0, 1),
+          foregroundColor: Colors.black,
+          elevation: 0,
+          title: Text(
+            "Event title",
+            style: TextStyle(
+              fontFamily: 'Nexa',
+              fontSize: 30,
+            ),
+          )),
+      body: ListView(
+        children: [
+          Container(
+            width: 200,
+            height: 250,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.network(
+                  'https://www.adwanigh.com/media/doctor/2022/3/unnamed8-200x200.jpg',
+                  fit: BoxFit.cover,
+                )),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              controller: _eventNameController,
+              enabled: false,
+              decoration: InputDecoration(
+                labelText: 'Event Title',
+                hintText: 'Enter a title',
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+
+          /* event description */
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              controller: _eventDerscriptionController,
+              enabled: false,
+              decoration: InputDecoration(
+                labelText: 'Event description',
+                hintText: 'Enter a description',
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+
+          /* event start date and end date */
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _startDateController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Starts at',
+                      hintText: "Tap to select a Date",
+                    ),
+                  ),
+                ),
+                SizedBox(width: 30),
+                Expanded(
+                  child: TextFormField(
+                    controller: _endDateController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Ends at',
+                      hintText: "Tap to select a Date",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          /* event venue name */
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              controller: _venueNameController,
+              enabled: false,
+              decoration: InputDecoration(
+                labelText: 'Venue name',
+                hintText: 'Enter a venue',
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+
+          /*country/city*/
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _countryController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Country',
+                      hintText: "Enter a country",
+                    ),
+                  ),
+                ),
+                SizedBox(width: 30),
+                Expanded(
+                  child: TextFormField(
+                    controller: _cityController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'City',
+                      hintText: "Enter a city",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // event capacity
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              controller: _categoryController,
+              enabled: false,
+              decoration: InputDecoration(
+                labelText: 'Category',
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 120,
+          ),
+        ],
+      ),
       drawer: CreatorDrawer(),
     );
   }

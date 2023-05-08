@@ -39,8 +39,8 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2024),
     );
     if (picked != null) {
       setState(() {
