@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +12,7 @@ Future<List<Ticket>> getAllTicketsForAnEvent(
       '${RoutesAPI.getAllTickets}/ticket/${eventId}/availableTickets');
 
   final headers = {'Content-Type': 'application/json'};
-  var ticketProvider = Provider.of<TicketsProvider>(ctx,listen: false);
+  var ticketProvider = Provider.of<TicketsProvider>(ctx, listen: false);
   try {
     final response = await http.get(
       url,
@@ -28,6 +27,7 @@ Future<List<Ticket>> getAllTicketsForAnEvent(
       for (var ticketDict in jsonResponse['tickets']) {
         ticketsList.add(Ticket.fromJson(ticketDict));
       }
+      //   
       //print(ticketsList);
       ticketProvider.setTickets = ticketsList;
       //print(ticketProvider.allTickets);
