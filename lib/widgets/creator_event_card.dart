@@ -3,14 +3,8 @@ import 'package:flutter/material.dart';
 class CreatorEventCard extends StatelessWidget {
   final String title;
   final String date;
-  final String soldTickets;
-  final String totalTickets;
 
-  CreatorEventCard(
-      {required this.title,
-      required this.date,
-      required this.soldTickets,
-      required this.totalTickets});
+  CreatorEventCard({required this.title, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +31,7 @@ class CreatorEventCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left:8.0),
               child: Text(
                 title,
                 style: TextStyle(
@@ -47,22 +41,11 @@ class CreatorEventCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 7),
+            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left:8.0),
               child: Text(
                 date,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            SizedBox(height: 7),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                "$soldTickets/$totalTickets",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 11,

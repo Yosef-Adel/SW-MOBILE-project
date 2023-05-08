@@ -43,7 +43,7 @@ Future<List<Event>> creatorGetEvents(BuildContext context, int choice) async {
         Dict = jsonResponse['userEvents'];
 
       for (var eventDict in Dict) {
-        eventsList.add(Event.fromJsonCreator(eventDict));
+        eventsList.add(Event.fromJson(eventDict));
       }
       return eventsList;
     }

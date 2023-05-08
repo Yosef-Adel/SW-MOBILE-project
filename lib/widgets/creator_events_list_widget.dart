@@ -27,7 +27,7 @@ class CreatorEventsList extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height - 200,
+                  height: MediaQuery.of(context).size.height - 250,
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     itemBuilder: (ctx, index) {
@@ -35,10 +35,6 @@ class CreatorEventsList extends StatelessWidget {
                         title: snapshot.data[index].title,
                         date: DateFormat('dd/MM/yyyy')
                             .format(snapshot.data[index].startDate),
-                        soldTickets:
-                            snapshot.data[index].soldTickets.toString(),
-                        totalTickets:
-                            snapshot.data[index].totalTickets.toString(),
                       );
                     },
                     itemCount: snapshot.data.length,
