@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../models/ticket.dart';
 import '../widgets/tickets_list_widget.dart';
-import 'check_out_screen.dart';
+import 'creator_manage_attendees_checkout.dart';
 
 class ManageAttendees extends StatefulWidget {
   static const routeName = '/manage-attendees';
@@ -18,7 +18,7 @@ class _ManageAttendees extends State<ManageAttendees> {
   String eventId = "";
 
   void goToCheckOutScreen(BuildContext ctx, String eventId, String promoCode) {
-    Navigator.of(ctx).pushNamed(CheckOutScreen.routeName,
+    Navigator.of(ctx).pushNamed(ManageAttedneesCheckout.routeName,
         arguments: {'eventId': eventId, 'promoCodeId': promoCode});
   }
 

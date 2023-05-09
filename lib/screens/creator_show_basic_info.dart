@@ -1,8 +1,8 @@
-
 import 'package:envie_cross_platform/models/event.dart';
 import 'package:envie_cross_platform/screens/creator_drawer.dart';
 import 'package:envie_cross_platform/widgets/events_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/creator_event_provider.dart';
 
@@ -13,33 +13,35 @@ class CreatorShowBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Event event =
-    //     Provider.of<CreatorEventProvider>(context).selectedEvent as Event;
+    Event event =
+        Provider.of<CreatorEventProvider>(context).selectedEvent as Event;
 
     final TextEditingController _eventNameController =
-        TextEditingController(text: 'test');
+        TextEditingController(text: event.title);
     final TextEditingController _eventDerscriptionController =
-        TextEditingController(text: 'test');
-    final TextEditingController _startDateController =
-        TextEditingController(text: '27-05-22');
-    final TextEditingController _endDateController =
-        TextEditingController(text: '27-05-21');
+        TextEditingController(text: event.description);
+    final TextEditingController _startDateController = TextEditingController(
+        text: DateFormat('yyyy-MM-dd hh:mm a').format(event.startDate));
+    final TextEditingController _endDateController = TextEditingController(
+        text: DateFormat('yyyy-MM-dd hh:mm a').format(event.endDate));
     final TextEditingController _venueNameController =
-        TextEditingController(text: 'test');
+        TextEditingController(text: event.venueName);
     final TextEditingController _countryController =
-        TextEditingController(text: 'test');
+        TextEditingController(text: event.country);
     final TextEditingController _cityController =
-        TextEditingController(text: 'test');
+        TextEditingController(text: event.city);
     final TextEditingController _addressController = TextEditingController();
     final TextEditingController _categoryController =
         TextEditingController(text: 'Music');
+
+    print(event.imageUrl);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(0, 0, 0, 1),
           foregroundColor: Colors.black,
           elevation: 0,
           title: Text(
-            "Event title",
+            "Basic Info",
             style: TextStyle(
               fontFamily: 'Nexa',
               fontSize: 30,
@@ -54,7 +56,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image.network(
-                  'https://www.adwanigh.com/media/doctor/2022/3/unnamed8-200x200.jpg',
+                  event.imageUrl!,
                   fit: BoxFit.cover,
                 )),
           ),

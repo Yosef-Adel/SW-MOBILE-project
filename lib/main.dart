@@ -38,6 +38,7 @@ import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/event_creation_basic_info_screen.dart';
 import 'screens/create_event_promocodes.dart';
+import 'package:envie_cross_platform/screens/creator_manage_attendees_checkout.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -98,8 +99,7 @@ class MyApp extends StatelessWidget {
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
           CreateEventPromocodes.routeName: (ctx) => CreateEventPromocodes(),
           CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
-          
-          
+          ManageAttedneesCheckout.routeName:(ctx)=>ManageAttedneesCheckout(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
