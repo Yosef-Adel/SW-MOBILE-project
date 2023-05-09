@@ -86,13 +86,11 @@ class EventScreen extends StatelessWidget {
                     dateTime: DateFormat("d MMM yyyy")
                         .add_jm()
                         .format(selectedEvent.startDate),
-                    location: selectedEvent.venueName,
-                    //selectedEvent.duration,
+                    location: selectedEvent.venueName!,
                     price: selectedEvent.price.toString(),
                     startAt: '5:00 pm',
-                    isOnline: selectedEvent.isOnline,
-                    //selectedEvent.isFree,
-                    summary: selectedEvent.summary)),
+                    isOnline: selectedEvent.isOnline!,
+                    summary: selectedEvent.summary!)),
             SizedBox(height: 80)
           ],
         ));

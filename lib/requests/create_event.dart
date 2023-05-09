@@ -27,15 +27,15 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
       DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.startDate);
   request.fields['endDate'] =
       DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.endDate);
-  request.fields['description'] = event.description;
-  request.fields['category'] = event.categoryId;
-  request.fields['summary'] = event.summary;
-  request.fields['venueName'] = event.venueName;
-  request.fields['city'] = event.city;
-  request.fields['address1'] = event.venueName;
-  request.fields['country'] = event.country;
-  request.fields['postalCode'] = '11571';
-  request.fields['capacity'] = "1000";
+  request.fields['description'] = event.description!;
+  request.fields['category'] = event.category;
+  request.fields['summary'] = event.summary!;
+  request.fields['venueName'] = event.venueName!;
+  request.fields['city'] = event.city!;
+  request.fields['address1'] = event.address1!;
+  request.fields['country'] = event.country!;
+  request.fields['postalCode'] = event.postalCode!;
+  request.fields['capacity'] = event.capacity.toString();
   request.fields['createdBy'] = usrId;
 
   print(url);
@@ -45,25 +45,6 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   };
-
-  //print(event.title);
-
-  // var body = json.encode({
-  //   'name': event.title,
-  //   'startDate': event.startDate.toString(),
-  //   'endDate': event.endDate.toString(),
-  //   'description': event.description,
-  //   'category': "641fec455ce457366b03dabd",
-  //   'hostedBy': "6431f393ed12506eeea7562b",
-  //   'summary': event.summary,
-  //   'venueName': event.venueName,
-  //   'city': event.city,
-  //   'address1': event.venueName,
-  //   'country': event.country,
-  //   'postalCode': '11571',
-  //   'capacity': capacity,
-  //   'image': base64Image,
-  // });
 
   try {
     // Intercept the request and log its contents
@@ -78,9 +59,9 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
 
     if (message == "Event created successfully") {
       //print("json response :"+ jsonResponse['event']['_id']);
-      return [jsonResponse['event']['_id'],jsonResponse["message"]];
+      return [jsonResponse['event']['_id'], jsonResponse["message"]];
     } else {
-      return ["",jsonResponse["message"]];
+      return ["", jsonResponse["message"]];
     }
   } catch (error) {
     print('Error while creating event: $error');

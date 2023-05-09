@@ -13,8 +13,8 @@ class CreatorShowBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Event event =
-        Provider.of<CreatorEventProvider>(context).selectedEvent as Event;
+    Event event = Provider.of<CreatorEventProvider>(context, listen: false)
+        .selectedEvent as Event;
 
     final TextEditingController _eventNameController =
         TextEditingController(text: event.title);
@@ -34,7 +34,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
     final TextEditingController _categoryController =
         TextEditingController(text: 'Music');
 
-    print(event.imageUrl);
+    //print(event.imageUrl);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(0, 0, 0, 1),

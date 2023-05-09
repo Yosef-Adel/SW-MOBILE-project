@@ -16,6 +16,7 @@ class _CreatorPublishState extends State<CreatorPublish> {
   final TextEditingController _selectedDateController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true;
+  bool _isScheduled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +132,38 @@ class _CreatorPublishState extends State<CreatorPublish> {
                   ),
                 ),
               if (!_isPrivate)
+                Row(
+                  children: [
+                    Radio(
+                      value: false,
+                      groupValue: _isScheduled,
+                      activeColor: Theme.of(context).primaryColor,
+                      onChanged: (value) {
+                        setState(() {
+                          _isScheduled = value!;
+                        });
+                      },
+                    ),
+                    Text('Publish now'),
+                  ],
+                ),
+              if (!_isPrivate)
+                Row(
+                  children: [
+                    Radio(
+                      value: true,
+                      groupValue: _isScheduled,
+                      activeColor: Theme.of(context).primaryColor,
+                      onChanged: (value) {
+                        setState(() {
+                          _isScheduled = value!;
+                        });
+                      },
+                    ),
+                    Text('Schedule for later'),
+                  ],
+                ),
+              if (!_isPrivate && _isScheduled)
                 TextFormField(
                   controller: _selectedDateController,
                   decoration: InputDecoration(

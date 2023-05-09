@@ -6,7 +6,7 @@ import 'package:envie_cross_platform/widgets/creator_events_list_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'creator_switch_to_attendee_drawer.dart';
-import 'event_creation_basic_info_screen.dart';
+import 'creator_add_basic_info_screen.dart';
 
 class CreatorEvents extends StatelessWidget {
   const CreatorEvents({super.key});

@@ -36,7 +36,7 @@ import 'screens/signup_screen.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
-import 'screens/event_creation_basic_info_screen.dart';
+import 'screens/creator_add_basic_info_screen.dart';
 import 'screens/create_event_promocodes.dart';
 import 'package:envie_cross_platform/screens/creator_manage_attendees_checkout.dart';
 

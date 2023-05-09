@@ -3,38 +3,44 @@
 class Event {
   final String id;
   final String title;
-  final String description;
-  final String summary;
+  final String? description;
+  final String? summary;
   final String? imageUrl;
-  final bool isOnline;
+  final bool? isOnline;
+  final List<dynamic>? tickets;
   final DateTime startDate;
   final DateTime endDate;
-  final String categoryId;
-  final double price;
-  final String? hostedBy;
-  final bool isPrivate;
-  final String venueName;
-  final String city;
-  final String country;
+  final String category;
+  final double? price;
+  final int capacity;
+  final bool? isPrivate;
+  final String? venueName;
+  final String? city;
+  final String? country;
+  final String? postalCode;
+  final String? address1;
   final int? totalTickets;
   final int? soldTickets;
 
-  const Event({
+  Event({
     required this.id,
     required this.title,
-    required this.description,
-    required this.summary,
+    this.description,
+    this.summary,
     this.imageUrl,
-    required this.isOnline,
+    this.isOnline,
+    this.tickets,
     required this.startDate,
     required this.endDate,
-    required this.categoryId,
-    required this.price,
-    this.hostedBy,
-    required this.isPrivate,
-    required this.venueName,
-    required this.city,
-    required this.country,
+    required this.category,
+    this.price,
+    required this.capacity,
+    this.isPrivate,
+    this.venueName,
+    this.city,
+    this.country,
+    this.postalCode,
+    this.address1,
     this.totalTickets,
     this.soldTickets,
   });
@@ -44,21 +50,23 @@ class Event {
     return Event(
       id: json['_id'],
       title: json['name'],
-      description: json['description'],
-      summary: json['summary'],
+      description: json.containsKey('description') ? json['description'] : "",
+      summary: json.containsKey('summary') ? json['summary'] : "",
       imageUrl: json.containsKey('image')
           ? json['image']
           : 'https://res.cloudinary.com/dv2ei7dxk/image/upload/v1681899611/DEV/zlpblybrvv4psyovd7f9.png',
-      isOnline: json['isOnline'],
+      isOnline: json.containsKey('isOnline') ? json['isOnline'] : true,
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
-      categoryId: json['category'],
-      price: json['price'].toDouble(),
-      hostedBy: json['hostedBy'],
-      isPrivate: json['isPrivate'],
-      venueName: json['venueName'],
-      city: json['city'],
-      country: json['country'],
+      category: json['category'],
+      price: json.containsKey('price') ? json['price'].toDouble() : 0,
+      isPrivate: json.containsKey('isPrivate') ? json['isPrivate'] : true,
+      venueName: json.containsKey('venueName') ? json['venueName'] : "",
+      city: json.containsKey('city') ? json['city'] : "",
+      country: json.containsKey('country') ? json['country'] : "",
+      capacity: json['capacity'],
+      postalCode: json.containsKey('postalCode') ? json['postalCode'] : "",
+      address1: json.containsKey('address1') ? json['address1'] : "",
     );
   }
 
@@ -67,23 +75,26 @@ class Event {
     return Event(
       id: json['_id'],
       title: json['name'],
-      description: json['description'],
+      description: json.containsKey('description') ? json['description'] : "",
       summary: json['summary'],
       imageUrl: json.containsKey('image')
           ? json['image']
           : 'https://res.cloudinary.com/dv2ei7dxk/image/upload/v1681899611/DEV/zlpblybrvv4psyovd7f9.png',
-      isOnline: json['isOnline'],
+      isOnline: json.containsKey('isOnline') ? json['isOnline'] : true,
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
-      categoryId: json['category'],
-      price: json['price'].toDouble(),
-      hostedBy: json['hostedBy'],
-      isPrivate: json['isPrivate'],
-      venueName: json['venueName'],
-      city: json['city'],
-      country: json['country'],
-      totalTickets: json['numberOfTicketsCapacity'],
-      soldTickets: json['numberOfTicketsSold'],
+      category: json['category'],
+      price: json.containsKey('price') ? json['price'].toDouble() : 0,
+      isPrivate: json.containsKey('isPrivate') ? json['isPrivate'] : true,
+      venueName: json.containsKey('venueName') ? json['venueName'] : "",
+      city: json.containsKey('city') ? json['city'] : null,
+      country: json.containsKey('country') ? json['country'] : "",
+      capacity: json['capacity'],
+      postalCode: json.containsKey('postalCode') ? json['postalCode'] : "",
+      address1: json.containsKey('address1') ? json['address1'] : "",
+      totalTickets: json.containsKey('totalTickets') ? json['totalTickets'] : 0,
+      soldTickets: json.containsKey('soldTickets') ? json['soldTickets'] : 0,
+      tickets: json.containsKey('tickets') ? json['tickets'] : [],
     );
   }
 }
