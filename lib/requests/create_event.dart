@@ -20,6 +20,14 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
     request.files.add(multiPartFile);
   }
 
+  // print(event.summary);
+  // print(event.venueName);
+  print(event.city);
+  // print(event.address1);
+  // print(event.country);
+  // print(event.postalCode);
+  // print(event.category);
+  
   request.headers['Authorization'] = 'Bearer $token';
   request.headers['Content-Type'] = 'application/json';
   request.fields['name'] = event.title;
@@ -27,16 +35,20 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
       DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.startDate);
   request.fields['endDate'] =
       DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.endDate);
-  request.fields['description'] = event.description!;
   request.fields['category'] = event.category;
   request.fields['summary'] = event.summary!;
   request.fields['venueName'] = event.venueName!;
   request.fields['city'] = event.city!;
-  request.fields['address1'] = event.address1!;
+  request.fields['address1'] = event.venueName.toString() +
+      ', ' +
+      event.city.toString() +
+      ', ' +
+      event.country.toString();
   request.fields['country'] = event.country!;
-  request.fields['postalCode'] = event.postalCode!;
+  request.fields['postalCode'] = "11571";
   request.fields['capacity'] = event.capacity.toString();
-  request.fields['createdBy'] = usrId;
+  // request.fields['createdBy'] = usrId;
+  request.fields['isOnline'] = event.isOnline.toString();
 
   print(url);
   //print(token);
@@ -47,10 +59,10 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
   };
 
   try {
-    // Intercept the request and log its contents
-    //  final requestStreamed = await request.finalize();
-    //  final contents = await requestStreamed.bytesToString();
-    //  print('Request Body: $contents');
+    //Intercept the request and log its contents
+    // final requestStreamed = await request.finalize();
+    // final contents = await requestStreamed.bytesToString();
+    // print('Request Body: $contents');
     final response = await http.Response.fromStream(await request.send());
     final jsonResponse = json.decode(response.body);
     //print(jsonResponse);

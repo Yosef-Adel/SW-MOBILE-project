@@ -10,7 +10,6 @@ import 'routes_api.dart';
 Future<Event?> creatorGetEventById(BuildContext context, String eventId) async {
   String? token = Provider.of<UserProvider>(context, listen: false).token;
   final String baseUrl;
-  eventId = '64583601b4a91dad5dec6418';
   baseUrl = '${RoutesAPI.creatorGetEvents}/$eventId';
   Uri url = Uri.parse(baseUrl);
   final headers = {
