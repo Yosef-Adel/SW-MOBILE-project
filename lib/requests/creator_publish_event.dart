@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../models/event.dart';
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-Future<void> creatorPublishEvent(BuildContext context, bool isPrivate,
-    bool isScheduled, String? password, DateTime publishDate) async {
+Future<int> creatorPublishEvent(
+    BuildContext context,
+    bool isPrivate,
+    bool isScheduled,
+    bool isPublished,
+    String? password,
+    DateTime? publishDate) async {
   String? token = Provider.of<UserProvider>(context, listen: false).token;
   String? eventID =
       Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
-  eventID = '64331c1e1d3382d35d5b3a43';
   final String baseUrl = '${RoutesAPI.creatorGetEvents}/$eventID';
   Uri url = Uri.parse(baseUrl);
 
@@ -24,13 +28,18 @@ Future<void> creatorPublishEvent(BuildContext context, bool isPrivate,
   final Map<String, dynamic> body = {
     'isPrivate': isPrivate,
     'isScheduled': isScheduled,
+    'isPublished': isPublished,
   };
-  if (password != null) {
+  if (isPrivate && password != null) {
     body['password'] = password;
   }
-  if (isScheduled) {
-    body['publishDate'] = publishDate;
+  if (isScheduled && publishDate != null) {
+    body['publishDate'] =
+        DateFormat('yyyy-MM-dd\'T\'HH:mm').format(publishDate);
   }
+  print(password);
+  print(publishDate);
+  print(body);
 
   //print(headers);
   //print('Token: ${token}');
@@ -42,29 +51,24 @@ Future<void> creatorPublishEvent(BuildContext context, bool isPrivate,
       body: json.encode(body),
     );
     final jsonResponse = json.decode(response.body);
-    //print('Response: ${jsonResponse}');
+    print('Response: ${jsonResponse}');
 
     int responseStatus = response.statusCode;
+    print(responseStatus);
 
     if (responseStatus == 200) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Success'),
-          content: Text('Saved Successfully'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
-            ),
-          ],
+      return 0;
+    } else
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error while publishing event'),
+          backgroundColor: Colors.red,
         ),
       );
-    }
 
-    return;
+    return -1;
   } catch (error) {
-    print('Error in publish event: $error');
-    return;
+    print('Error while publishing event: $error');
+    return -1;
   }
 }

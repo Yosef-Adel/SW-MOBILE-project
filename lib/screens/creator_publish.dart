@@ -1,5 +1,7 @@
+import 'package:envie_cross_platform/screens/creator_show_basic_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../requests/creator_publish_event.dart';
 import 'creator_drawer.dart';
 
 class CreatorPublish extends StatefulWidget {
@@ -10,7 +12,7 @@ class CreatorPublish extends StatefulWidget {
 }
 
 class _CreatorPublishState extends State<CreatorPublish> {
-  bool _isPrivate = true;
+  bool _isPrivate = false;
   String _selectedOption = 'Anyone with the link';
   DateTime? _selectedDate;
   final TextEditingController _selectedDateController = TextEditingController();
@@ -123,6 +125,7 @@ class _CreatorPublishState extends State<CreatorPublish> {
                     );
                   }).toList(),
                 ),
+              if (!_isPrivate) SizedBox(height: 10.0),
               if (!_isPrivate)
                 Text(
                   'When should we publish your event?',
@@ -175,8 +178,11 @@ class _CreatorPublishState extends State<CreatorPublish> {
                       showTitleActions: true,
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
-                      onChanged: (date) {
+                      onConfirm: (date) {
                         _selectedDateController.text = date.toString();
+                        setState(() {
+                          _selectedDate = date;
+                        });
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -236,9 +242,28 @@ class _CreatorPublishState extends State<CreatorPublish> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "Publish btn",
-        onPressed: () {
-          //API call to save the event
-          //Navigator.of(context).pop();
+        onPressed: () async {
+          int res = await creatorPublishEvent(context, _isPrivate, _isScheduled,
+              !_isScheduled, _passwordController.text, _selectedDate);
+
+          if (res == 0) {
+            bool ret = await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Success'),
+                content: Text('Saved Successfully'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: Text('OK'),
+                  ),
+                ],
+              ),
+            );
+            if (ret)
+              Navigator.of(context)
+                  .pushReplacementNamed(CreatorShowBasicInfo.routeName);
+          }
         },
         child: Icon(Icons.save),
         backgroundColor: Theme.of(context).primaryColor,
