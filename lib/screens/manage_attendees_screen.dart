@@ -22,8 +22,8 @@ class _ManageAttendees extends State<ManageAttendees> {
         arguments: {'eventId': eventId, 'promoCodeId': promoCode});
   }
 
-  int calcTotalPrice(List<Ticket> tickets) {
-    int sum = 0;
+  double calcTotalPrice(List<Ticket> tickets) {
+    double sum = 0;
     for (int i = 0; i < tickets.length; ++i) {
       sum += tickets[i].price;
     }

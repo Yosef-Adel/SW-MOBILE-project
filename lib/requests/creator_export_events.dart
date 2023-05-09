@@ -12,7 +12,7 @@ import 'routes_api.dart';
 Future<void> creatorExportEvents(BuildContext context) async {
   String? userID = Provider.of<UserProvider>(context, listen: false).user.id;
   String? token = Provider.of<UserProvider>(context, listen: false).token;
-  print(token);
+  //print(token);
   final String baseUrl =
       '${RoutesAPI.creatorGetEvents}/$userID/all-events/download';
   Uri url = Uri.parse(baseUrl);
@@ -29,7 +29,7 @@ Future<void> creatorExportEvents(BuildContext context) async {
       headers: headers,
     );
 
-    print('Response: ${response.body}');
+    //print('Response: ${response.body}');
     int responseStatus = response.statusCode;
 
     if (responseStatus != 200) {
@@ -45,7 +45,7 @@ Future<void> creatorExportEvents(BuildContext context) async {
     final directory = await getExternalStorageDirectory();
 
     if (directory != null) {
-      print(directory.path);
+      //print(directory.path);
       String filePath = directory.path + '/MyEvents.csv';
 
       File file = File(filePath);

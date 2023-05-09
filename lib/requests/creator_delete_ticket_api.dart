@@ -2,39 +2,39 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import '../models/event.dart';
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-Future<Event?> creatorGetEventById(BuildContext context, String eventId) async {
+Future<int> creatorDeleteTicket(BuildContext context, String ticketID) async {
   String? token = Provider.of<UserProvider>(context, listen: false).token;
-  final String baseUrl;
-  baseUrl = '${RoutesAPI.creatorGetEvents}/$eventId';
-  Uri url = Uri.parse(baseUrl);
+  String? eventID =
+      Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
+  final url = Uri.parse(
+      '${RoutesAPI.getAllTickets}$eventID/$ticketID/deleteTicketById');
+
+  print(url);
+  //print('Token: $token');
   final headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   };
-  //print(headers);
-  //print('Token: ${token}');
-  //print(url);
+
   try {
-    final response = await http.get(
+    final response = await http.delete(
       url,
       headers: headers,
     );
     final jsonResponse = json.decode(response.body);
-    //print('Response: ${jsonResponse}');
+    //print('Response: $jsonResponse');
 
     int responseStatus = response.statusCode;
+    //print(responseStatus);
+    if (responseStatus == 200) return 0;
 
-    if (responseStatus == 200) {
-      Event event = Event.fromJson(jsonResponse);
-      return event;
-    }
+    return -1;
   } catch (error) {
-    print('Error in getting event ID: $error');
-    return null;
+    print("Error in deleting ticket: $error");
+    return -1;
   }
 }

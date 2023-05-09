@@ -141,7 +141,7 @@ class _CreatorPublishState extends State<CreatorPublish> {
                       context,
                       showTitleActions: true,
                       minTime: DateTime.now(),
-                      maxTime: DateTime(2100, 12, 31),
+                      maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
                         _selectedDateController.text = date.toString();
                       },

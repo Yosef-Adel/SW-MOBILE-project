@@ -39,14 +39,14 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
   request.fields['createdBy'] = usrId;
 
   print(url);
-  print(token);
+  //print(token);
 
   final headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   };
 
-  print(event.title);
+  //print(event.title);
 
   // var body = json.encode({
   //   'name': event.title,
@@ -72,12 +72,12 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
     //  print('Request Body: $contents');
     final response = await http.Response.fromStream(await request.send());
     final jsonResponse = json.decode(response.body);
-    print(jsonResponse);
+    //print(jsonResponse);
     final message = jsonResponse["message"];
-    print(message);
+    //print(message);
 
     if (message == "Event created successfully") {
-      print("json response :"+ jsonResponse['event']['_id']);
+      //print("json response :"+ jsonResponse['event']['_id']);
       return [jsonResponse['event']['_id'],jsonResponse["message"]];
     } else {
       return ["",jsonResponse["message"]];

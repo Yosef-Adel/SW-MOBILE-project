@@ -1,28 +1,9 @@
+import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-//tickets class
-class TicketClass {
-  String name;
-  String type;
-  double price;
-  int capacity;
-  int minQuantityPerOrder;
-  int maxQuantityPerOrder;
-  DateTime sellingStartDate;
-  DateTime sellingEndDate;
-
-  TicketClass({
-    required this.name,
-    required this.type,
-    required this.capacity,
-    required this.price,
-    required this.minQuantityPerOrder,
-    required this.maxQuantityPerOrder,
-    required this.sellingStartDate,
-    required this.sellingEndDate,
-  });
-}
+import '../models/Ticket.dart';
+import '../requests/creator_create_ticket_api.dart';
 
 class ticketFormPopup extends StatefulWidget {
   const ticketFormPopup({super.key});
@@ -34,8 +15,7 @@ class ticketFormPopup extends StatefulWidget {
 class ticketFormPopupState extends State<ticketFormPopup> {
   final _formKey = GlobalKey<FormState>();
 
-  String _ticketType = 'Paid'; //holds ticketType
-  bool _isTicketTypeSelected = false;
+  String _ticketType = 'Paid';
 
   final _nameController = TextEditingController();
   final _capacityController = TextEditingController();
@@ -47,41 +27,38 @@ class ticketFormPopupState extends State<ticketFormPopup> {
   void _selectTicketType(String type) {
     setState(() {
       _ticketType = type;
-      _isTicketTypeSelected = true;
 
       if (type == 'Free') {
-        _priceController.text = '1';
-        _priceController.clearComposing();
+        _priceController.text = '0';
       }
     });
   }
 
-  void _saveTicket() {
+  void _saveTicket(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
       final capacity = int.parse(_capacityController.text);
       final price = double.parse(_priceController.text);
+      final maxQuantityPerOrder = int.parse(_maxQuantityController.text);
       final sellingStartDate = DateTime.parse(_sellingStartDateController.text);
       final sellingEndDate = DateTime.parse(_sellingEndDateController.text);
-      final ticket = TicketClass(
-        name: name,
-        type: _ticketType,
-        capacity: capacity,
-        price: price,
-        minQuantityPerOrder: 1,
-        maxQuantityPerOrder: capacity,
-        sellingStartDate: sellingStartDate,
-        sellingEndDate: sellingEndDate,
-      );
 
-      Navigator.of(context).pop(ticket);
+      int result = await creatorAddTicket(context, name, _ticketType, capacity,
+          price, maxQuantityPerOrder, sellingStartDate, sellingEndDate);
+      if (result == 0) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Ticket added successfully')));
+        Navigator.of(context).pushReplacementNamed(CreatorTickets.routeName);
+      } else
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error while adding ticket')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text('Add Tickets'),
+        title: Text('Add Ticket'),
         content: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -91,7 +68,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: 'Tickets Name',
+                    labelText: 'Ticket Name',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -103,7 +80,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                 Padding(
                   padding: const EdgeInsets.only(right: 120, top: 8),
                   child: Text(
-                    'Tickets Type:',
+                    'Ticket Type:',
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -154,10 +131,10 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   keyboardType: TextInputType.number,
                   enabled: _ticketType != 'Free',
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if ((value == null || value.isEmpty)) {
                       return 'Please enter a price for the ticket.';
                     }
-                    if (int.parse(value) <= 0) {
+                    if (int.parse(value) <= 0 && _ticketType != 'Free') {
                       return 'Enter a number more than 0 or choose Free';
                     }
                     return null;
@@ -238,9 +215,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     ),
                     SizedBox(width: 16),
                     ElevatedButton(
-                      onPressed: () {
-                        _saveTicket();
-                      },
+                      onPressed: () => _saveTicket(context),
                       child: Text('Add'),
                     ),
                   ],

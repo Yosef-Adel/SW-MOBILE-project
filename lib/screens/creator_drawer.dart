@@ -1,13 +1,11 @@
 import 'package:envie_cross_platform/screens/creator_dashboard.dart';
 import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/creator_publish.dart';
-import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
 
-import '../requests/switch_to_attendee_api.dart';
 import 'creator_show_basic_info.dart';
+import 'creator_tickets.dart';
 import 'manage_attendees_screen.dart';
-import 'tabs_screen.dart';
 
 class CreatorDrawer extends StatelessWidget {
   static const routeName = '/creatorDrawer';
