@@ -19,7 +19,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
     final TextEditingController _eventNameController =
         TextEditingController(text: event.title);
     final TextEditingController _eventDerscriptionController =
-        TextEditingController(text: event.description);
+        TextEditingController(text: event.summary);
     final TextEditingController _startDateController = TextEditingController(
         text: DateFormat('yyyy-MM-dd hh:mm a').format(event.startDate));
     final TextEditingController _endDateController = TextEditingController(
@@ -80,7 +80,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
               controller: _eventDerscriptionController,
               enabled: false,
               decoration: InputDecoration(
-                labelText: 'Event description',
+                labelText: 'Event summary',
                 hintText: 'Enter a description',
               ),
             ),

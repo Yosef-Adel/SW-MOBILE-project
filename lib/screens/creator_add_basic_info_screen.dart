@@ -8,6 +8,7 @@ import '../models/event.dart';
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
 import '../requests/create_event.dart';
+import 'creator_events_screen.dart';
 
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
@@ -21,10 +22,11 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
   final TextEditingController _eventSummaryController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
-  final TextEditingController _venueNameController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _venueNameController =
+      TextEditingController(text: "");
+  final TextEditingController _countryController =
+      TextEditingController(text: "");
+  final TextEditingController _cityController = TextEditingController(text: "");
   final TextEditingController _categoryController = TextEditingController();
   File? _image;
   String _textInput = '';
@@ -327,6 +329,9 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          print(_cityController.text);
+                          //print(_cityController.text);
+
                           Event e = new Event(
                             id: "",
                             title: _eventNameController.text,
@@ -336,7 +341,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             startDate:
                                 DateTime.parse(_startDateController.text),
                             endDate: DateTime.parse(_endDateController.text),
-                            category: _categoryController.text,
+                            category: selectedDropdownItem,
                             price: 0,
                             isPrivate: false,
                             venueName: _venueNameController.text,
@@ -349,6 +354,13 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                           eventId = values[0].toString();
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(values[1].toString())));
+                          String message = values[1].toString();
+                          if (message == "Event created successfully") {
+                            Future.delayed(Duration(seconds: 3), () {
+                              Navigator.of(context).pushReplacementNamed(
+                                  CreatorEvents.routeName);
+                            });
+                          }
                         }
                       },
                       child: const Center(
