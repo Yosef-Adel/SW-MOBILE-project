@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'providers/categories_provider.dart';
 import 'providers/creator_event_provider.dart';
 import 'providers/events_provider.dart';
+import 'providers/promocodes_provider.dart';
 import 'providers/ticket_provider.dart';
 import 'requests/my_http_overrides.dart';
 import 'screens/check_out_screen.dart';
@@ -27,6 +28,7 @@ import 'screens/create_password_screen.dart';
 import 'screens/creator_attendee_report.dart';
 import 'screens/creator_dashboard.dart';
 import 'screens/creator_events_screen.dart';
+import 'screens/creator_promocodes.dart';
 import 'screens/creator_publish.dart';
 import 'screens/creator_sales_report.dart';
 import 'screens/creator_show_basic_info.dart';
@@ -39,7 +41,10 @@ import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/creator_add_basic_info_screen.dart';
+<<<<<<< Updated upstream
 import 'screens/create_event_promocodes.dart';
+=======
+>>>>>>> Stashed changes
 import 'screens/creator_manage_attendees_checkout.dart';
 
 void main() {
@@ -70,6 +75,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: CreatorEventProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: PromocodesProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Envie',
@@ -99,11 +107,14 @@ class MyApp extends StatelessWidget {
           CreatorPublish.routeName: (ctx) => CreatorPublish(),
           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
-          CreateEventPromocodes.routeName: (ctx) => CreateEventPromocodes(),
           CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
           ManageAttedneesCheckout.routeName: (ctx) => ManageAttedneesCheckout(),
+<<<<<<< Updated upstream
           CreatorSalesReport.routeName: (ctx) => CreatorSalesReport(),
           CreatorAttendeeReport.routeName: (ctx) => CreatorAttendeeReport(),
+=======
+          CreatorPromocodes.routeName: (ctx) => CreatorPromocodes(),
+>>>>>>> Stashed changes
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
