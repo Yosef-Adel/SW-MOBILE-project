@@ -41,10 +41,6 @@ import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/creator_add_basic_info_screen.dart';
-<<<<<<< Updated upstream
-import 'screens/create_event_promocodes.dart';
-=======
->>>>>>> Stashed changes
 import 'screens/creator_manage_attendees_checkout.dart';
 
 void main() {
@@ -109,12 +105,9 @@ class MyApp extends StatelessWidget {
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
           CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
           ManageAttedneesCheckout.routeName: (ctx) => ManageAttedneesCheckout(),
-<<<<<<< Updated upstream
           CreatorSalesReport.routeName: (ctx) => CreatorSalesReport(),
           CreatorAttendeeReport.routeName: (ctx) => CreatorAttendeeReport(),
-=======
           CreatorPromocodes.routeName: (ctx) => CreatorPromocodes(),
->>>>>>> Stashed changes
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
