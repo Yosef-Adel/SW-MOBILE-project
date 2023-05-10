@@ -11,7 +11,7 @@ import 'routes_api.dart';
 
 Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
     String token, String usrId) async {
-  final url = Uri.parse('${RoutesAPI.createEvent}');
+  final url = Uri.parse('${RoutesAPI.creatorGetEvents}');
   final request = http.MultipartRequest('POST', url);
   if (imageFile != null) {
     final fileStream = http.ByteStream(imageFile.openRead());

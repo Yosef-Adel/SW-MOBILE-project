@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import '../models/report.dart';
 import '../screens/creator_sales_report.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -84,12 +85,12 @@ Future<Map<String, dynamic>> fetchSalesReport(BuildContext context) async {
     }
     return {};
   } catch (error) {
-    print('Error: $error');
+    print('Error while fetching sales report: $error');
     throw error;
   }
 }
 
-Future<List<Report>> fetchTicketsSales(BuildContext context) async {
+Future<List<SalesReport>> fetchTicketsSales(BuildContext context) async {
   String? eventID =
       Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
   String? token = Provider.of<UserProvider>(context, listen: false).token;
@@ -109,17 +110,52 @@ Future<List<Report>> fetchTicketsSales(BuildContext context) async {
     print(jsonResponse);
 
     if (responseStatus == 200) {
-      List<Report> reportsList = [];
+      List<SalesReport> reportsList = [];
       final Dict = jsonResponse['Report'];
 
       for (var reportDict in Dict) {
-        reportsList.add(Report.fromJson(reportDict));
+        reportsList.add(SalesReport.fromJson(reportDict));
       }
       return reportsList;
     }
     return [];
   } catch (error) {
-    print('Error: $error');
+    print('Error while fetching tickets sales: $error');
+    return [];
+  }
+}
+
+Future<List<AttendeeReport>> getAttendeeReport(BuildContext context) async {
+  String? eventID =
+      Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
+  String? token = Provider.of<UserProvider>(context, listen: false).token;
+  final url =
+      Uri.parse('${RoutesAPI.creatorGetEvents}/$eventID/getAttendeeReport');
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  };
+  try {
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+    final jsonResponse = json.decode(response.body);
+    int responseStatus = response.statusCode;
+    print(jsonResponse);
+
+    if (responseStatus == 200) {
+      List<AttendeeReport> reportsList = [];
+      final Dict = jsonResponse['Report'];
+
+      for (var reportDict in Dict) {
+        reportsList.add(AttendeeReport.fromJson(reportDict));
+      }
+      return reportsList;
+    }
+    return [];
+  } catch (error) {
+    print('Error while fetching attendee report: $error');
     return [];
   }
 }

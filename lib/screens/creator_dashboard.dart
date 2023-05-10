@@ -229,7 +229,7 @@ class _CreatorDashboardState extends State<CreatorDashboard> {
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(
+                              Navigator.of(context).pushNamed(
                                   CreatorAttendeeReport.routeName);
                             },
                             child: Text('Attendee summary'),
@@ -242,7 +242,7 @@ class _CreatorDashboardState extends State<CreatorDashboard> {
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(
+                              Navigator.of(context).pushNamed(
                                   CreatorSalesReport.routeName);
                             },
                             child: Text('Sales summary'),

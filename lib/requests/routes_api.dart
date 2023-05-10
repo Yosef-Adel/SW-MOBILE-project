@@ -14,7 +14,6 @@ class RoutesAPI {
   static const changeToCreator = _baseUrl + '/user/to-creator';
   static const changeToAttendee = _baseUrl + '/user/to-attendee';
   static const creatorGetEvents = _baseUrl + '/api/events';
-  static const createEvent = _baseUrl + '/api/events';
 
 
   //For tickets

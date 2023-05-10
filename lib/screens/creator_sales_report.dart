@@ -3,28 +3,6 @@ import 'package:flutter/material.dart';
 import '../requests/creator_get_dashboard.dart';
 import '../widgets/creator_sales_tickets_list.dart';
 
-class Report {
-  final String ticketType;
-  final int price;
-  final int sold;
-  final int total;
-
-  Report(
-      {required this.ticketType,
-      required this.price,
-      required this.sold,
-      required this.total});
-
-  factory Report.fromJson(Map<String, dynamic> json) {
-    return Report(
-      ticketType: json['ticketType'],
-      price: int.parse(json['Price']),
-      sold: int.parse(json['sold']),
-      total: int.parse(json['total']),
-    );
-  }
-}
-
 class CreatorSalesReport extends StatefulWidget {
   static const routeName = '/creatorSalesReport';
   @override
@@ -32,10 +10,11 @@ class CreatorSalesReport extends StatefulWidget {
 }
 
 class _CreatorSalesReportState extends State<CreatorSalesReport> {
-  int? totalOrders;
-  int? totalSoldTickets;
-  double? grossSales;
-  double? netSales;
+  bool isDataReady = false;
+  int totalOrders = 0;
+  int totalSoldTickets = 0;
+  int grossSales = 0;
+  int netSales = 0;
   List<dynamic>? reportData;
 
   @override
@@ -51,12 +30,13 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
       totalSoldTickets = response['totalSoldTickets'];
       grossSales = response['grossSales'];
       netSales = response['netSales'];
+      isDataReady = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (totalOrders == null) {
+    if (isDataReady == false) {
       // While waiting for the response, show a CircularProgressIndicator.
       return Scaffold(
         appBar: AppBar(
@@ -75,42 +55,18 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0, bottom: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    // Add your export action here
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(Icons.download,
-                          color: Color.fromARGB(255, 14, 27, 49), size: 17),
-                      Text(
-                        'Export',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 14, 27, 49),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Row(
                 children: [
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Gross Sales',
-                      value: grossSales!.toInt(),
+                      value: grossSales,
                     ),
                   ),
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Net Sales',
-                      value: netSales!.toInt(),
+                      value: netSales,
                     ),
                   ),
                 ],
@@ -121,13 +77,13 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Tickets + Add-Ons Sold',
-                      value: totalSoldTickets!,
+                      value: totalSoldTickets,
                     ),
                   ),
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Orders',
-                      value: totalOrders!,
+                      value: totalOrders,
                     ),
                   ),
                 ],
@@ -135,7 +91,7 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
               Expanded(
                   child: Container(
                 child: CreatorSalesTicketsList(),
-                width: 50,
+                width: MediaQuery.of(context).size.width,
               ))
             ],
           ),

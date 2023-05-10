@@ -14,31 +14,35 @@ class CreatorSalesTicketsList extends StatelessWidget {
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
-                padding: EdgeInsets.zero,
+                padding: EdgeInsets.all(8),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          snapshot.data['ticketType'].toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data[index].ticketType,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Price: ${snapshot.data['Price'].toString()}'),
-                            Text('Sold: ${snapshot.data['sold'].toString()}'),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Text('Total: ${snapshot.data['total'].toString()}'),
-                      ],
+                          SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: Text('Price: ${snapshot.data[index].price.toString()}')),
+                              Expanded(child: Text('Sold: ${snapshot.data[index].sold.toString()}')),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Text('Total: ${snapshot.data[index].total.toString()}'),
+                        ],
+                      ),
                     ),
                   );
                 });
