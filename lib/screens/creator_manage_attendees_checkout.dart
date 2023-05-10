@@ -124,7 +124,7 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
         body: body,
       );
       final jsonResponse = json.decode(response.body);
-      print(response.body);
+      //print(response.body);
       final message = jsonResponse["message"];
       if (message == "Order created successfully!") {
         return true;

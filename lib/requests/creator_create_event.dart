@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -22,7 +23,7 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
 
   // print(event.summary);
   // print(event.venueName);
-  print(event.city);
+  // print(event.city);
   // print(event.address1);
   // print(event.country);
   // print(event.postalCode);

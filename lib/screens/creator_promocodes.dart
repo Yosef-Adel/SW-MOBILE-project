@@ -1,57 +1,37 @@
-import 'package:envie_cross_platform/screens/creator_promocodes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import '../models/ticket.dart';
-import '../providers/creator_event_provider.dart';
-import '../requests/creator_delete_ticket_api.dart';
-import '../requests/creator_get_all_tickets_api.dart';
-import '../widgets/creator_ticket_form_popup.dart';
+import '../requests/creator_delete_promocode.dart';
+import '../requests/creator_get_all_promocodes.dart';
+import '../widgets/creator_promocode_form_popup.dart';
 import '../widgets/loading_indicator.dart';
 import 'creator_drawer.dart';
 
-class CreatorTickets extends StatelessWidget {
-  static const routeName = '/creator-tickets';
+class CreatorPromocodes extends StatelessWidget {
+  static const routeName = '/creator-promocodes';
 
-  void _addCreatorTicket(BuildContext context) async {
+  void _addCreatorPromocode(BuildContext context) async {
     await showDialog<Ticket>(
       context: context,
-      builder: (_) => ticketFormPopup(),
+      builder: (_) => PromocodeFormPopup(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final eventID = Provider.of<CreatorEventProvider>(context, listen: false)
-        .selectedEventId!;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tickets'),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'promocodes') {
-                Navigator.of(context)
-                    .pushReplacementNamed(CreatorPromocodes.routeName);
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'promocodes',
-                child: Text('Promocodes'),
-              ),
-            ],
-          ),
-        ],
+        title: Text('Promocodes'),
       ),
       drawer: CreatorDrawer(),
       floatingActionButton: FloatingActionButton(
-        heroTag: "Add Ticket Button",
-        onPressed: () => _addCreatorTicket(context),
+        heroTag: "Add Promocode Button",
+        onPressed: () => _addCreatorPromocode(context),
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder(
-        future: creatorGetAllTickets(context),
+        future: creatorGetAllPromocodes(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingIndicator();
@@ -60,30 +40,29 @@ class CreatorTickets extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                final ticket = snapshot.data[index];
+                final promocode = snapshot.data[index];
                 return Card(
                   child: ListTile(
-                    title: Text(ticket.name),
-                    subtitle: ticket.type == 'Paid'
-                        ? Text(
-                            '${ticket.type}, Price: \$${ticket.price}, Capacity: ${ticket.capacity}')
-                        : Text('${ticket.type}, Capacity: ${ticket.capacity}'),
+                    title: Text(promocode.name),
+                    subtitle: promocode.amountOff == -1
+                        ? Text('Gives ${promocode.percentOff}% off')
+                        : Text('Gives \$${promocode.amountOff} off'),
                     trailing: IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () async {
-                          int result =
-                              await creatorDeleteTicket(context, ticket.id);
+                          int result = await creatorDeletePromocode(
+                              context, promocode.id);
                           if (result == 0)
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: Text('Success'),
-                                content: Text('Ticket deleted successfully'),
+                                content: Text('Promocode deleted successfully'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.of(context)
                                         .pushReplacementNamed(
-                                            CreatorTickets.routeName),
+                                            CreatorPromocodes.routeName),
                                     child: Text('OK'),
                                   ),
                                 ],
@@ -96,7 +75,8 @@ class CreatorTickets extends StatelessWidget {
             );
           } else {
             return const Center(
-              child: Text('No tickets found!', style: TextStyle(fontSize: 20)),
+              child:
+                  Text('No Promocodes found!', style: TextStyle(fontSize: 20)),
             );
           }
         },

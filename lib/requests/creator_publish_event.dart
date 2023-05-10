@@ -25,11 +25,17 @@ Future<int> creatorPublishEvent(
     'Authorization': 'Bearer $token'
   };
 
+  if (isPrivate) {
+    isScheduled = false;
+    isPublished = false;
+  }
+
   final Map<String, dynamic> body = {
     'isPrivate': isPrivate,
     'isScheduled': isScheduled,
     'isPublished': isPublished,
   };
+
   if (isPrivate && password != null) {
     body['password'] = password;
   }
@@ -37,9 +43,6 @@ Future<int> creatorPublishEvent(
     body['publishDate'] =
         DateFormat('yyyy-MM-dd\'T\'HH:mm').format(publishDate);
   }
-  print(password);
-  print(publishDate);
-  print(body);
 
   //print(headers);
   //print('Token: ${token}');
@@ -51,10 +54,9 @@ Future<int> creatorPublishEvent(
       body: json.encode(body),
     );
     final jsonResponse = json.decode(response.body);
-    print('Response: ${jsonResponse}');
+    //print('Response: ${jsonResponse}');
 
     int responseStatus = response.statusCode;
-    print(responseStatus);
 
     if (responseStatus == 200) {
       return 0;

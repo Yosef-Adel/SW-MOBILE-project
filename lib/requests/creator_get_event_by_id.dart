@@ -6,7 +6,6 @@ import '../models/event.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-//Static EventID for testing
 Future<Event?> creatorGetEventById(BuildContext context, String eventId) async {
   String? token = Provider.of<UserProvider>(context, listen: false).token;
   final String baseUrl;
@@ -16,8 +15,7 @@ Future<Event?> creatorGetEventById(BuildContext context, String eventId) async {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   };
-  //print(headers);
-  print('Token: ${token}');
+ 
   print(url);
   try {
     final response = await http.get(

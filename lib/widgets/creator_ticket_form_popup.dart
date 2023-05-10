@@ -2,7 +2,6 @@ import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-import '../models/Ticket.dart';
 import '../requests/creator_create_ticket_api.dart';
 
 class ticketFormPopup extends StatefulWidget {
@@ -92,7 +91,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       child: Text('Paid'),
                       style: ElevatedButton.styleFrom(
                         primary: _ticketType == 'Paid'
-                            ? Color.fromARGB(255, 210, 85, 7)
+                            ? Theme.of(context).primaryColor
                             : Color.fromARGB(255, 144, 141, 140),
                       ),
                     ),
@@ -101,7 +100,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       child: Text('Free'),
                       style: ElevatedButton.styleFrom(
                         primary: _ticketType == 'Free'
-                            ? Color.fromARGB(255, 210, 85, 7)
+                            ? Theme.of(context).primaryColor
                             : Color.fromARGB(255, 144, 141, 140),
                       ),
                     ),

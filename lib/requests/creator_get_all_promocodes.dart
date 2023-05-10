@@ -1,18 +1,20 @@
 import 'dart:convert';
+
+import 'package:envie_cross_platform/models/promocode.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import '../models/ticket.dart';
+
 import '../providers/creator_event_provider.dart';
-import '../providers/promocodes_provider.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-Future<List<Ticket>> creatorGetAllTickets(BuildContext context) async {
-  String? eventId = Provider.of<CreatorEventProvider>(context, listen: false)
-      .selectedEventId!;
+Future<List<Promocode>> creatorGetAllPromocodes(BuildContext context) async {
   String? token = Provider.of<UserProvider>(context, listen: false).token;
-  final url = Uri.parse('${RoutesAPI.getAllTickets}${eventId}/allTickets');
+  final eventID = Provider.of<CreatorEventProvider>(context, listen: false)
+      .selectedEventId!;
+
+  final url = Uri.parse('${RoutesAPI.checkPromo}${eventID}');
 
   print(url);
   //print('Token: $token');
@@ -30,19 +32,16 @@ Future<List<Ticket>> creatorGetAllTickets(BuildContext context) async {
     //print('Response: ${jsonResponse}');
 
     int responseStatus = response.statusCode;
-    List<Ticket> ticketsList = [];
+    List<Promocode> promocodesList = [];
     if (responseStatus == 200) {
-      for (var ticketDict in jsonResponse['tickets']) {
-        ticketsList.add(Ticket.fromJsonCreator(ticketDict));
+      for (var promoDict in jsonResponse['promocodes']) {
+        promocodesList.add(Promocode.fromJson(promoDict));
       }
-      Provider.of<PromocodesProvider>(context, listen: false).ticketsRetrieved =
-          ticketsList;
-      Provider.of<PromocodesProvider>(context, listen: false).selectedTicket = ticketsList[0].id;
-      return ticketsList;
+      return promocodesList;
     }
     return [];
   } catch (error) {
-    print("Error in getting tickets: $error");
+    print("Error in getting promocodes: $error");
     return [];
   }
 }

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../requests/creator_create_event.dart';
 import '../models/event.dart';
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
-import '../requests/create_event.dart';
 import 'creator_events_screen.dart';
+
 
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
@@ -29,7 +30,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
   final TextEditingController _cityController = TextEditingController(text: "");
   final TextEditingController _categoryController = TextEditingController();
   File? _image;
-  String _textInput = '';
   final List<String> dropdownItems = [
     'Music',
     'Food&Drink',
@@ -336,7 +336,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             id: "",
                             title: _eventNameController.text,
                             summary: _eventSummaryController.text,
-                            imageUrl: _textInput,
                             isOnline: _isOnline,
                             startDate:
                                 DateTime.parse(_startDateController.text),
