@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/promocodes_provider.dart';
 import '../requests/creator_create_promocode.dart';
+import '../requests/creator_upload_promocodes.dart';
 import '../screens/creator_promocodes.dart';
 import 'creator_promocode_dropdown.dart';
 
@@ -52,7 +55,9 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
     }
   }
 
-  void _saveCSV() {}
+  void _saveCSV() async {
+    File? csv = await pickCsvFile();
+  }
 
   @override
   Widget build(BuildContext context) {
