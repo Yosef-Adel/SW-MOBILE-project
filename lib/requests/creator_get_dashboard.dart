@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import '../screens/creator_sales_report.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -88,7 +89,7 @@ Future<Map<String, dynamic>> fetchSalesReport(BuildContext context) async {
   }
 }
 
-Future<Map<String, dynamic>> fetchTicketsSales(BuildContext context) async {
+Future<List<Report>> fetchTicketsSales(BuildContext context) async {
   String? eventID =
       Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
   String? token = Provider.of<UserProvider>(context, listen: false).token;
@@ -103,13 +104,20 @@ Future<Map<String, dynamic>> fetchTicketsSales(BuildContext context) async {
       url,
       headers: headers,
     );
+    final jsonResponse = json.decode(response.body);
     int responseStatus = response.statusCode;
     if (responseStatus == 200) {
-      return json.decode(response.body);
+      List<Report> reportsList = [];
+      final Dict = jsonResponse['Report'];
+
+      for (var reportDict in Dict) {
+        reportsList.add(Report.fromJson(reportDict));
+      }
+      return reportsList;
     }
-    return {};
+    return [];
   } catch (error) {
     print('Error: $error');
-    throw error;
+    return [];
   }
 }

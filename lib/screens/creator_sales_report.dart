@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../requests/creator_get_dashboard.dart';
 
+class Report {
+  final String ticketType;
+  final int price;
+  final int sold;
+  final int total;
+
+  Report(
+      {required this.ticketType,
+      required this.price,
+      required this.sold,
+      required this.total});
+
+  factory Report.fromJson(Map<String, dynamic> json) {
+    return Report(
+      ticketType: json['ticketType'],
+      price: json['Price'],
+      sold: json['sold'],
+      total: json['total'],
+    );
+  }
+}
+
 class CreatorSalesReport extends StatefulWidget {
   static const routeName = '/creatorSalesReport';
   @override
@@ -19,7 +41,6 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
   void initState() {
     super.initState();
     _fetchSalesReport();
-    // _fetchTicketsSales();
   }
 
   Future<void> _fetchSalesReport() async {
@@ -32,16 +53,9 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
     });
   }
 
-  // Future<void> _fetchTicketsSales() async {
-  //   final response = await fetchTicketsSales(context);
-  //   setState(() {
-  //     reportData = response['Report'] as List<dynamic>;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    if (totalOrders == null || reportData == null) {
+    if (totalOrders == null) {
       // While waiting for the response, show a CircularProgressIndicator.
       return Scaffold(
         appBar: AppBar(
@@ -117,37 +131,6 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   ),
                 ],
               ),
-              // ListView.builder(
-              //   itemCount: reportData!.length,
-              //   itemBuilder: (context, index) {
-              //     final item = reportData![index];
-
-              //     return Card(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             item['ticketType'],
-              //             style: TextStyle(
-              //               fontWeight: FontWeight.bold,
-              //               fontSize: 18,
-              //             ),
-              //           ),
-              //           SizedBox(height: 8),
-              //           Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Text('Price: ${item['Price']}'),
-              //               Text('Sold: ${item['sold']}'),
-              //             ],
-              //           ),
-              //           SizedBox(height: 8),
-              //           Text('Total: ${item['total']}'),
-              //         ],
-              //       ),
-              //     );
-              //   },
-              // ),
             ],
           ),
         ),
