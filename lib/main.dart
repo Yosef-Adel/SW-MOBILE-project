@@ -24,9 +24,11 @@ import 'providers/ticket_provider.dart';
 import 'requests/my_http_overrides.dart';
 import 'screens/check_out_screen.dart';
 import 'screens/create_password_screen.dart';
+import 'screens/creator_attendee_report.dart';
 import 'screens/creator_dashboard.dart';
 import 'screens/creator_events_screen.dart';
 import 'screens/creator_publish.dart';
+import 'screens/creator_sales_report.dart';
 import 'screens/creator_show_basic_info.dart';
 import 'screens/creator_tickets.dart';
 import 'screens/event_screen.dart';
@@ -38,7 +40,7 @@ import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/creator_add_basic_info_screen.dart';
 import 'screens/create_event_promocodes.dart';
-import 'package:envie_cross_platform/screens/creator_manage_attendees_checkout.dart';
+import 'screens/creator_manage_attendees_checkout.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -99,7 +101,9 @@ class MyApp extends StatelessWidget {
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
           CreateEventPromocodes.routeName: (ctx) => CreateEventPromocodes(),
           CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
-          ManageAttedneesCheckout.routeName:(ctx)=>ManageAttedneesCheckout(),
+          ManageAttedneesCheckout.routeName: (ctx) => ManageAttedneesCheckout(),
+          CreatorSalesReport.routeName: (ctx) => CreatorSalesReport(),
+          CreatorAttendeeReport.routeName: (ctx) => CreatorAttendeeReport(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
