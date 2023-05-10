@@ -47,7 +47,7 @@ class _CreatorDashboardState extends State<CreatorDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    if (soldTickets == null || eventUrl == null) {
+    if (soldTickets == null) {
       // While waiting for the response, show a CircularProgressIndicator.
       return Scaffold(
         appBar: AppBar(
@@ -201,26 +201,22 @@ class _CreatorDashboardState extends State<CreatorDashboard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: Expanded(
-                      flex: 2,
-                      child: TextFormField(
-                        readOnly: true,
-                        initialValue: eventUrl,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.copy),
-                            onPressed: () {
-                              Clipboard.setData(ClipboardData(text: eventUrl));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text('Copied to clipboard'),
-                                duration: Duration(seconds: 2),
-                              ));
-                            },
-                          ),
+                    child: TextFormField(
+                      readOnly: true,
+                      initialValue: eventUrl,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.copy),
+                          onPressed: () {
+                            Clipboard.setData(ClipboardData(text: eventUrl));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Copied to clipboard'),
+                              duration: Duration(seconds: 2),
+                            ));
+                          },
                         ),
-                        style: TextStyle(fontSize: 14),
                       ),
+                      style: TextStyle(fontSize: 14),
                     ),
                   ),
                   Padding(

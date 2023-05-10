@@ -22,7 +22,7 @@ class CreatorSalesTicketsList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data['ticketType'],
+                          snapshot.data['ticketType'].toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -32,12 +32,12 @@ class CreatorSalesTicketsList extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Price: ${snapshot.data['Price']}'),
-                            Text('Sold: ${snapshot.data['sold']}'),
+                            Text('Price: ${snapshot.data['Price'].toString()}'),
+                            Text('Sold: ${snapshot.data['sold'].toString()}'),
                           ],
                         ),
                         SizedBox(height: 8),
-                        Text('Total: ${snapshot.data['total']}'),
+                        Text('Total: ${snapshot.data['total'].toString()}'),
                       ],
                     ),
                   );

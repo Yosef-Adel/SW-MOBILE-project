@@ -106,6 +106,8 @@ Future<List<Report>> fetchTicketsSales(BuildContext context) async {
     );
     final jsonResponse = json.decode(response.body);
     int responseStatus = response.statusCode;
+    print(jsonResponse);
+
     if (responseStatus == 200) {
       List<Report> reportsList = [];
       final Dict = jsonResponse['Report'];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../requests/creator_get_dashboard.dart';
+import '../widgets/creator_sales_tickets_list.dart';
 
 class Report {
   final String ticketType;
@@ -17,9 +18,9 @@ class Report {
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
       ticketType: json['ticketType'],
-      price: json['Price'],
-      sold: json['sold'],
-      total: json['total'],
+      price: int.parse(json['Price']),
+      sold: int.parse(json['sold']),
+      total: int.parse(json['total']),
     );
   }
 }
@@ -131,6 +132,11 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   ),
                 ],
               ),
+              Expanded(
+                  child: Container(
+                child: CreatorSalesTicketsList(),
+                width: 50,
+              ))
             ],
           ),
         ),
