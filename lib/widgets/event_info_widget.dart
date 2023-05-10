@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 class EventInfo extends StatelessWidget {
   final String dateTime;
   final String location;
-  final String duration;
   final String price;
-  final String startAt;
   final bool isOnline;
   final bool isFree;
   final String summary;
@@ -15,11 +13,9 @@ class EventInfo extends StatelessWidget {
   EventInfo(
       {required this.dateTime,
       required this.location,
-      this.duration = "",
       required this.price,
-      required this.startAt,
       required this.isOnline,
-      this.isFree = false,
+      required this.isFree,
       required this.summary});
 
   @override
@@ -39,10 +35,6 @@ class EventInfo extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
                 ),
-                //   Text('Starts at ${StartAt}',
-                //       style: TextStyle(
-                //           fontSize: 15, color: Color.fromARGB(255, 104, 104, 104))),
-                // ],
               ]),
         ),
         isOnline
@@ -64,15 +56,6 @@ class EventInfo extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
                 )),
-        // ListTile(
-        //     leading: Container(
-        //       child: Icon(Icons.timelapse_outlined),
-        //     ),
-        //     title: Text(
-        //       "Duration: ${duration}",
-        //       style: TextStyle(
-        //           fontSize: 17, color: Color.fromARGB(255, 24, 24, 24)),
-        //     )),
         isFree
             ? ListTile(
                 leading: Container(
