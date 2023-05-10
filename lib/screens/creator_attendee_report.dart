@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../requests/creator_export_attendee_report.dart';
 import '../requests/creator_get_dashboard.dart';
 import '../widgets/loading_indicator.dart';
 
@@ -11,6 +13,26 @@ class CreatorAttendeeReport extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Attendee Summary'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) async {
+              if (value == 'report') {
+                await creatorExportAttendeeReport(context);
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                  value: 'report',
+                  child: Row(
+                    children: [
+                      Icon(Icons.download_outlined),
+                      Text('Download Attendee Report',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  )),
+            ],
+          ),
+        ],
       ),
       body: FutureBuilder(
           future: getAttendeeReport(context),
@@ -38,12 +60,14 @@ class CreatorAttendeeReport extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 8),
-                            Text('Price: ${snapshot.data[index].orderNumber}'),
+                            Text(
+                                'Order Number: ${snapshot.data[index].orderNumber}'),
                             SizedBox(height: 8),
                             Text(
-                                'Sold: ${snapshot.data[index].orderDate.toString()}'),
+                                'Order Date: ${DateFormat.yMd().add_jm().format(snapshot.data[index].orderDate)}'),
                             SizedBox(height: 8),
-                            Text('Total: ${snapshot.data[index].ticketType}'),
+                            Text(
+                                'Ticket Type: ${snapshot.data[index].ticketType}'),
                           ],
                         ),
                       ),
