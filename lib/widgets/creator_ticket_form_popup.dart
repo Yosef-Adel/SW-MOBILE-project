@@ -133,7 +133,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     if ((value == null || value.isEmpty)) {
                       return 'Please enter a price for the ticket.';
                     }
-                    if (int.parse(value) <= 0 && _ticketType != 'Free') {
+                    if (double  .parse(value) <= 0 && _ticketType != 'Free') {
                       return 'Enter a number more than 0 or choose Free';
                     }
                     return null;
@@ -205,6 +205,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     return null;
                   },
                 ),
+                SizedBox(height: 10),      
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

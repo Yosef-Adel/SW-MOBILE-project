@@ -8,6 +8,7 @@ import '../requests/creator_get_all_tickets_api.dart';
 import '../widgets/creator_ticket_form_popup.dart';
 import '../widgets/loading_indicator.dart';
 import 'creator_drawer.dart';
+import '../widgets/creator_edit_ticket_Popup.dart';
 
 class CreatorTickets extends StatelessWidget {
   static const routeName = '/creator-tickets';
@@ -17,6 +18,11 @@ class CreatorTickets extends StatelessWidget {
       context: context,
       builder: (_) => ticketFormPopup(),
     );
+  }
+
+  void _editCreatorTicket(BuildContext context, String ticId) async {
+    await showDialog(
+        context: context, builder: (_) => editTicketFormPopUp(ticketId: ticId));
   }
 
   @override
@@ -61,6 +67,7 @@ class CreatorTickets extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
                 final ticket = snapshot.data[index];
+                print(snapshot.data[index].id);
                 return Card(
                   child: ListTile(
                     title: Text(ticket.name),
@@ -68,28 +75,43 @@ class CreatorTickets extends StatelessWidget {
                         ? Text(
                             '${ticket.type}, Price: \$${ticket.price}, Capacity: ${ticket.capacity}')
                         : Text('${ticket.type}, Capacity: ${ticket.capacity}'),
-                    trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () async {
-                          int result =
-                              await creatorDeleteTicket(context, ticket.id);
-                          if (result == 0)
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text('Success'),
-                                content: Text('Ticket deleted successfully'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.of(context)
-                                        .pushReplacementNamed(
-                                            CreatorTickets.routeName),
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                        }),
+                    trailing: Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                int result = await creatorDeleteTicket(
+                                    context, ticket.id);
+                                if (result == 0)
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Success'),
+                                      content:
+                                          Text('Ticket deleted successfully'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  CreatorTickets.routeName),
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                              }),
+                          SizedBox(width: 8),
+
+                          // edit ticket
+                          IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () =>
+                                  _editCreatorTicket(context, ticket.id)),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
