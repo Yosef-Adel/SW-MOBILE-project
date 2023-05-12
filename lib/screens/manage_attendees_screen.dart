@@ -51,7 +51,7 @@ class _ManageAttendees extends State<ManageAttendees> {
         ),
         body: Container(
           height: MediaQuery.of(context).size.height * 0.7,
-          child: TicketInfo("64331c1e1d3382d35d5b3a43"),
+          child: TicketInfo("645415818d0b47c6a89b390e"),
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(

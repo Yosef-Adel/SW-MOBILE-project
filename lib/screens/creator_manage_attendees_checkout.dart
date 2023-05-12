@@ -78,8 +78,9 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
       required List<Ticket> tickets,
       required String eventId,
       String? token,
-      required String promoCodeId}) async {
-    final url = Uri.parse('${RoutesAPI.placeOrder}${eventId}');
+      required String userId}) async {
+    final url = Uri.parse(
+        '${RoutesAPI.creatorGetEvents}/${eventId}/${userId}/attendees');
     print(url);
     //print(token);
     final headers = {
@@ -95,27 +96,19 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
         //print(tickets[i].id);
         //print(tickets[i].count);
         ticket["ticketClass"] = tickets[i].id;
+        ticket["faceValue"] = "5";
         ticket['number'] = tickets[i].count;
         ticketsBought.add(ticket);
       }
     }
     var body;
-    if (promoCodeId == null || promoCodeId.isEmpty) {
-      body = json.encode({
-        'ticketsBought': ticketsBought,
-        'firstName': firstname,
-        'lastName': lastname,
-        'email': email
-      });
-    } else {
-      body = json.encode({
-        'ticketsBought': ticketsBought,
-        'promocode': promoCodeId,
-        'firstName': firstname,
-        'lastName': lastname,
-        'email': email
-      });
-    }
+    body = json.encode({
+      'ticketsBought': ticketsBought,
+      'firstName': firstname,
+      'lastName': lastname,
+      'email': email
+    });
+    print(body);
 
     try {
       final response = await http.post(
@@ -124,9 +117,10 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
         body: body,
       );
       final jsonResponse = json.decode(response.body);
-      //print(response.body);
-      final message = jsonResponse["message"];
-      if (message == "Order created successfully!") {
+      print(response.body);
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
         return true;
       } else {
         return false;
@@ -140,6 +134,7 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
   @override
   Widget build(BuildContext context) {
     var ticketsProv = Provider.of<TicketsProvider>(context, listen: false);
+    String? userId = Provider.of<UserProvider>(context, listen: false).user.id;
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     var usrtoken = Provider.of<UserProvider>(context, listen: false).token;
@@ -160,15 +155,14 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
                     tickets: ticketsProv.allTickets,
                     eventId: eventTicketDetails['eventId']!,
                     token: usrtoken,
-                    promoCodeId: eventTicketDetails['promoCodeId']!);
+                    userId: userId!);
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: orderPlaced
-                        ? Text(
-                            'Order has been placed succesfully. Check confirmation email!')
-                        : Text('Please login first!')));
+                        ? Text('added attendee')
+                        : Text('failed to add attendee')));
                 if (orderPlaced) {
-                  Future.delayed(Duration(seconds: 5), () {
+                  Future.delayed(Duration(seconds: 3), () {
                     Navigator.of(context)
                         .pushReplacementNamed(CreatorShowBasicInfo.routeName);
                   });
