@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../screens/tabs_screen.dart';
+
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
-  MyAppBar({Key? key, this.initialTime = 20})
+  MyAppBar({Key? key, this.initialTime = 1})
       : preferredSize = Size.fromHeight(
             kToolbarHeight + 30), // Set the height of the AppBar
         super(key: key);
@@ -26,6 +28,7 @@ class _MyAppBarState extends State<MyAppBar> {
     startTimer();
   }
 
+
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() {
@@ -33,6 +36,9 @@ class _MyAppBarState extends State<MyAppBar> {
           _secondsRemaining--;
         } else {
           _timer!.cancel();
+          Navigator.of(context)
+                        .pushReplacementNamed(TabsScreen.routeName);
+          
         }
       });
     });
@@ -66,7 +72,7 @@ class _MyAppBarState extends State<MyAppBar> {
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(30.0),
           child: Center(
-            child: Text(timerDisplayString,
+            child: Text("time left: "+timerDisplayString,
                 style: TextStyle(color: Color.fromARGB(255, 126, 124, 124))),
           ),
         ),
