@@ -32,7 +32,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
         TextEditingController(text: event.city);
     final TextEditingController _addressController = TextEditingController();
     final TextEditingController _categoryController =
-        TextEditingController(text: 'Music');
+        TextEditingController(text: event.category);
 
     //print(event.imageUrl);
     return Scaffold(
