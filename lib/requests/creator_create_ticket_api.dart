@@ -72,7 +72,7 @@ Future<int> creatorEditTicket(
   };
   try {
     final response = await http.put(url, headers: headers, body: body);
-    print(response.statusCode);
+    //print(response.statusCode);
 
     final jsonResponse = json.decode(response.body);
     //print(jsonResponse['message']);

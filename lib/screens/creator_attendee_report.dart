@@ -1,11 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../models/report.dart';
+import '../providers/dashboard_provider.dart';
 import '../requests/creator_export_attendee_report.dart';
 import '../requests/creator_get_dashboard.dart';
 
-class CreatorAttendeeReport extends StatelessWidget {
+class CreatorAttendeeReport extends StatefulWidget {
   static const routeName = '/creator-attendee-report';
+
+  @override
+  State<CreatorAttendeeReport> createState() => _CreatorAttendeeReportState();
+}
+
+class _CreatorAttendeeReportState extends State<CreatorAttendeeReport> {
+  ScrollController _scrollController = ScrollController();
+  int currentPage = 1;
+  List<AttendeeReport> itemList = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (currentPage <
+            Provider.of<DashboardProvider>(context, listen: false).maxPages) {
+          currentPage++;
+          setState(() {
+          });
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +63,17 @@ class CreatorAttendeeReport extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-          future: getAttendeeReport(context),
+          future: getAttendeeReport(context, currentPage),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.data != null &&
                 snapshot.connectionState == ConnectionState.done) {
+              itemList.addAll(snapshot.data);
               return ListView.builder(
+                  controller: _scrollController,
                   padding: EdgeInsets.all(8),
-                  itemCount: snapshot.data.length,
+                  itemCount: itemList.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 4,
@@ -52,7 +83,7 @@ class CreatorAttendeeReport extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              snapshot.data[index].name,
+                              itemList[index].name,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -60,13 +91,12 @@ class CreatorAttendeeReport extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             Text(
-                                'Order Number: ${snapshot.data[index].orderNumber}'),
+                                'Order Number: ${itemList[index].orderNumber}'),
                             SizedBox(height: 8),
                             Text(
-                                'Order Date: ${DateFormat.yMd().add_jm().format(snapshot.data[index].orderDate)}'),
+                                'Order Date: ${DateFormat.yMd().add_jm().format(itemList[index].orderDate)}'),
                             SizedBox(height: 8),
-                            Text(
-                                'Ticket Type: ${snapshot.data[index].ticketType}'),
+                            Text('Ticket Type: ${itemList[index].ticketType}'),
                           ],
                         ),
                       ),

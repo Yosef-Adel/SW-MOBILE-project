@@ -145,7 +145,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     final url =
                         Uri.parse('${RoutesAPI.changeToCreator}/$userID');
                     //print(url);
-                    print(token);
+                    //print(token);
                     final headers = {
                       'Content-Type': 'application/json',
                       'Authorization': 'Bearer $token'

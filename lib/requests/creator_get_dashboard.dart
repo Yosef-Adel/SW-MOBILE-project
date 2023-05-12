@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import '../models/report.dart';
+import '../providers/dashboard_provider.dart';
 import '../screens/creator_sales_report.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -125,16 +126,18 @@ Future<List<SalesReport>> fetchTicketsSales(BuildContext context) async {
   }
 }
 
-Future<List<AttendeeReport>> getAttendeeReport(BuildContext context) async {
+Future<List<AttendeeReport>> getAttendeeReport(
+    BuildContext context, int currentPage) async {
   String? eventID =
       Provider.of<CreatorEventProvider>(context, listen: false).selectedEventId;
   String? token = Provider.of<UserProvider>(context, listen: false).token;
-  final url =
-      Uri.parse('${RoutesAPI.creatorGetEvents}/$eventID/getAttendeeReport');
+  final url = Uri.parse(
+      '${RoutesAPI.creatorGetEvents}/$eventID/getAttendeeReport?page=$currentPage');
   final headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   };
+  print(url);
   try {
     final response = await http.get(
       url,
@@ -143,6 +146,9 @@ Future<List<AttendeeReport>> getAttendeeReport(BuildContext context) async {
     final jsonResponse = json.decode(response.body);
     int responseStatus = response.statusCode;
     //print(jsonResponse);
+
+    Provider.of<DashboardProvider>(context, listen: false).maxPages =
+        jsonResponse['pagination']['totalPages'];
 
     if (responseStatus == 200) {
       List<AttendeeReport> reportsList = [];

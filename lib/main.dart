@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/categories_provider.dart';
 import 'providers/creator_event_provider.dart';
+import 'providers/dashboard_provider.dart';
 import 'providers/events_provider.dart';
 import 'providers/promocodes_provider.dart';
 import 'providers/ticket_provider.dart';
@@ -73,6 +74,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: PromocodesProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: DashboardProvider(),
         ),
       ],
       child: MaterialApp(

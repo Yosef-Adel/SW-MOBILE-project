@@ -117,8 +117,8 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
         body: body,
       );
       final jsonResponse = json.decode(response.body);
-      print(response.body);
-      print(response.statusCode);
+      //print(response.body);
+      //print(response.statusCode);
 
       if (response.statusCode == 200) {
         return true;
