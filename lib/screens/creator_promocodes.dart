@@ -4,7 +4,6 @@ import '../models/ticket.dart';
 import '../requests/creator_delete_promocode.dart';
 import '../requests/creator_get_all_promocodes.dart';
 import '../widgets/creator_promocode_form_popup.dart';
-import '../widgets/loading_indicator.dart';
 import 'creator_drawer.dart';
 
 class CreatorPromocodes extends StatelessWidget {
@@ -34,7 +33,7 @@ class CreatorPromocodes extends StatelessWidget {
         future: creatorGetAllPromocodes(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoadingIndicator();
+            return CircularProgressIndicator();
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(

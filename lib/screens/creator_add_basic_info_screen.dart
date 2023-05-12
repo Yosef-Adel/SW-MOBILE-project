@@ -329,9 +329,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          print(_cityController.text);
-                          //print(_cityController.text);
-
                           Event e = new Event(
                             id: "",
                             title: _eventNameController.text,

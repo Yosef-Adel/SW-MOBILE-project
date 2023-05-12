@@ -10,7 +10,7 @@ Future<List<Ticket>> getAllTicketsForAnEvent(
     BuildContext ctx, String eventId) async {
   final url =
       Uri.parse('${RoutesAPI.getAllTickets}${eventId}/availableTickets');
-
+  print(url);
   final headers = {'Content-Type': 'application/json'};
   var ticketProvider = Provider.of<TicketsProvider>(ctx, listen: false);
   try {

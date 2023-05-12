@@ -27,10 +27,11 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
   final _limitController = TextEditingController();
+  File? csv;
 
   void _savePromocode(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      final name = _nameController.text;
+      final name = _nameController.text.isNotEmpty ? _nameController.text : "";
       final limit = int.parse(_limitController.text);
       final amountOff = _amountOffController.text.isNotEmpty
           ? int.parse(_amountOffController.text)
@@ -43,8 +44,13 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
       final String tickets =
           Provider.of<PromocodesProvider>(context, listen: false)
               .selectedTicket!;
-      int result = await creatorAddPromocode(context, name, tickets, percentOff,
-          amountOff, limit, startDate, endDate);
+      //print("csv path is: $csv");
+      int result;
+      (csv == null)
+          ? result = await creatorAddPromocode(context, name, tickets,
+              percentOff, amountOff, limit, startDate, endDate)
+          : result = await creatorUploadPromocodes(context, csv, percentOff,
+              amountOff, limit, tickets, startDate, endDate);
       if (result == 0) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Promocode added successfully')));
@@ -56,7 +62,12 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   }
 
   void _saveCSV() async {
-    File? csv = await pickCsvFile();
+    File? temp = await pickCsvFile();
+    if (temp != null)
+      setState(() {
+        _nameController.text = "";
+        csv = temp;
+      });
   }
 
   @override
@@ -70,6 +81,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  enabled: (csv == null) ? true : false,
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Promocode Name',
@@ -202,6 +214,22 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                   icon: Icon(Icons.upload_file_outlined),
                   label: Text('Upload CSV'),
                 ),
+                Visibility(
+                    visible: csv != null,
+                    child: Row(
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.green),
+                        SizedBox(width: 8),
+                        Text('CSV is uploaded'),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => setState(() {
+                            csv = null;
+                          }),
+                        ),
+                      ],
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

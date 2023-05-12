@@ -22,7 +22,7 @@ Future<void> creatorExportAttendeeReport(BuildContext context) async {
     'Authorization': 'Bearer $token'
   };
   //print(headers);
-  print('Token: ${token}');
+  //print('Token: ${token}');
   print(url);
   try {
     final response = await http.get(
@@ -30,7 +30,7 @@ Future<void> creatorExportAttendeeReport(BuildContext context) async {
       headers: headers,
     );
 
-    print('Response: ${response.body}');
+    //print('Response: ${response.body}');
     int responseStatus = response.statusCode;
 
     if (responseStatus != 200) {

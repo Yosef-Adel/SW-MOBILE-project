@@ -24,7 +24,7 @@ class CreatorEvents extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(Icons.add),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(EventBasicInfo.routeName);
+            Navigator.of(context).pushNamed(EventBasicInfo.routeName);
           },
         ),
         appBar: AppBar(

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 import '../requests/creator_export_events.dart';
 import '../requests/creator_get_events_api.dart';
-import 'loading_indicator.dart';
 
 class CreatorEventsList extends StatelessWidget {
   int choice;
@@ -16,7 +15,7 @@ class CreatorEventsList extends StatelessWidget {
         future: creatorGetEvents(context, choice),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoadingIndicator();
+            return CircularProgressIndicator();
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return Column(

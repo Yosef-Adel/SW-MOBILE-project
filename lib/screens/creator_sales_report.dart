@@ -13,8 +13,8 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
   bool isDataReady = false;
   int totalOrders = 0;
   int totalSoldTickets = 0;
-  int grossSales = 0;
-  int netSales = 0;
+  double grossSales = 0;
+  double netSales = 0;
   List<dynamic>? reportData;
 
   @override
@@ -60,13 +60,13 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Gross Sales',
-                      value: grossSales,
+                      value: grossSales.toInt(),
                     ),
                   ),
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Net Sales',
-                      value: netSales,
+                      value: netSales.toInt(),
                     ),
                   ),
                 ],

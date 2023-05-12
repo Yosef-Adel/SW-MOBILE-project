@@ -63,17 +63,19 @@ class _ManageAttendees extends State<ManageAttendees> {
               children: [
                 Expanded(
                   child: Container(
-                    height: 50,
+                    height: 40,
                     width: 100,
                     decoration: BoxDecoration(color: Colors.white),
                     margin: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        goToCheckOutScreen(
-                            context, "64331c1e1d3382d35d5b3a43", "");
-                      },
-                      child: const Center(
-                        child: Text('Continue'),
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          goToCheckOutScreen(
+                              context, "64331c1e1d3382d35d5b3a43", "");
+                        },
+                        child: const Center(
+                          child: Text('Continue'),
+                        ),
                       ),
                     ),
                   ),

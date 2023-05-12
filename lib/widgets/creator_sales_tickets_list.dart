@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../requests/creator_get_dashboard.dart';
-import 'loading_indicator.dart';
 
 class CreatorSalesTicketsList extends StatelessWidget {
   @override
@@ -10,7 +9,7 @@ class CreatorSalesTicketsList extends StatelessWidget {
         future: fetchTicketsSales(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoadingIndicator();
+            return CircularProgressIndicator();
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
@@ -35,12 +34,17 @@ class CreatorSalesTicketsList extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(child: Text('Price: ${snapshot.data[index].price.toString()}')),
-                              Expanded(child: Text('Sold: ${snapshot.data[index].sold.toString()}')),
+                              Expanded(
+                                  child: Text(
+                                      'Price: ${snapshot.data[index].price.toString()}')),
+                              Expanded(
+                                  child: Text(
+                                      'Sold: ${snapshot.data[index].sold.toString()}')),
                             ],
                           ),
                           SizedBox(height: 8),
-                          Text('Total: ${snapshot.data[index].total.toString()}'),
+                          Text(
+                              'Total: ${snapshot.data[index].total.toString()}'),
                         ],
                       ),
                     ),

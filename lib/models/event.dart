@@ -12,7 +12,7 @@ class Event {
   final DateTime endDate;
   final String category;
   final double? price;
-  final int capacity;
+  final int? capacity;
   final bool? isPrivate;
   final String? venueName;
   final String? city;
@@ -34,7 +34,7 @@ class Event {
     required this.endDate,
     required this.category,
     this.price,
-    required this.capacity,
+    this.capacity,
     this.isPrivate,
     this.venueName,
     this.city,
@@ -60,11 +60,11 @@ class Event {
       endDate: DateTime.parse(json['endDate']),
       category: json['category'],
       price: json.containsKey('price') ? json['price'].toDouble() : 0,
+      capacity: json.containsKey('capacity') ? json['capacity'] : 100,
       isPrivate: json.containsKey('isPrivate') ? json['isPrivate'] : true,
       venueName: json.containsKey('venueName') ? json['venueName'] : "",
       city: json.containsKey('city') ? json['city'] : "",
       country: json.containsKey('country') ? json['country'] : "",
-      capacity: json['capacity'],
       postalCode: json.containsKey('postalCode') ? json['postalCode'] : "",
       address1: json.containsKey('address1') ? json['address1'] : "",
     );
@@ -85,11 +85,11 @@ class Event {
       endDate: DateTime.parse(json['endDate']),
       category: json['category'],
       price: json.containsKey('price') ? json['price'].toDouble() : 0,
+      capacity: json.containsKey('capacity') ? json['capacity'] : 100,
       isPrivate: json.containsKey('isPrivate') ? json['isPrivate'] : true,
       venueName: json.containsKey('venueName') ? json['venueName'] : "",
       city: json.containsKey('city') ? json['city'] : null,
       country: json.containsKey('country') ? json['country'] : "",
-      capacity: json['capacity'],
       postalCode: json.containsKey('postalCode') ? json['postalCode'] : "",
       address1: json.containsKey('address1') ? json['address1'] : "",
       totalTickets: json.containsKey('totalTickets') ? json['totalTickets'] : 0,

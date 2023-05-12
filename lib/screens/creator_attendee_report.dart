@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 
 import '../requests/creator_export_attendee_report.dart';
 import '../requests/creator_get_dashboard.dart';
-import '../widgets/loading_indicator.dart';
 
 class CreatorAttendeeReport extends StatelessWidget {
   static const routeName = '/creator-attendee-report';
@@ -38,7 +37,7 @@ class CreatorAttendeeReport extends StatelessWidget {
           future: getAttendeeReport(context),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return LoadingIndicator();
+              return CircularProgressIndicator();
             } else if (snapshot.data != null &&
                 snapshot.connectionState == ConnectionState.done) {
               return ListView.builder(

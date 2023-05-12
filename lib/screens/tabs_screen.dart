@@ -6,7 +6,6 @@
 import 'package:flutter/material.dart';
 
 import '../requests/shared_preferences.dart';
-import 'creator_tickets.dart';
 import 'landing_screen.dart';
 import 'merged_profile_screen.dart';
 import 'user_tickets_screen.dart';

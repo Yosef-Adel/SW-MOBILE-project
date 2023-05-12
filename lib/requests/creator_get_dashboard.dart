@@ -142,7 +142,7 @@ Future<List<AttendeeReport>> getAttendeeReport(BuildContext context) async {
     );
     final jsonResponse = json.decode(response.body);
     int responseStatus = response.statusCode;
-    print(jsonResponse);
+    //print(jsonResponse);
 
     if (responseStatus == 200) {
       List<AttendeeReport> reportsList = [];

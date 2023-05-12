@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import '../models/event.dart';
 import '../requests/get_events_api.dart';
 import '../screens/event_screen.dart';
-import 'loading_indicator.dart';
 
 class EventsList extends StatelessWidget {
   bool choice;
@@ -30,7 +29,7 @@ class EventsList extends StatelessWidget {
         future: choice ? getEvents(context) : searchEvents(context, keyword),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoadingIndicator();
+            return CircularProgressIndicator();
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return Column(

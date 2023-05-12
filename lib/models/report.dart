@@ -1,8 +1,8 @@
 class SalesReport {
   final String ticketType;
-  final int price;
-  final int sold;
-  final int total;
+  var price;
+  var sold;
+  var total;
 
   SalesReport(
       {required this.ticketType,
@@ -13,9 +13,9 @@ class SalesReport {
   factory SalesReport.fromJson(Map<String, dynamic> json) {
     return SalesReport(
       ticketType: json['ticketType'],
-      price: 0,
-      sold: 0,
-      total: 0,
+      price: json['Price'],
+      sold: json['sold'],
+      total: json['total'],
     );
   }
 }

@@ -6,7 +6,6 @@ import '../providers/creator_event_provider.dart';
 import '../requests/creator_delete_ticket_api.dart';
 import '../requests/creator_get_all_tickets_api.dart';
 import '../widgets/creator_ticket_form_popup.dart';
-import '../widgets/loading_indicator.dart';
 import 'creator_drawer.dart';
 import '../widgets/creator_edit_ticket_Popup.dart';
 
@@ -60,7 +59,7 @@ class CreatorTickets extends StatelessWidget {
         future: creatorGetAllTickets(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return LoadingIndicator();
+            return CircularProgressIndicator();
           } else if (snapshot.data != null &&
               snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
