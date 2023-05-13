@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/ticket.dart';
+import '../providers/creator_event_provider.dart';
 import '../widgets/tickets_list_widget.dart';
-import 'creator_manage_attendees_checkout.dart';
+import 'creator_checkout_screen.dart';
 
 class ManageAttendees extends StatefulWidget {
   static const routeName = '/manage-attendees';
@@ -15,8 +16,6 @@ class ManageAttendees extends StatefulWidget {
 }
 
 class _ManageAttendees extends State<ManageAttendees> {
-  String eventId = "";
-
   void goToCheckOutScreen(BuildContext ctx, String eventId, String promoCode) {
     Navigator.of(ctx).pushNamed(ManageAttedneesCheckout.routeName,
         arguments: {'eventId': eventId, 'promoCodeId': promoCode});
@@ -34,6 +33,9 @@ class _ManageAttendees extends State<ManageAttendees> {
   Widget build(BuildContext context) {
     final ticketsData =
         Provider.of<TicketsProvider>(context, listen: false).allTickets;
+    final countTickets = Provider.of<TicketsProvider>(context).count;
+    String eventID = Provider.of<CreatorEventProvider>(context, listen: false)
+        .selectedEventId!;
     var totalPrice = calcTotalPrice(ticketsData);
     return Scaffold(
         drawer: CreatorDrawer(),
@@ -51,7 +53,7 @@ class _ManageAttendees extends State<ManageAttendees> {
         ),
         body: Container(
           height: MediaQuery.of(context).size.height * 0.7,
-          child: TicketInfo("645415818d0b47c6a89b390e"),
+          child: TicketInfo(eventID),
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -70,8 +72,14 @@ class _ManageAttendees extends State<ManageAttendees> {
                     child: Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          goToCheckOutScreen(
-                              context, "64331c1e1d3382d35d5b3a43", "");
+                          //print(countTickets);
+                          if (countTickets > 0) {
+                            goToCheckOutScreen(context, eventID, "");
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text('There are no tickets selected')));
+                          }
                         },
                         child: const Center(
                           child: Text('Continue'),

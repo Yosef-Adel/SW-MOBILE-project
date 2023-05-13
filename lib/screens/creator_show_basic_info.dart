@@ -13,8 +13,8 @@ class CreatorShowBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Event event = Provider.of<CreatorEventProvider>(context, listen: false)
-        .selectedEvent as Event;
+    final event = Provider.of<CreatorEventProvider>(context, listen: false)
+        .selectedEvent!;
 
     final TextEditingController _eventNameController =
         TextEditingController(text: event.title);
@@ -118,7 +118,7 @@ class CreatorShowBasicInfo extends StatelessWidget {
           ),
 
           /* event venue name */
-          Container(
+          if (!(event.isOnline!)) Container(
             padding: EdgeInsets.all(10),
             child: TextFormField(
               controller: _venueNameController,
@@ -129,10 +129,10 @@ class CreatorShowBasicInfo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          if (!(event.isOnline!)) SizedBox(height: 30),
 
           /*country/city*/
-          Container(
+          if (!(event.isOnline!)) Container(
             padding: EdgeInsets.all(10),
             child: Row(
               children: [

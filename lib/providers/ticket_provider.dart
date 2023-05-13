@@ -6,14 +6,19 @@ import '../models/ticket.dart';
 
 class TicketsProvider with ChangeNotifier {
   List<Ticket> _tickets = [];
+  int _count = 0;
 
-  set setTickets(List<Ticket> tickets) {
-    _tickets = tickets;
+  set count(int c) {
+    _count = c;
     notifyListeners();
   }
 
-  void upgradeCount(int index, int counter) {
-    _tickets[index].count = counter;
+  int get count {
+    return _count;
+  }
+
+  set setTickets(List<Ticket> tickets) {
+    _tickets = tickets;
     notifyListeners();
   }
 

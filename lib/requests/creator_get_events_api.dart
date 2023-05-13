@@ -23,7 +23,7 @@ Future<List<Event>> creatorGetEvents(BuildContext context, int choice) async {
   };
   //print(headers);
   //print('Token: ${token}');
-  //print(url);
+  print(url);
   try {
     final response = await http.get(
       url,

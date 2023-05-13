@@ -1,12 +1,14 @@
+/// This file contains the popup form for editing a ticket
+
 import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import '../requests/creator_create_ticket_api.dart';
 
 class editTicketFormPopUp extends StatefulWidget {
   final String ticketId;
-  const editTicketFormPopUp({required this.ticketId});
+  final String ticketType;
+  const editTicketFormPopUp({required this.ticketId, required this.ticketType});
 
   @override
   State<editTicketFormPopUp> createState() => _ticketFormPopupState();
@@ -15,16 +17,14 @@ class editTicketFormPopUp extends StatefulWidget {
 class _ticketFormPopupState extends State<editTicketFormPopUp> {
   final _formKey = GlobalKey<FormState>();
 
-  String _ticketType = 'Paid';
-
   final _nameController = TextEditingController();
-  final _priceController = TextEditingController();
+  final _priceController = TextEditingController(text: '0');
 
   void _editTicket(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
       double price = double.parse(_priceController.text);
-      print(price);
+      //print(price);
 
       int result =
           await creatorEditTicket(context, name, price, widget.ticketId);
@@ -66,13 +66,15 @@ class _ticketFormPopupState extends State<editTicketFormPopUp> {
                     labelText: 'Price \$',
                   ),
                   keyboardType: TextInputType.number,
-                  enabled: _ticketType != 'Free',
+                  enabled: widget.ticketType == 'Paid',
                   validator: (value) {
-                    if ((value == null || value.isEmpty)) {
+                    if ((value == null || value.isEmpty) &&
+                        widget.ticketType == 'Paid') {
                       return 'Please enter a price for the ticket.';
                     }
-                    if (double.parse(value) <= 0 && _ticketType != 'Free') {
-                      return 'Enter a number more than 0 or choose Free';
+                    if (double.parse(value!) <= 0 &&
+                        widget.ticketType == 'Paid') {
+                      return 'Enter a number more than 0';
                     }
                     return null;
                   },

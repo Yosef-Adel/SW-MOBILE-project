@@ -1,3 +1,5 @@
+/// This file contains the card widget for the creator's event list. 
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +29,7 @@ class CreatorEventCard extends StatelessWidget {
     if (newEvent != null) {
       Provider.of<CreatorEventProvider>(ctx, listen: false).selectedEvent =
           newEvent;
+      //print(newEvent.totalTickets);
       Navigator.of(ctx).pushReplacementNamed(CreatorShowBasicInfo.routeName);
     }
   }

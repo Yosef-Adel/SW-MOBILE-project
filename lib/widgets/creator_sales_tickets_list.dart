@@ -1,3 +1,5 @@
+/// This widget is used to display the sales tickets list of the creator.
+
 import 'package:flutter/material.dart';
 
 import '../requests/creator_get_dashboard.dart';

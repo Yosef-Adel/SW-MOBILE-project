@@ -27,18 +27,22 @@ Future<List<Ticket>> creatorGetAllTickets(BuildContext context) async {
       headers: headers,
     );
     final jsonResponse = json.decode(response.body);
-    //print('Response: ${jsonResponse}');
 
     int responseStatus = response.statusCode;
+    //print('Response Status: $responseStatus');
+    //print('Response: ${response.body}');
     List<Ticket> ticketsList = [];
     if (responseStatus == 200) {
       for (var ticketDict in jsonResponse['tickets']) {
         ticketsList.add(Ticket.fromJsonCreator(ticketDict));
       }
-      Provider.of<PromocodesProvider>(context, listen: false).ticketsRetrieved =
-          ticketsList;
-      Provider.of<PromocodesProvider>(context, listen: false).selectedTicket = ticketsList[0].id;
-      return ticketsList;
+      if (ticketsList.isNotEmpty) {
+        Provider.of<PromocodesProvider>(context, listen: false).ticketsRetrieved =
+            ticketsList;
+        Provider.of<PromocodesProvider>(context, listen: false).selectedTicket =
+            ticketsList[0].id;
+        return ticketsList;
+      }  
     }
     return [];
   } catch (error) {

@@ -28,7 +28,7 @@ Future<Event?> creatorGetEventById(BuildContext context, String eventId) async {
     int responseStatus = response.statusCode;
 
     if (responseStatus == 200) {
-      Event event = Event.fromJson(jsonResponse);
+      Event event = Event.fromJsonCreator(jsonResponse);
       return event;
     }
     return null;

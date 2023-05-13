@@ -1,3 +1,5 @@
+/// This widget is used to display the list of events for the creator. 
+
 import 'package:envie_cross_platform/widgets/creator_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

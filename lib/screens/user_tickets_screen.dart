@@ -1,3 +1,5 @@
+/// This file contains the user tickets screen. It contains the list of tickets that the user has bought.
+
 import 'package:flutter/material.dart';
 
 class UserTickets extends StatelessWidget {

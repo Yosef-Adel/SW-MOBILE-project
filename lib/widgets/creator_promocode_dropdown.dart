@@ -1,3 +1,5 @@
+///This dropdown is used to display the list of tickets in the promocodes popup screen.
+
 import 'package:envie_cross_platform/providers/promocodes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,3 +1,5 @@
+///This widget is used to display the time filter chips on the home screen.
+
 import '../screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 

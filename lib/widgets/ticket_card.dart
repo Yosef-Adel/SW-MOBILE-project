@@ -1,3 +1,5 @@
+///This widget is used to display the ticket card on the checkout screen.
+
 import 'package:envie_cross_platform/models/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,3 +1,5 @@
+///This is the app bar widget. It contains the timer and the title displayed in the checkout screen.
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 

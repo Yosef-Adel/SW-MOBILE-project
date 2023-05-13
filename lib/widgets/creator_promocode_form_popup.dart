@@ -1,7 +1,10 @@
+/// This file contains the popup form for adding promocodes. It contains the form fields and the methods to save the promocodes.
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/promocodes_provider.dart';
@@ -182,7 +185,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _startDateController.text = date.toString();
+                        _startDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -208,7 +211,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _endDateController.text = date.toString();
+                        _endDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,

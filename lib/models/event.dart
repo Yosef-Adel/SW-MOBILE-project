@@ -92,8 +92,8 @@ class Event {
       country: json.containsKey('country') ? json['country'] : "",
       postalCode: json.containsKey('postalCode') ? json['postalCode'] : "",
       address1: json.containsKey('address1') ? json['address1'] : "",
-      totalTickets: json.containsKey('totalTickets') ? json['totalTickets'] : 0,
-      soldTickets: json.containsKey('soldTickets') ? json['soldTickets'] : 0,
+      totalTickets: json.containsKey('numberOfTicketsCapacity') ? json['numberOfTicketsCapacity'] : 0,
+      soldTickets: json.containsKey('numberOfTicketsSold') ? json['numberOfTicketsSold'] : 0,
       tickets: json.containsKey('tickets') ? json['tickets'] : [],
     );
   }

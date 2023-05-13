@@ -24,7 +24,7 @@ import 'providers/events_provider.dart';
 import 'providers/promocodes_provider.dart';
 import 'providers/ticket_provider.dart';
 import 'requests/my_http_overrides.dart';
-import 'screens/check_out_screen.dart';
+import 'screens/checkout_screen.dart';
 import 'screens/create_password_screen.dart';
 import 'screens/creator_attendee_report.dart';
 import 'screens/creator_dashboard.dart';
@@ -42,7 +42,7 @@ import 'screens/tabs_screen.dart';
 import 'screens/tickets_screen.dart';
 import 'screens/time_filter_events_screen.dart';
 import 'screens/creator_add_basic_info_screen.dart';
-import 'screens/creator_manage_attendees_checkout.dart';
+import 'screens/creator_checkout_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

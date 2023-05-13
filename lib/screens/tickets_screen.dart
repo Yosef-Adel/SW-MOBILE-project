@@ -1,9 +1,9 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../widgets/tickets_list_widget.dart';
 import 'package:envie_cross_platform/models/ticket.dart';
 import 'package:envie_cross_platform/providers/ticket_provider.dart';
 import 'package:provider/provider.dart';
-import 'check_out_screen.dart';
+import 'checkout_screen.dart';
 import '../requests/check_valid_promo.dart';
 
 class TicketsScreen extends StatefulWidget {
@@ -15,15 +15,15 @@ class TicketsScreen extends StatefulWidget {
 
 class _TicketsScreenState extends State<TicketsScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _promoCode = '';
   final TextEditingController _promoCodeController = TextEditingController();
+  String _promoCodeId = "";
 
   void goToCheckOutScreen(BuildContext ctx, String eventId, String promoCode) {
     Navigator.of(ctx).pushNamed(CheckOutScreen.routeName,
         arguments: {'eventId': eventId, 'promoCodeId': promoCode});
   }
 
-    Future<List<Object>> checkPromoCode(
+  Future<List<Object>> checkPromoCode(
       BuildContext ctx, String promoCode, String eventId) async {
     //print(eventId);
     //print(promoCode);
@@ -32,29 +32,12 @@ class _TicketsScreenState extends State<TicketsScreen> {
     return isPromoCodeValid;
   }
 
-   bool ticketSelected(List<Ticket> tickets) {
-    int counter = 0;
-    int size = tickets.length;
-    //print('size of list: ${size}');
-    for (int i = 0; i < size; ++i) {
-      if (tickets[i].count == 0) {
-        counter++;
-      }
-    }
-    //print('counter: ${counter}');
-    if (counter == size) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-      String _promoCodeId = "";   
+    final countTickets = Provider.of<TicketsProvider>(context).count;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(0, 0, 0, 1),
@@ -74,18 +57,18 @@ class _TicketsScreenState extends State<TicketsScreen> {
         decoration: BoxDecoration(color: Colors.white),
         margin: const EdgeInsets.all(10),
         child: ElevatedButton(
-           onPressed: () {
-            // bool thereIsATicketSelected = ticketSelected(ticketsList);
-            if (true) {
+          onPressed: () {
+            //print(countTickets);
+            if (countTickets > 0) {
               goToCheckOutScreen(
                   context, eventTicketDetails['eventId']!, _promoCodeId);
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('There is no tickets selected')));
+                  SnackBar(content: Text('There are no tickets selected')));
             }
           },
           child: const Center(
-            child: Text('Checkout'),  
+            child: Text('Checkout'),
           ),
         ),
       ),
@@ -101,7 +84,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
           )),
           padding: EdgeInsets.all(20),
           child: Center(
-            child: Column(  
+            child: Column(
               children: [
                 Text(
                   eventTicketDetails['eventTitle']!,
@@ -119,7 +102,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
           child: Card(
             child: Stack(
               children: [
-                 Form(
+                Form(
                   key: _formKey,
                   child: TextFormField(
                     controller: _promoCodeController,
@@ -146,7 +129,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                         elevation: MaterialStateProperty.all(0),
                         foregroundColor: MaterialStateProperty.all<Color>(
                             Color.fromARGB(255, 92, 90, 90))),
-                     onPressed: () async {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final List<Object> isPromoCode = await checkPromo(
                             context,
@@ -169,8 +152,8 @@ class _TicketsScreenState extends State<TicketsScreen> {
           ),
         ),
         Container(
-        height: MediaQuery.of(context).size.height * 0.7,
-          child: TicketInfo(eventTicketDetails['eventId']!),  
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: TicketInfo(eventTicketDetails['eventId']!),
         )
       ])),
     );

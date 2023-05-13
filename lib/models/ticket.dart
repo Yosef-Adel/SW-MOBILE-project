@@ -50,8 +50,4 @@ class Ticket {
         sellingStartDate: DateTime.parse(json['salesStart']),
         sellingEndDate: DateTime.parse(json['salesEnd']));
   }
-
-  void upgradeCount(int counter) {
-    count = counter;
-  }
 }

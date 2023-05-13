@@ -1,30 +1,28 @@
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import '../providers/ticket_provider.dart';
-import '../widgets/app_bar.dart';
-import '../models/ticket.dart';
-import '../requests/routes_api.dart';
-import 'dart:convert';
-import '../providers/user_provider.dart';
-import 'creator_show_basic_info.dart';
 
-class ManageAttedneesCheckout extends StatefulWidget {
-  static const routeName = '/manage-attendees-check-out';
+import '../providers/ticket_provider.dart';
+import '../providers/user_provider.dart';
+import '../requests/user_place_order_api.dart';
+import '../widgets/app_bar.dart';
+
+class CheckOutScreen extends StatefulWidget {
+  static const routeName = '/check-out';
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController _confirmEmailController = TextEditingController();
 
   @override
-  State<ManageAttedneesCheckout> createState() => _ManageAttedneesCheckout();
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter an email';
     }
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final emailRegex = RegExp(
+        r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$');
     if (!emailRegex.hasMatch(value)) {
       return 'Please enter a valid email';
     }
@@ -68,73 +66,12 @@ class ManageAttedneesCheckout extends StatefulWidget {
   }
 }
 
-class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
+class _CheckOutScreenState extends State<CheckOutScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  Future<bool> placeOrder(
-      {required String firstname,
-      required String lastname,
-      required String email,
-      required List<Ticket> tickets,
-      required String eventId,
-      String? token,
-      required String userId}) async {
-    final url = Uri.parse(
-        '${RoutesAPI.creatorGetEvents}/${eventId}/${userId}/attendees');
-    print(url);
-    //print(token);
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
-    };
-
-    var ticketsBought = [];
-
-    for (int i = 0; i < tickets.length; ++i) {
-      Map<String, dynamic> ticket = {};
-      if (tickets[i].count > 0) {
-        //print(tickets[i].id);
-        //print(tickets[i].count);
-        ticket["ticketClass"] = tickets[i].id;
-        ticket["faceValue"] = "5";
-        ticket['number'] = tickets[i].count;
-        ticketsBought.add(ticket);
-      }
-    }
-    var body;
-    body = json.encode({
-      'ticketsBought': ticketsBought,
-      'firstName': firstname,
-      'lastName': lastname,
-      'email': email
-    });
-    print(body);
-
-    try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
-      final jsonResponse = json.decode(response.body);
-      print(response.body);
-      print(response.statusCode);
-
-      if (response.statusCode == 201) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      print('Error while placing order: $error');
-      throw 'Failed to place order';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     var ticketsProv = Provider.of<TicketsProvider>(context, listen: false);
-    String? userId = Provider.of<UserProvider>(context, listen: false).user.id;
     final eventTicketDetails =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     var usrtoken = Provider.of<UserProvider>(context, listen: false).token;
@@ -148,23 +85,26 @@ class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
           child: ElevatedButton(
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                final bool orderPlaced = await placeOrder(
+                final bool orderPlaced = await userPlaceOrder(
                     firstname: widget._firstNameController.text,
                     lastname: widget._surNameController.text,
                     email: widget.emailController.text,
                     tickets: ticketsProv.allTickets,
                     eventId: eventTicketDetails['eventId']!,
                     token: usrtoken,
-                    userId: userId!);
+                    promoCodeId: eventTicketDetails['promoCodeId']!);
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: orderPlaced
-                        ? Text('added attendee')
-                        : Text('failed to add attendee')));
+                        ? Text(
+                            'Order has been placed succesfully. Check confirmation email!')
+                        : Text('Please login first!')));
                 if (orderPlaced) {
-                  Future.delayed(Duration(seconds: 3), () {
+                  Provider.of<TicketsProvider>(context, listen: false).count =
+                      0;
+                  Future.delayed(Duration(seconds: 1), () {
                     Navigator.of(context)
-                        .pushReplacementNamed(CreatorShowBasicInfo.routeName);
+                        .pushReplacementNamed(TabsScreen.routeName);
                   });
                 }
               }

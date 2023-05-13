@@ -2,7 +2,9 @@ import 'package:envie_cross_platform/screens/creator_dashboard.dart';
 import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/creator_publish.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/creator_event_provider.dart';
 import 'creator_show_basic_info.dart';
 import 'creator_tickets.dart';
 import 'manage_attendees_screen.dart';
@@ -12,11 +14,13 @@ class CreatorDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(Provider.of<CreatorEventProvider>(context, listen: false)
+    //     .selectedEvent!
+    //     .totalTickets!);
     return Drawer(
       child: Column(
         children: <Widget>[
           AppBar(
-            //title: Text('Creator\'s View'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
@@ -39,6 +43,10 @@ class CreatorDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            // enabled: Provider.of<CreatorEventProvider>(context, listen : false)
+            //         .selectedEvent!
+            //         .totalTickets! >
+            //     0,
             leading: Icon(Icons.border_color_outlined),
             title: Text('Publish'),
             onTap: () {
@@ -48,6 +56,10 @@ class CreatorDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            // enabled: Provider.of<CreatorEventProvider>(context, listen : false)
+            //         .selectedEvent!
+            //         .totalTickets! >
+            //     0,
             leading: Icon(Icons.admin_panel_settings_outlined),
             title: Text('Manage Attendees'),
             onTap: () {

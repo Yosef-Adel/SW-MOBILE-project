@@ -1,4 +1,4 @@
-import 'package:envie_cross_platform/screens/check_out_screen.dart';
+import 'package:envie_cross_platform/screens/checkout_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 ///Unit tests for the checkout screen

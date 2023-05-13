@@ -1,3 +1,5 @@
+/// This file contains the user profile screen.
+
 import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +147,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     final url =
                         Uri.parse('${RoutesAPI.changeToCreator}/$userID');
                     //print(url);
-                    //print(token);
+                    print('Token is: $token');
                     final headers = {
                       'Content-Type': 'application/json',
                       'Authorization': 'Bearer $token'

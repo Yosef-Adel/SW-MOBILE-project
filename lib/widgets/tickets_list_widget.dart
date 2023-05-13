@@ -1,3 +1,5 @@
+/// This widget is used to display the list of tickets for an event.
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/ticket.dart';
