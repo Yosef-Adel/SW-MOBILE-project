@@ -1,3 +1,5 @@
+/// checkout screen for the creator to fill attendee information to add to an event
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

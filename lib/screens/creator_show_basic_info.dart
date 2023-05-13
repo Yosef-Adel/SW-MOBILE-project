@@ -1,3 +1,5 @@
+/// Screen to show basic information of a selected event by the creator
+
 import 'package:envie_cross_platform/models/event.dart';
 import 'package:envie_cross_platform/screens/creator_drawer.dart';
 import 'package:envie_cross_platform/widgets/events_list_widget.dart';

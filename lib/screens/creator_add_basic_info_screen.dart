@@ -1,3 +1,5 @@
+// Screen that contains a form to allow a creator to enter the basic information to create an event
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';

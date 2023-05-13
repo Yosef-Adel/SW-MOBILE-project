@@ -1,3 +1,5 @@
+/// checkout screen after selecting ticket type and count by the attendee
+
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
