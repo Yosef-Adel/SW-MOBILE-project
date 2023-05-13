@@ -1,14 +1,13 @@
 /// This file contains the user profile screen.
 
+import 'package:envie_cross_platform/requests/switch_to_creator_api.dart';
 import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
+
 import '../providers/user_provider.dart';
 import '../requests/logout_api.dart';
-import '../requests/routes_api.dart';
-import 'dart:convert';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -45,8 +44,6 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userProv = Provider.of<UserProvider>(context);
-    var token = Provider.of<UserProvider>(context, listen: false).token;
-    final userID = userProv.user.id;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -143,26 +140,11 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     alignment: Alignment.center,
                   ),
                   onPressed: () async {
-                    //print(userID);
-                    final url =
-                        Uri.parse('${RoutesAPI.changeToCreator}/$userID');
-                    //print(url);
-                    print('Token is: $token');
-                    final headers = {
-                      'Content-Type': 'application/json',
-                      'Authorization': 'Bearer $token'
-                    };
-                    final response = await http.get(
-                      url,
-                      headers: headers,
-                    );
-                    final jsonResponse = json.decode(response.body);
-                    final message = jsonResponse['message'];
-                    if (message ==
-                        "Your token is invalid, your are not authorized!") {
+                    bool res = await switchToCreator(context);
+                    if (!res) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('You are not authorized'),
+                          content: Text('You are not authorized!'),
                         ),
                       );
                     } else {

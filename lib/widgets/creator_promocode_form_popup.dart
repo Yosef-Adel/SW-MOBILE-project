@@ -31,6 +31,8 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   final _endDateController = TextEditingController();
   final _limitController = TextEditingController();
   File? csv;
+  final _sellingStartDateController = TextEditingController();
+  final _sellingEndDateController = TextEditingController();
 
   void _savePromocode(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -42,8 +44,8 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
       final percentOff = _percentOffController.text.isNotEmpty
           ? int.parse(_percentOffController.text)
           : -1;
-      final startDate = DateTime.parse(_startDateController.text);
-      final endDate = DateTime.parse(_endDateController.text);
+      final startDate = DateTime.parse(_sellingStartDateController.text);
+      final endDate = DateTime.parse(_sellingEndDateController.text);
       final String tickets =
           Provider.of<PromocodesProvider>(context, listen: false)
               .selectedTicket!;
@@ -61,6 +63,13 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
       } else
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error while adding promocode')));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill in all the required fields'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
     }
   }
 
@@ -76,8 +85,8 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   String? dateRangeValidator() {
     if (_startDateController.text.isNotEmpty &&
         _endDateController.text.isNotEmpty) {
-      DateTime startDate = DateTime.parse(_startDateController.text);
-      DateTime endDate = DateTime.parse(_endDateController.text);
+      DateTime startDate = DateTime.parse(_sellingStartDateController.text);
+      DateTime endDate = DateTime.parse(_sellingEndDateController.text);
       if (startDate.isAfter(endDate)) {
         return 'Start date must be before end date';
       }
@@ -102,7 +111,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                     labelText: 'Promocode Name',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if ((value == null || value.isEmpty) && csv == null) {
                       return 'Please enter a promocode';
                     }
                     return null;
@@ -185,7 +194,11 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _startDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
+                        _startDateController.text =
+                            DateFormat('yyyy-MM-dd hh:mm a')
+                                .format(date)
+                                .toString();
+                        _sellingStartDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -195,7 +208,12 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a selling start date.';
                     }
-                    
+
+                    String? dateRangeError = dateRangeValidator();
+                    if (dateRangeError != null) {
+                      return dateRangeError;
+                    }
+
                     return null;
                   },
                 ),
@@ -211,7 +229,11 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _endDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
+                        _endDateController.text =
+                            DateFormat('yyyy-MM-dd hh:mm a')
+                                .format(date)
+                                .toString();
+                        _sellingEndDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -220,6 +242,10 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter an ending start date.';
+                    }
+                    String? dateRangeError = dateRangeValidator();
+                    if (dateRangeError != null) {
+                      return dateRangeError;
                     }
                     return null;
                   },

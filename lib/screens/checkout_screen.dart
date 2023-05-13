@@ -1,4 +1,4 @@
-/// checkout screen after selecting ticket type and count by the attendee
+/// This checkout screen appears after selecting the ticket type and number of tickets by the user.
 
 import 'package:envie_cross_platform/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';

@@ -63,7 +63,7 @@ class _CreatorPublishState extends State<CreatorPublish> {
                         Text('Public'),
                         SizedBox(height: 4.0),
                         Text(
-                          'Shared on Eventbrite and search engines',
+                          'Shared on Envie and search engines',
                           style: TextStyle(
                             fontSize: 12.0,
                             color: Colors.grey,

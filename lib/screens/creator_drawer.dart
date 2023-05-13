@@ -14,9 +14,6 @@ class CreatorDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(Provider.of<CreatorEventProvider>(context, listen: false)
-    //     .selectedEvent!
-    //     .totalTickets!);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -43,10 +40,10 @@ class CreatorDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            // enabled: Provider.of<CreatorEventProvider>(context, listen : false)
-            //         .selectedEvent!
-            //         .totalTickets! >
-            //     0,
+            enabled: Provider.of<CreatorEventProvider>(context, listen : false)
+                    .selectedEvent!
+                    .totalTickets! >
+                0,
             leading: Icon(Icons.border_color_outlined),
             title: Text('Publish'),
             onTap: () {
@@ -56,10 +53,10 @@ class CreatorDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            // enabled: Provider.of<CreatorEventProvider>(context, listen : false)
-            //         .selectedEvent!
-            //         .totalTickets! >
-            //     0,
+            enabled: Provider.of<CreatorEventProvider>(context, listen : false)
+                    .selectedEvent!
+                    .totalTickets! >
+                0,
             leading: Icon(Icons.admin_panel_settings_outlined),
             title: Text('Manage Attendees'),
             onTap: () {

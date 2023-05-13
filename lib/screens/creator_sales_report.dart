@@ -13,8 +13,8 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
   bool isDataReady = false;
   int totalOrders = 0;
   int totalSoldTickets = 0;
-  double grossSales = 0;
-  double netSales = 0;
+  String? grossSales;
+  String? netSales;
   List<dynamic>? reportData;
 
   @override
@@ -60,13 +60,13 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Gross Sales',
-                      value: grossSales.toInt(),
+                      value: grossSales,
                     ),
                   ),
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Net Sales',
-                      value: netSales.toInt(),
+                      value: netSales,
                     ),
                   ),
                 ],
@@ -77,13 +77,13 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Tickets + Add-Ons Sold',
-                      value: totalSoldTickets,
+                      value: totalSoldTickets.toString(),
                     ),
                   ),
                   Expanded(
                     child: _buildSalesCard(
                       name: 'Orders',
-                      value: totalOrders,
+                      value: totalOrders.toString(),
                     ),
                   ),
                 ],
@@ -101,7 +101,7 @@ class _CreatorSalesReportState extends State<CreatorSalesReport> {
   }
 }
 
-Widget _buildSalesCard({required String name, required int value}) {
+Widget _buildSalesCard({required String name, required String? value}) {
   return Card(
     child: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -118,7 +118,7 @@ Widget _buildSalesCard({required String name, required int value}) {
           ),
           SizedBox(height: 8),
           Text(
-            value.toString(),
+            value!,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

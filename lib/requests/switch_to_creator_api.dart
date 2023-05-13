@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-Future<int> switchToAttendee(BuildContext context) async {
+Future<bool> switchToCreator(BuildContext context) async {
   final String? userID =
       Provider.of<UserProvider>(context, listen: false).user.id;
   final String? token = Provider.of<UserProvider>(context, listen: false).token;
   //print(userID);
-  final url = Uri.parse('${RoutesAPI.changeToAttendee}/$userID');
+  final url = Uri.parse('${RoutesAPI.changeToCreator}/$userID');
   //print(url);
-  //print(token);
+  print('Token is: $token');
   final headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
@@ -25,9 +25,10 @@ Future<int> switchToAttendee(BuildContext context) async {
   );
   final jsonResponse = json.decode(response.body);
   final message = jsonResponse['message'];
-  //print(message);
+  
   if (message == "Your token is invalid, your are not authorized!") {
-    return -1;
+    return false;
   }
-  return 0;
+  
+  return true;
 }

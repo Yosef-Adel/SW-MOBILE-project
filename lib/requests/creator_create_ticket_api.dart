@@ -30,8 +30,8 @@ Future<int> creatorAddTicket(
     'capacity': capacity,
     'minQuantityPerOrder': 1,
     'maxQuantityPerOrder': maxQuantityPerOrder,
-    'salesStart': DateFormat('yyyy-MM-dd\'T\'HH:mm').format(sellingStartDate),
-    'salesEnd': DateFormat('yyyy-MM-dd\'T\'HH:mm').format(sellingEndDate),
+    'salesStart': sellingStartDate.toIso8601String(),
+    'salesEnd': sellingEndDate.toIso8601String(),
   });
   final headers = {
     'Content-Type': 'application/json',

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 import '../models/event.dart';
 import 'routes_api.dart';
@@ -33,9 +32,9 @@ Future<List<Object>> createEvent(BuildContext ctx, File? imageFile, Event event,
   request.headers['Content-Type'] = 'application/json';
   request.fields['name'] = event.title;
   request.fields['startDate'] =
-      DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.startDate);
+      event.startDate.toIso8601String();
   request.fields['endDate'] =
-      DateFormat('yyyy-MM-dd\'T\'HH:mm').format(event.endDate);
+      event.endDate.toIso8601String();
   request.fields['category'] = event.category;
   request.fields['summary'] = event.summary!;
   request.fields['venueName'] = event.venueName!;

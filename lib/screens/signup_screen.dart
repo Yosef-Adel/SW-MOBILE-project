@@ -255,7 +255,7 @@ class SignupScreenState extends State<SignupScreen> {
                       );
                       // Wait for 5 seconds before navigating to the Login route
                       if (isSignUpSuccessful == true) {
-                        Future.delayed(Duration(seconds: 5), () {
+                        Future.delayed(Duration(seconds: 1), () {
                           Navigator.of(context)
                               .pushReplacementNamed(LoginScreen.routeName);
                         });

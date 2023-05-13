@@ -41,7 +41,7 @@ Future<int> creatorPublishEvent(
   }
   if (isScheduled && publishDate != null) {
     body['publishDate'] =
-        DateFormat('yyyy-MM-dd\'T\'HH:mm').format(publishDate);
+        publishDate.toIso8601String();
   }
 
   //print(headers);

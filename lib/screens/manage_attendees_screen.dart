@@ -1,4 +1,4 @@
-/// Screen to add tickets to an attendee by the creator 
+/// This screen is used to add tickets to an attendee by the creator.
 
 import 'package:envie_cross_platform/providers/ticket_provider.dart';
 import 'package:envie_cross_platform/screens/creator_drawer.dart';

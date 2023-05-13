@@ -1,4 +1,4 @@
-/// checkout screen for the creator to fill attendee information to add to an event
+/// This screen is used by the creator to book a ticket for an atendee of a certain event.
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

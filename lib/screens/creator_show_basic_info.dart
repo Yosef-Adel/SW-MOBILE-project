@@ -1,11 +1,10 @@
-/// Screen to show basic information of a selected event by the creator
+/// This screen is used to show basic information of a selected event by the creator.
 
-import 'package:envie_cross_platform/models/event.dart';
 import 'package:envie_cross_platform/screens/creator_drawer.dart';
-import 'package:envie_cross_platform/widgets/events_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../providers/creator_event_provider.dart';
 
 class CreatorShowBasicInfo extends StatelessWidget {

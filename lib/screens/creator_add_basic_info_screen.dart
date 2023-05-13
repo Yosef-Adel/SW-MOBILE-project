@@ -1,4 +1,4 @@
-// Screen that contains a form to allow a creator to enter the basic information to create an event
+///This screen contains a form to allow the creator to enter the basic information needed to create an event.
 
 import 'dart:io';
 
@@ -11,7 +11,6 @@ import '../models/event.dart';
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
 import 'creator_events_screen.dart';
-
 
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
@@ -88,8 +87,6 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
     }
     return null;
   }
-
-
 
   String? emptyValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -213,13 +210,13 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                               labelText: 'Starts at',
                               hintText: "Tap to select a Date",
                             ),
-                            validator:  (value) {
-                                String? dateRangeError = dateRangeValidator();
-                                if (dateRangeError != null) {
-                                  return dateRangeError;
-                                }
-                                return null;
-                                },
+                            validator: (value) {
+                              String? dateRangeError = dateRangeValidator();
+                              if (dateRangeError != null) {
+                                return dateRangeError;
+                              }
+                              return null;
+                            },
                             onTap: () =>
                                 _selectDate(context, _startDateController)),
                       ),
@@ -231,13 +228,13 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                               labelText: 'Ends at',
                               hintText: "Tap to select a Date",
                             ),
-                            validator:  (value) {
+                            validator: (value) {
                               String? dateRangeError = dateRangeValidator();
-                                  if (dateRangeError != null) {
-                                    return dateRangeError;
-                                  }
-                                  return null;
-                              },
+                              if (dateRangeError != null) {
+                                return dateRangeError;
+                              }
+                              return null;
+                            },
                             onTap: () =>
                                 _selectDate(context, _endDateController)),
                       ),
@@ -373,7 +370,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                               SnackBar(content: Text(values[1].toString())));
                           String message = values[1].toString();
                           if (message == "Event created successfully") {
-                            Future.delayed(Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 1), () {
                               Navigator.of(context).pushReplacementNamed(
                                   CreatorEvents.routeName);
                             });

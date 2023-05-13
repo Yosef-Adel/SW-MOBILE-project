@@ -1,5 +1,6 @@
 /// This file contains the popup form for creating a ticket. It contains the form fields and the methods to save the ticket.
 
+import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/creator_tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -25,6 +26,8 @@ class ticketFormPopupState extends State<ticketFormPopup> {
   final _maxQuantityController = TextEditingController();
   final _sellingStartDateController = TextEditingController();
   final _sellingEndDateController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
 
   void _selectTicketType(String type) {
     setState(() {
@@ -39,8 +42,8 @@ class ticketFormPopupState extends State<ticketFormPopup> {
   String? dateRangeValidator() {
     if (_sellingStartDateController.text.isNotEmpty &&
         _sellingEndDateController.text.isNotEmpty) {
-      DateTime startDate = DateTime.parse(_sellingStartDateController.text);
-      DateTime endDate = DateTime.parse(_sellingEndDateController.text);
+      DateTime startDate = DateTime.parse(_startDateController.text);
+      DateTime endDate = DateTime.parse(_endDateController.text);
       if (startDate.isAfter(endDate)) {
         return 'Start date must be before end date';
       }
@@ -54,15 +57,15 @@ class ticketFormPopupState extends State<ticketFormPopup> {
       final capacity = int.parse(_capacityController.text);
       final price = double.parse(_priceController.text);
       final maxQuantityPerOrder = int.parse(_maxQuantityController.text);
-      final sellingStartDate = DateTime.parse(_sellingStartDateController.text);
-      final sellingEndDate = DateTime.parse(_sellingEndDateController.text);
+      final sellingStartDate = DateTime.parse(_startDateController.text);
+      final sellingEndDate = DateTime.parse(_endDateController.text);
 
       int result = await creatorAddTicket(context, name, _ticketType, capacity,
           price, maxQuantityPerOrder, sellingStartDate, sellingEndDate);
       if (result == 0) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Ticket added successfully')));
-        Navigator.of(context).pushReplacementNamed(CreatorTickets.routeName);
+        Navigator.of(context).pushReplacementNamed(CreatorEvents.routeName);
       } else
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('Error while adding ticket')));
@@ -146,7 +149,6 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   keyboardType: TextInputType.number,
                   enabled: _ticketType != 'Free',
                   validator: (value) {
-                    
                     if ((value == null || value.isEmpty)) {
                       return 'Please enter a price for the ticket.';
                     }
@@ -172,19 +174,23 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2100, 12, 31),
                       onChanged: (date) {
-                        _sellingStartDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
+                        _sellingStartDateController.text =
+                            DateFormat('yyyy-MM-dd hh:mm a')
+                                .format(date)
+                                .toString();
+                        _startDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
                     );
                   },
                   validator: (value) {
-                     String? dateRangeError = dateRangeValidator();
-                                  if (dateRangeError != null) {
-                                    return dateRangeError;
-                                  }
-                                  return null;
-                              },
+                    String? dateRangeError = dateRangeValidator();
+                    if (dateRangeError != null) {
+                      return dateRangeError;
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   controller: _sellingEndDateController,
@@ -198,19 +204,23 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2100, 12, 31),
                       onChanged: (date) {
-                        _sellingEndDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
+                        _sellingEndDateController.text =
+                            DateFormat('yyyy-MM-dd hh:mm a')
+                                .format(date)
+                                .toString();
+                        _endDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
                     );
                   },
                   validator: (value) {
-                       String? dateRangeError = dateRangeValidator();
-                                  if (dateRangeError != null) {
-                                    return dateRangeError;
-                                  }
-                                return null;
-                              },
+                    String? dateRangeError = dateRangeValidator();
+                    if (dateRangeError != null) {
+                      return dateRangeError;
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   controller: _maxQuantityController,
@@ -228,7 +238,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     return null;
                   },
                 ),
-                SizedBox(height: 10),      
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

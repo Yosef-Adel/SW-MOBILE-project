@@ -110,7 +110,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                   Text('Password is changed successfully')),
                         );
                         // Wait for 5 seconds before navigating to the Login route
-                        Future.delayed(Duration(seconds: 5), () {
+                        Future.delayed(Duration(seconds: 1), () {
                           Navigator.of(context)
                               .pushReplacementNamed(TabsScreen.routeName);
                         });

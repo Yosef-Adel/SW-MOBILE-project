@@ -18,7 +18,7 @@ class CreatorSwitchToAttendeeDrawer extends StatelessWidget {
             leading: Icon(Icons.home_outlined),
             title: Text('Switch to Attendee'),
             onTap: () async {
-              int result = await switchtoAttendee(context);
+              int result = await switchToAttendee(context);
               if (result == 0) {
                 Navigator.of(context)
                     .pushReplacementNamed(TabsScreen.routeName);
