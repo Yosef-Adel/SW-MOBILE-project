@@ -75,12 +75,19 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
     return null;
   }
 
-  String? descriptionValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter a description';
+  String? dateRangeValidator() {
+    if (_startDateController.text.isNotEmpty &&
+        _endDateController.text.isNotEmpty) {
+      DateTime startDate = DateTime.parse(_startDateController.text);
+      DateTime endDate = DateTime.parse(_endDateController.text);
+      if (startDate.isAfter(endDate)) {
+        return 'Start date must be before end date';
+      }
     }
     return null;
   }
+
+
 
   String? emptyValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -89,12 +96,12 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
     return null;
   }
 
-  String? _capacityValidator(String? value) {
-    var numRegex = RegExp(r'^[1-9][0-9]*$');
+  String? _countryValidator(String? value) {
+    var numRegex = RegExp(r'^[a-zA-Z]*$');
     if (value == null || value.isEmpty) {
       return 'please enter this field';
     } else if (!numRegex.hasMatch(value)) {
-      return "please enter a number";
+      return "please enter a letter";
     }
     return null;
   }
@@ -204,7 +211,13 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                               labelText: 'Starts at',
                               hintText: "Tap to select a Date",
                             ),
-                            validator: emptyValidator,
+                            validator:  (value) {
+                                String? dateRangeError = dateRangeValidator();
+                                if (dateRangeError != null) {
+                                  return dateRangeError;
+                                }
+                                return null;
+                                },
                             onTap: () =>
                                 _selectDate(context, _startDateController)),
                       ),
@@ -216,7 +229,13 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                               labelText: 'Ends at',
                               hintText: "Tap to select a Date",
                             ),
-                            validator: emptyValidator,
+                            validator:  (value) {
+                              String? dateRangeError = dateRangeValidator();
+                                  if (dateRangeError != null) {
+                                    return dateRangeError;
+                                  }
+                                  return null;
+                              },
                             onTap: () =>
                                 _selectDate(context, _endDateController)),
                       ),
@@ -237,7 +256,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             labelText: 'Country',
                             hintText: "Enter a country",
                           ),
-                          validator: emptyValidator,
+                          validator: _countryValidator,
                         ),
                       ),
                       SizedBox(width: 20),
@@ -248,7 +267,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             labelText: 'City',
                             hintText: "Enter a city",
                           ),
-                          validator: emptyValidator,
+                          validator: _countryValidator,
                         ),
                       ),
                     ],

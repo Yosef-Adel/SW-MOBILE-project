@@ -70,6 +70,18 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
       });
   }
 
+  String? dateRangeValidator() {
+    if (_startDateController.text.isNotEmpty &&
+        _endDateController.text.isNotEmpty) {
+      DateTime startDate = DateTime.parse(_startDateController.text);
+      DateTime endDate = DateTime.parse(_endDateController.text);
+      if (startDate.isAfter(endDate)) {
+        return 'Start date must be before end date';
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -180,6 +192,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a selling start date.';
                     }
+                    
                     return null;
                   },
                 ),

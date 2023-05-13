@@ -33,6 +33,18 @@ class ticketFormPopupState extends State<ticketFormPopup> {
     });
   }
 
+  String? dateRangeValidator() {
+    if (_sellingStartDateController.text.isNotEmpty &&
+        _sellingEndDateController.text.isNotEmpty) {
+      DateTime startDate = DateTime.parse(_sellingStartDateController.text);
+      DateTime endDate = DateTime.parse(_sellingEndDateController.text);
+      if (startDate.isAfter(endDate)) {
+        return 'Start date must be before end date';
+      }
+    }
+    return null;
+  }
+
   void _saveTicket(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
@@ -116,8 +128,9 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a capacity for the ticket.';
                     }
-                    if (int.parse(value) <= 0) {
-                      return 'Please enter a number more than 0';
+                    var numRegex = RegExp(r'^[0-9]*$');
+                    if (!numRegex.hasMatch(value)) {
+                      return 'Please enter a number';
                     }
                     return null;
                   },
@@ -130,10 +143,15 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   keyboardType: TextInputType.number,
                   enabled: _ticketType != 'Free',
                   validator: (value) {
+                    
                     if ((value == null || value.isEmpty)) {
                       return 'Please enter a price for the ticket.';
                     }
-                    if (double  .parse(value) <= 0 && _ticketType != 'Free') {
+                    var numRegex = RegExp(r'^[0-9]*$');
+                    if (!numRegex.hasMatch(value)) {
+                      return 'Please enter a number';
+                    }
+                    if (double.parse(value) <= 0 && _ticketType != 'Free') {
                       return 'Enter a number more than 0 or choose Free';
                     }
                     return null;
@@ -158,11 +176,12 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     );
                   },
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a selling start date.';
-                    }
-                    return null;
-                  },
+                     String? dateRangeError = dateRangeValidator();
+                                  if (dateRangeError != null) {
+                                    return dateRangeError;
+                                  }
+                                  return null;
+                              },
                 ),
                 TextFormField(
                   controller: _sellingEndDateController,
@@ -183,11 +202,12 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                     );
                   },
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter an ending start date.';
-                    }
-                    return null;
-                  },
+                       String? dateRangeError = dateRangeValidator();
+                                  if (dateRangeError != null) {
+                                    return dateRangeError;
+                                  }
+                                return null;
+                              },
                 ),
                 TextFormField(
                   controller: _maxQuantityController,
