@@ -1,12 +1,9 @@
-## Envie App<br>
+# Envie App
+Envie is a Flutter cross-platform application that allows users to create, attend, and manage events. The app has two basic roles: attendee and creator.
 
-Envie is a Flutter cross-platform application that allows users to create, attend, and manage events. The app has two basic roles: attendee and creator.<br>  
+The attendee role allows users to see published events, book an event, and filter events based on categories like Music, Food & Drink, Charity & Causes, and Art. They can also filter events with geo-location.
 
-
-The attendee role allows users to see published events, book an event, and filter events based on categories like Music, Food & Drink, Charity & Causes, and Art. They can also filter events with geo-location.<br>
-
-
-The creator role allows users to create an event, add ticket types, and information like capacity and price, and whether it's free or not. Creators can also add attendees to their events and export CSV files to see statistics about their created events. They can apply promo codes on tickets they created for an event.<br>
+The creator role allows users to create an event, add ticket types, and information like capacity and price, and whether it's free or not. Creators can also add attendees to their events and export CSV files to see statistics about their created events. They can apply promo codes on tickets they created for an event.
 
 ## Features
 - Create and manage events
@@ -17,7 +14,7 @@ The creator role allows users to create an event, add ticket types, and informat
 - Export CSV files for event statistics
 - Apply promo codes on tickets
 
-## Contributers
+## Contributors
 - Hla Hany
 - Hossam Nabil
 - Nourhan Ahmed
