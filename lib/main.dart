@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
           CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
           EventBasicInfo.routeName: (ctx) => EventBasicInfo(),
           CreatorShowBasicInfo.routeName: (ctx) => CreatorShowBasicInfo(),
-          ManageAttedneesCheckout.routeName: (ctx) => ManageAttedneesCheckout(),
+          ManageAttendeesCheckout.routeName: (ctx) => ManageAttendeesCheckout(),
           CreatorSalesReport.routeName: (ctx) => CreatorSalesReport(),
           CreatorAttendeeReport.routeName: (ctx) => CreatorAttendeeReport(),
           CreatorPromocodes.routeName: (ctx) => CreatorPromocodes(),

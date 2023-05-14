@@ -1,3 +1,5 @@
+/// This file contains the API for switching the user to an attendee.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

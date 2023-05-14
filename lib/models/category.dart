@@ -1,5 +1,5 @@
 ///This is the model class for the Category object.
-///Categories are Music - Food & Drink - Charity & Causes
+///Categories are Music - Food & Drink - Charity & Causes - Art
 
 class Category {
   final String id;

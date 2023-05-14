@@ -44,7 +44,6 @@ Future<int> login(
       Provider.of<UserProvider>(context, listen: false).isAuth = true;
       //print(Provider.of<UserProvider>(context).token);
 
-      //Editted by Hla
       saveUserData(Provider.of<UserProvider>(context, listen: false).token!,
           Provider.of<UserProvider>(context, listen: false).user.id!);
 

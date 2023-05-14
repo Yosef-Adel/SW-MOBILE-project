@@ -1,3 +1,6 @@
+/// This is the PreLoginScreen widget that is shown to the user before they log in. It contains a button that navigates
+/// the user to the LoginScreen widget.
+
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 

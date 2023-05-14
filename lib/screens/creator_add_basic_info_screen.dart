@@ -15,10 +15,10 @@ import 'creator_events_screen.dart';
 class EventBasicInfo extends StatefulWidget {
   static const routeName = '/event-basic-info';
   @override
-  State<EventBasicInfo> createState() => _EventBasicInfoState();
+  State<EventBasicInfo> createState() => EventBasicInfoState();
 }
 
-class _EventBasicInfoState extends State<EventBasicInfo> {
+class EventBasicInfoState extends State<EventBasicInfo> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _eventSummaryController = TextEditingController();
@@ -95,7 +95,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
     return null;
   }
 
-  String? _countryValidator(String? value) {
+  String? countryValidator(String? value) {
     var numRegex = RegExp(r'^[a-zA-Z]*$');
     if (value == null || value.isEmpty) {
       return 'please enter this field';
@@ -255,7 +255,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             labelText: 'Country',
                             hintText: "Enter a country",
                           ),
-                          validator: _countryValidator,
+                          validator: countryValidator,
                         ),
                       ),
                       SizedBox(width: 20),
@@ -266,7 +266,7 @@ class _EventBasicInfoState extends State<EventBasicInfo> {
                             labelText: 'City',
                             hintText: "Enter a city",
                           ),
-                          validator: _countryValidator,
+                          validator: countryValidator,
                         ),
                       ),
                     ],

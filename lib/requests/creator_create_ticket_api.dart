@@ -1,8 +1,9 @@
+/// This file contains the API for creating a ticket for an event.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/creator_event_provider.dart';

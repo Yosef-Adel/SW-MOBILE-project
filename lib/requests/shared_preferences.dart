@@ -1,3 +1,5 @@
+///This file handles the shared preferences for the app. It contains the methods to save and get the user data from the shared preferences.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import '../models/user.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';
 
-//Editted by Hla
 Future<void> saveUserData(String token, String userId) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('token', token);

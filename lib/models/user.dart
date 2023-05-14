@@ -9,18 +9,6 @@ class User {
   bool? isVerified;
   bool? isCreator;
 
-  // factory User.empty() {
-  //   return User(
-  //     id: '',
-  //     firstName: '',
-  //     lastName: '',
-  //     emailAddress: '',
-  //     password: '',
-  //     isVerified: false,
-  //     isCreator: false,
-  //   );
-  // }
-
   User({
     required this.id,
     required this.firstName,

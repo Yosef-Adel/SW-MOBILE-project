@@ -1,3 +1,5 @@
+/// This file contains the API request to get all categories from the server.
+
 import 'dart:convert';
 
 import 'package:envie_cross_platform/models/category.dart';

@@ -19,7 +19,7 @@ class ManageAttendees extends StatefulWidget {
 
 class _ManageAttendees extends State<ManageAttendees> {
   void goToCheckOutScreen(BuildContext ctx, String eventId, String promoCode) {
-    Navigator.of(ctx).pushNamed(ManageAttedneesCheckout.routeName,
+    Navigator.of(ctx).pushNamed(ManageAttendeesCheckout.routeName,
         arguments: {'eventId': eventId, 'promoCodeId': promoCode});
   }
 

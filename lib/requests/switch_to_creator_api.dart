@@ -1,3 +1,5 @@
+/// This file contains the API for switching the user to a creator.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

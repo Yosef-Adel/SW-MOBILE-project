@@ -27,12 +27,12 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   final _nameController = TextEditingController();
   final _amountOffController = TextEditingController();
   final _percentOffController = TextEditingController();
-  final _startDateController = TextEditingController();
-  final _endDateController = TextEditingController();
+  final startDateController = TextEditingController();
+  final endDateController = TextEditingController();
   final _limitController = TextEditingController();
   File? csv;
-  final _sellingStartDateController = TextEditingController();
-  final _sellingEndDateController = TextEditingController();
+  final sellingStartDateController = TextEditingController();
+  final sellingEndDateController = TextEditingController();
 
   void _savePromocode(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -44,8 +44,8 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
       final percentOff = _percentOffController.text.isNotEmpty
           ? int.parse(_percentOffController.text)
           : -1;
-      final startDate = DateTime.parse(_sellingStartDateController.text);
-      final endDate = DateTime.parse(_sellingEndDateController.text);
+      final startDate = DateTime.parse(sellingStartDateController.text);
+      final endDate = DateTime.parse(sellingEndDateController.text);
       final String tickets =
           Provider.of<PromocodesProvider>(context, listen: false)
               .selectedTicket!;
@@ -83,13 +83,20 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
   }
 
   String? dateRangeValidator() {
-    if (_startDateController.text.isNotEmpty &&
-        _endDateController.text.isNotEmpty) {
-      DateTime startDate = DateTime.parse(_sellingStartDateController.text);
-      DateTime endDate = DateTime.parse(_sellingEndDateController.text);
+    if (startDateController.text.isNotEmpty &&
+        endDateController.text.isNotEmpty) {
+      DateTime startDate = DateTime.parse(sellingStartDateController.text);
+      DateTime endDate = DateTime.parse(sellingEndDateController.text);
       if (startDate.isAfter(endDate)) {
         return 'Start date must be before end date';
       }
+    }
+    return null;
+  }
+
+  String? nameValidator(String? value) {
+    if ((value == null || value.isEmpty) && csv == null) {
+      return 'Please enter a promocode';
     }
     return null;
   }
@@ -183,7 +190,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                   ],
                 ),
                 TextFormField(
-                  controller: _startDateController,
+                  controller: startDateController,
                   decoration: InputDecoration(
                     labelText: 'Selling Start Date',
                   ),
@@ -194,11 +201,11 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _startDateController.text =
+                        startDateController.text =
                             DateFormat('yyyy-MM-dd hh:mm a')
                                 .format(date)
                                 .toString();
-                        _sellingStartDateController.text = date.toString();
+                        sellingStartDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -218,7 +225,7 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                   },
                 ),
                 TextFormField(
-                  controller: _endDateController,
+                  controller: endDateController,
                   decoration: InputDecoration(
                     labelText: 'Selling End Date',
                   ),
@@ -229,11 +236,11 @@ class PromocodeFormPopupState extends State<PromocodeFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2030, 12, 31),
                       onChanged: (date) {
-                        _endDateController.text =
+                        endDateController.text =
                             DateFormat('yyyy-MM-dd hh:mm a')
                                 .format(date)
                                 .toString();
-                        _sellingEndDateController.text = date.toString();
+                        sellingEndDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,

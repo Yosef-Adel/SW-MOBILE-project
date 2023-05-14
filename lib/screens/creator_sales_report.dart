@@ -1,3 +1,5 @@
+/// This file contains the sales report screen for the creator.
+
 import 'package:flutter/material.dart';
 
 import '../requests/creator_get_dashboard.dart';

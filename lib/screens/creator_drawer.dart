@@ -1,3 +1,12 @@
+///This file contains the drawer for the creator drawer. It contains the list of screens that the creator can navigate to.
+///The creator can navigate to the following screens:
+///1. Basic Info
+///2. Tickets
+///3. Publish
+///4. Manage Attendees
+///5. Dashboard
+///6. Events
+
 import 'package:envie_cross_platform/screens/creator_dashboard.dart';
 import 'package:envie_cross_platform/screens/creator_events_screen.dart';
 import 'package:envie_cross_platform/screens/creator_publish.dart';

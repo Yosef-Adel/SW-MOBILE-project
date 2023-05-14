@@ -1,3 +1,5 @@
+/// This file contains the model for the report data used in the dashboard.
+
 class SalesReport {
   final String ticketType;
   var price;

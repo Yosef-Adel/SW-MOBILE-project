@@ -1,3 +1,5 @@
+///This screen is used by the creator to display all promocodes and add a promocode to a certain ticket.
+
 import 'package:flutter/material.dart';
 
 import '../models/ticket.dart';

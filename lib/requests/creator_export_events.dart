@@ -1,3 +1,5 @@
+/// This file contains the function to export all events created by the user as a CSV file.
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';

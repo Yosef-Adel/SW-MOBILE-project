@@ -1,3 +1,5 @@
+///This screen contains the list of tickets that the creator has created. It also contains the button to add a new ticket.
+
 import 'package:envie_cross_platform/screens/creator_promocodes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

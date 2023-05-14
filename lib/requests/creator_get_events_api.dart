@@ -1,3 +1,5 @@
+/// This file contains the API for getting the events of a creator.
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

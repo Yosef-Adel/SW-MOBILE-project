@@ -1,3 +1,5 @@
+///This function is used to delete a promocode from the server.
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

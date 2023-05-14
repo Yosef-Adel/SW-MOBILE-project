@@ -24,10 +24,10 @@ class ticketFormPopupState extends State<ticketFormPopup> {
   final _capacityController = TextEditingController();
   final _priceController = TextEditingController();
   final _maxQuantityController = TextEditingController();
-  final _sellingStartDateController = TextEditingController();
-  final _sellingEndDateController = TextEditingController();
-  final _startDateController = TextEditingController();
-  final _endDateController = TextEditingController();
+  final sellingStartDateController = TextEditingController();
+  final sellingEndDateController = TextEditingController();
+  final startDateController = TextEditingController();
+  final endDateController = TextEditingController();
 
   void _selectTicketType(String type) {
     setState(() {
@@ -40,10 +40,10 @@ class ticketFormPopupState extends State<ticketFormPopup> {
   }
 
   String? dateRangeValidator() {
-    if (_sellingStartDateController.text.isNotEmpty &&
-        _sellingEndDateController.text.isNotEmpty) {
-      DateTime startDate = DateTime.parse(_startDateController.text);
-      DateTime endDate = DateTime.parse(_endDateController.text);
+    if (sellingStartDateController.text.isNotEmpty &&
+        sellingEndDateController.text.isNotEmpty) {
+      DateTime startDate = DateTime.parse(startDateController.text);
+      DateTime endDate = DateTime.parse(endDateController.text);
       if (startDate.isAfter(endDate)) {
         return 'Start date must be before end date';
       }
@@ -57,8 +57,8 @@ class ticketFormPopupState extends State<ticketFormPopup> {
       final capacity = int.parse(_capacityController.text);
       final price = double.parse(_priceController.text);
       final maxQuantityPerOrder = int.parse(_maxQuantityController.text);
-      final sellingStartDate = DateTime.parse(_startDateController.text);
-      final sellingEndDate = DateTime.parse(_endDateController.text);
+      final sellingStartDate = DateTime.parse(startDateController.text);
+      final sellingEndDate = DateTime.parse(endDateController.text);
 
       int result = await creatorAddTicket(context, name, _ticketType, capacity,
           price, maxQuantityPerOrder, sellingStartDate, sellingEndDate);
@@ -163,7 +163,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   },
                 ),
                 TextFormField(
-                  controller: _sellingStartDateController,
+                  controller: sellingStartDateController,
                   decoration: InputDecoration(
                     labelText: 'Selling Start Date',
                   ),
@@ -174,11 +174,11 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2100, 12, 31),
                       onChanged: (date) {
-                        _sellingStartDateController.text =
+                        sellingStartDateController.text =
                             DateFormat('yyyy-MM-dd hh:mm a')
                                 .format(date)
                                 .toString();
-                        _startDateController.text = date.toString();
+                        startDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,
@@ -193,7 +193,7 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                   },
                 ),
                 TextFormField(
-                  controller: _sellingEndDateController,
+                  controller: sellingEndDateController,
                   decoration: InputDecoration(
                     labelText: 'Selling End Date',
                   ),
@@ -204,11 +204,11 @@ class ticketFormPopupState extends State<ticketFormPopup> {
                       minTime: DateTime.now(),
                       maxTime: DateTime(2100, 12, 31),
                       onChanged: (date) {
-                        _sellingEndDateController.text =
+                        sellingEndDateController.text =
                             DateFormat('yyyy-MM-dd hh:mm a')
                                 .format(date)
                                 .toString();
-                        _endDateController.text = date.toString();
+                        endDateController.text = date.toString();
                       },
                       currentTime: DateTime.now(),
                       locale: LocaleType.en,

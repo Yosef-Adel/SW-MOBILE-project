@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
-import '../widgets/tickets_list_widget.dart';
-import 'package:envie_cross_platform/models/ticket.dart';
+/// This screen displays the tickets for the selected event in the creator's view.
+/// It contains a list of tickets and a button to add a new ticket.
+
 import 'package:envie_cross_platform/providers/ticket_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'checkout_screen.dart';
+
 import '../requests/check_valid_promo.dart';
+import '../widgets/tickets_list_widget.dart';
+import 'checkout_screen.dart';
 
 class TicketsScreen extends StatefulWidget {
   static const routeName = '/ticket-details';

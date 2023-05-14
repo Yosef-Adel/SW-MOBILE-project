@@ -1,3 +1,5 @@
+/// This file contains the provider for the event that the creator is currently updating. It contains the event and the methods to update the event.
+
 import 'package:flutter/material.dart';
 import '../models/event.dart';
 

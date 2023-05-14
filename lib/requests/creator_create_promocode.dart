@@ -1,3 +1,5 @@
+///This function is used to create a promocode for the event that the creator is currently updating.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

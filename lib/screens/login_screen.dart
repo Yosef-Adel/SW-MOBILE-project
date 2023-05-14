@@ -8,18 +8,18 @@
 ///It contains a 'Sign in with Facebook' button that the user can use to log in to the app using their Facebook account.
 
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+
 import '../requests/login_api.dart';
+import '../requests/routes_api.dart';
 import 'signup_screen.dart';
 import 'tabs_screen.dart';
-import '../providers/user_provider.dart';
 import 'update_password_screen.dart';
-import '../requests/routes_api.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';

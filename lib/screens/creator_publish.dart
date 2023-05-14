@@ -1,3 +1,8 @@
+///This screen is used by the creator to publish an event. It contains the form to fill in the event publishing details.
+///The creator can choose to publish the event immediately or schedule it for a later date.
+///The creator can also choose to make the event public or private.
+///If the creator chooses to make the event private, they can choose to share the event with anyone with the link or only with people who have the password.
+
 import 'package:envie_cross_platform/screens/creator_show_basic_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -9,10 +14,10 @@ class CreatorPublish extends StatefulWidget {
   static const routeName = '/creatorPublish';
 
   @override
-  State<CreatorPublish> createState() => _CreatorPublishState();
+  State<CreatorPublish> createState() => CreatorPublishState();
 }
 
-class _CreatorPublishState extends State<CreatorPublish> {
+class CreatorPublishState extends State<CreatorPublish> {
   bool _isPrivate = false;
   String _selectedOption = 'Anyone with the link';
   DateTime? _selectedDate;
@@ -21,6 +26,16 @@ class _CreatorPublishState extends State<CreatorPublish> {
   bool _isPasswordHidden = true;
   bool _isScheduled = false;
   final _formKey = GlobalKey<FormState>();
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a valid password.';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +198,10 @@ class _CreatorPublishState extends State<CreatorPublish> {
                         minTime: DateTime.now(),
                         maxTime: DateTime(2030, 12, 31),
                         onConfirm: (date) {
-                          _selectedDateController.text = DateFormat('yyyy-MM-dd hh:mm a').format(date).toString();
+                          _selectedDateController.text =
+                              DateFormat('yyyy-MM-dd hh:mm a')
+                                  .format(date)
+                                  .toString();
                           setState(() {
                             _selectedDate = date;
                           });

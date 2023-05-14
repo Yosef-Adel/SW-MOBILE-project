@@ -1,3 +1,5 @@
+/// This file contains the API for placing an order for a user.
+
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;

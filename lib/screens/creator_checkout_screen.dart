@@ -9,7 +9,7 @@ import '../requests/creator_place_order_api.dart';
 import '../widgets/app_bar.dart';
 import 'creator_show_basic_info.dart';
 
-class ManageAttedneesCheckout extends StatefulWidget {
+class ManageAttendeesCheckout extends StatefulWidget {
   static const routeName = '/manage-attendees-check-out';
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();
@@ -17,7 +17,7 @@ class ManageAttedneesCheckout extends StatefulWidget {
   final TextEditingController _confirmEmailController = TextEditingController();
 
   @override
-  State<ManageAttedneesCheckout> createState() => _ManageAttedneesCheckout();
+  State<ManageAttendeesCheckout> createState() => _ManageAttendeesCheckoutState();
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -68,7 +68,7 @@ class ManageAttedneesCheckout extends StatefulWidget {
   }
 }
 
-class _ManageAttedneesCheckout extends State<ManageAttedneesCheckout> {
+class _ManageAttendeesCheckoutState extends State<ManageAttendeesCheckout> {
   final _formKey = GlobalKey<FormState>();
 
   @override

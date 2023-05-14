@@ -1,3 +1,6 @@
+/// This screen is used to filter events by time. It contains a list of time filters that the user can select from.
+/// The user can select multiple time filters that are: Anytime, Today, Tomorrow, This Week and This Month.
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

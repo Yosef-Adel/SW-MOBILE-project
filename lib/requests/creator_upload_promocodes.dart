@@ -1,3 +1,5 @@
+/// This file contains the request for uploading promocodes from a CSV file.
+
 import 'dart:convert';
 import 'dart:io';
 

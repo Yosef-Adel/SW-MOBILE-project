@@ -1,3 +1,4 @@
+///This is the function used to create an event. It takes in the context, the image file, the event, the token and the user id. It returns a list of objects.
 
 import 'dart:convert';
 import 'dart:io';

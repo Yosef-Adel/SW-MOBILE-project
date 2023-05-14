@@ -1,3 +1,5 @@
+/// This file contains the API request for searching events.
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

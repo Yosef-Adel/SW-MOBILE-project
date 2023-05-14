@@ -1,8 +1,11 @@
+/// This is the API request that allows the creator to publish an event.
+
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../providers/creator_event_provider.dart';
 import '../providers/user_provider.dart';
 import 'routes_api.dart';

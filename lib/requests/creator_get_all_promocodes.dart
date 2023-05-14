@@ -1,3 +1,5 @@
+/// This file contains the request for getting all promocodes for a creator
+
 import 'dart:convert';
 
 import 'package:envie_cross_platform/models/promocode.dart';

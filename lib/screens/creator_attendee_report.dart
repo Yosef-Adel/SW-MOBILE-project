@@ -1,3 +1,5 @@
+///This file contains the creator attendee report screen. It contains the list of attendees that have bought tickets.
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,3 +1,5 @@
+/// This file contains the function to export the attendees report for the creator.
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';

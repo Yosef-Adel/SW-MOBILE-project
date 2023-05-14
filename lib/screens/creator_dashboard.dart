@@ -1,3 +1,5 @@
+/// This file contains the dashboard for the creator. It contains the summary of the event and the links to the reports.
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';

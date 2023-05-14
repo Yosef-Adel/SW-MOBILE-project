@@ -1,4 +1,4 @@
-/// This file contains the UserProvider class which is used to store the user data and the methods to update the user data.
+/// This file contains the provider for the dashboard screen.
 import 'package:flutter/material.dart';
 
 class DashboardProvider with ChangeNotifier {

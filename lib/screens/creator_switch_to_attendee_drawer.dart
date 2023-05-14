@@ -1,3 +1,5 @@
+/// This file creates the drawer for the creator to switch to attendee mode.
+
 import 'package:flutter/material.dart';
 
 import '../requests/switch_to_attendee_api.dart';
